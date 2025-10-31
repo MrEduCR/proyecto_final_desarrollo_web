@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tipos de Servicio - Formulario</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <h1 th:text="${tipoServicio.tipoServicioId != null} ? 'Editar Tipo de Servicio' : 'Nuevo Tipo de Servicio'"></h1>
+
+        <form th:action="@{/tiposervicio/guardar}" th:object="${tipoServicio}" method="post">
+            <!-- Campo oculto para el id -->
+            <input type="hidden" th:field="*{tipoServicioId}" />
+
+            <div>
+                <label>Descripción del Tipo de Servicio:</label><br>
+                <input type="text" th:field="*{tipoServicioDescripcion}" required maxlength="50"
+                       style="width: 100%; padding: 8px; margin: 10px 0;">
+            </div>
+
+            <div>
+                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
+                <a th:href="@{/tiposervicio}" class="btn-module" style="background-color: gray;">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>

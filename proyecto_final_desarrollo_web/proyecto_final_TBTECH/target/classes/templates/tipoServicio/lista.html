@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tipos de Servicio - Lista</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <h1>Lista de Tipos de Servicio</h1>
+        <a th:href="@{/tiposervicio/nuevo}" class="btn-module">Nuevo Tipo de Servicio</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="tipoServicio : ${tiposServicio}">
+                    <td th:text="${tipoServicio.tipoServicioId}"></td>
+                    <td th:text="${tipoServicio.tipoServicioDescripcion}"></td>
+                    <td>
+                        <a th:href="@{|/tiposervicio/editar/${tipoServicio.tipoServicioId}|}"
+                            class="btn-module">Editar</a>
+                        <a th:href="@{|/tiposervicio/eliminar/${tipoServicio.tipoServicioId}|}" class="btn-module"
+                            style="background-color: #dc3545;">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>
