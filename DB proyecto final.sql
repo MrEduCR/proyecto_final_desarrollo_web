@@ -1,113 +1,149 @@
-CREATE DATABASE terabyte_technology;
+DROP DATABASE IF EXISTS terabyte_technology;
+CREATE DATABASE terabyte_technology CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 USE terabyte_technology;
 
-CREATE TABLE roles (
-	rol_id INT PRIMARY KEY NOT NULL,
-    descripcion_rol VARCHAR(150) NOT NULL
-);
 
+CREATE TABLE roles (
+    rol_id INT PRIMARY KEY NOT NULL,
+    descripcion_rol VARCHAR(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ 
 CREATE TABLE usuarios (
-	cedula_usuario INT PRIMARY KEY NOT NULL,
-    nombre_usuario VARCHAR(150)  NOT NULL,
-    correo_usuario VARCHAR(150)  NOT NULL UNIQUE,
-    telefono_usuario INT  NOT NULL UNIQUE,
-    rol_id INT  NOT NULL,
-    CONSTRAINT fk_usuarios_roles foreign key (rol_id) references roles(rol_id) ON DELETE RESTRICT on update CASCADE
-);
+    cedula_usuario INT PRIMARY KEY NOT NULL,
+    nombre_usuario VARCHAR(150) NOT NULL,
+    correo_usuario VARCHAR(150) NOT NULL UNIQUE,
+    telefono_usuario VARCHAR(20) NOT NULL UNIQUE,
+    rol_id INT NOT NULL,
+    CONSTRAINT fk_usuarios_roles
+        FOREIGN KEY (rol_id) REFERENCES roles(rol_id)
+        ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE clientes (
-	cedula_cliente INT PRIMARY KEY NOT NULL,
+    cedula_cliente INT PRIMARY KEY NOT NULL,
     nombre_cliente VARCHAR(150) NOT NULL,
-    telefono_cliente INT not null UNIQUE,
+    telefono_cliente VARCHAR(20) NOT NULL UNIQUE,
     correo_cliente VARCHAR(150) UNIQUE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 CREATE TABLE tipos_equipo (
-	tipo_equipo_id INT PRIMARY KEY auto_increment NOT NULL,
+    tipo_equipo_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     tipo_equipo_descripcion VARCHAR(50)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 CREATE TABLE tipos_servicio (
     tipo_servicio_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     tipo_servicio_descripcion VARCHAR(50)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-CREATE TABLE piezas(
-	pieza_id INT PRIMARY KEY auto_increment  NOT NULL,
-	pieza_descripcion VARCHAR(50)
-);
+CREATE TABLE piezas (
+    pieza_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    pieza_descripcion VARCHAR(50),
+    precio_pieza DECIMAL(10,2) NOT NULL,
+    ruta_imagen VARCHAR(1024)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE estados_de_servicios (
-	estado_servicio_id INT PRIMARY KEY NOT NULL,
+    estado_servicio_id INT PRIMARY KEY NOT NULL,
     estado_servicio_descripcion VARCHAR(50)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-
-
-CREATE TABLE servicios(
-	servicio_id INT PRIMARY KEY auto_increment NOT NULL,
+CREATE TABLE servicios (
+    servicio_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     cedula_cliente INT NOT NULL,
     tipo_equipo_id INT NOT NULL,
     tipo_servicio_id INT NOT NULL,
     estado_servicio_id INT NOT NULL,
-    numero_serie_equipo varchar(500) NOT NULL,
+    numero_serie_equipo VARCHAR(500) NOT NULL,
     fecha_ingreso_equipo DATE NOT NULL,
     ruta_imagen VARCHAR(1024) NOT NULL,
-    descripcion_problema VARCHAR(500 ) NOT NULL,
-    CONSTRAINT fk_cedula_cliente FOREIGN KEY (cedula_cliente) references clientes(cedula_cliente) ON DELETE RESTRICT on update CASCADE,
-    CONSTRAINT fk_tipo_equipo FOREIGN KEY (tipo_equipo_id) references tipos_equipo(tipo_equipo_id) ON DELETE RESTRICT on update CASCADE,
-    CONSTRAINT fk_tipo_servicio FOREIGN KEY (tipo_servicio_id) references tipos_servicio(tipo_servicio_id) ON DELETE RESTRICT on update CASCADE,
-    CONSTRAINT fk_estado_servicio FOREIGN KEY (estado_servicio_id) references estados_de_servicios(estado_servicio_id) ON DELETE RESTRICT on update CASCADE
-);
-
+    descripcion_problema VARCHAR(500) NOT NULL,
+    CONSTRAINT fk_cedula_cliente
+        FOREIGN KEY (cedula_cliente) REFERENCES clientes(cedula_cliente)
+        ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_tipo_equipo
+        FOREIGN KEY (tipo_equipo_id) REFERENCES tipos_equipo(tipo_equipo_id)
+        ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_tipo_servicio
+        FOREIGN KEY (tipo_servicio_id) REFERENCES tipos_servicio(tipo_servicio_id)
+        ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_estado_servicio
+        FOREIGN KEY (estado_servicio_id) REFERENCES estados_de_servicios(estado_servicio_id)
+        ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE servicios_piezas (
     servicio_id INT NOT NULL,
     pieza_id INT NOT NULL,
     PRIMARY KEY (servicio_id, pieza_id),
-    CONSTRAINT fk_servicios_piezas_servicios 
+    CONSTRAINT fk_servicios_piezas_servicios
         FOREIGN KEY (servicio_id) REFERENCES servicios(servicio_id)
         ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT fk_servicios_piezas_piezas 
+    CONSTRAINT fk_servicios_piezas_piezas
         FOREIGN KEY (pieza_id) REFERENCES piezas(pieza_id)
         ON DELETE RESTRICT ON UPDATE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE VIEW vista_servicios_con_piezas 
-AS
+
+CREATE VIEW vista_servicios_con_piezas AS
 SELECT 
-	sp.servicio_id,
-    p.pieza_descripcion
+    sp.servicio_id,
+    p.pieza_descripcion,
+    p.precio_pieza,
+    p.ruta_imagen
 FROM servicios_piezas sp
 INNER JOIN piezas p ON sp.pieza_id = p.pieza_id;
 
-
+-- Facturas
 CREATE TABLE facturas (
     factura_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     servicio_id INT NOT NULL,
     observaciones_satisfaccion_usuario VARCHAR(500),
-    CONSTRAINT fk_facturas_servicios 
+    precio_final DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    CONSTRAINT fk_facturas_servicios
         FOREIGN KEY (servicio_id) REFERENCES servicios(servicio_id)
         ON DELETE RESTRICT ON UPDATE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+CREATE OR REPLACE VIEW vista_facturas_detalle_completo AS
+SELECT
+    f.factura_id,
+    f.servicio_id,
+    s.cedula_cliente,
+    c.nombre_cliente,
+    f.observaciones_satisfaccion_usuario,
+    f.precio_final,
+    s.numero_serie_equipo,
+    s.fecha_ingreso_equipo,
+    s.ruta_imagen AS servicio_ruta_imagen,
+    s.descripcion_problema,
+    p.pieza_id,
+    p.pieza_descripcion,
+    p.precio_pieza,
+    p.ruta_imagen AS pieza_ruta_imagen
+FROM facturas f
+INNER JOIN servicios s ON f.servicio_id = s.servicio_id
+INNER JOIN clientes c ON s.cedula_cliente = c.cedula_cliente
+LEFT JOIN servicios_piezas sp ON s.servicio_id = sp.servicio_id
+LEFT JOIN piezas p ON sp.pieza_id = p.pieza_id
+;
 
 INSERT INTO roles (rol_id, descripcion_rol) VALUES
 (1, 'Administrador'),
-(2, 'Técnico'),
-(3, 'Recepcionista');
+(2, 'Técnico');
 
 INSERT INTO usuarios (cedula_usuario, nombre_usuario, correo_usuario, telefono_usuario, rol_id) VALUES
-(1001, 'David Martínez', 'carlos.martinez@terabyte.com', 88888888, 1),
-(1002, 'Lucyna Gómez', 'laura.gomez@terabyte.com', 88888888, 2),
-(1003, 'Andrés Rojas', 'andres.rojas@terabyte.com', 88888888, 3);
+(1001, 'David Martínez', 'carlos.martinez@terabyte.com', '88888880', 1),
+(1002, 'Lucyna Gómez', 'laura.gomez@terabyte.com', '88888881', 1),
+(1003, 'Andrés Rojas', 'andres.rojas@terabyte.com', '88888882', 2);
 
 INSERT INTO clientes (cedula_cliente, nombre_cliente, telefono_cliente, correo_cliente) VALUES
-(2001, 'Juan Pérez', 1102223344, 'juan.perez@gmail.com'),
-(2002, 'María Torres', 3129988776, 'maria.torres@hotmail.com'),
-(2003, 'Luis Castillo', 3147778899, 'luis.castillo@yahoo.com');
+(2001, 'Juan Pérez', '1102223344', 'juan.perez@gmail.com'),
+(2002, 'María Torres', '3129988776', 'maria.torres@hotmail.com'),
+(2003, 'Luis Castillo', '3147778899', 'luis.castillo@yahoo.com');
 
 INSERT INTO tipos_equipo (tipo_equipo_descripcion) VALUES
 ('Laptop'),
@@ -115,7 +151,7 @@ INSERT INTO tipos_equipo (tipo_equipo_descripcion) VALUES
 ('Impresora'),
 ('Tablet'),
 ('Teléfono móvil');
- 
+
 INSERT INTO tipos_servicio (tipo_servicio_descripcion) VALUES
 ('Mantenimiento preventivo'),
 ('Reparación de hardware'),
@@ -123,14 +159,13 @@ INSERT INTO tipos_servicio (tipo_servicio_descripcion) VALUES
 ('Diagnóstico'),
 ('Actualización del sistema');
 
-INSERT INTO piezas (pieza_descripcion) VALUES
-('Disco duro SSD 512GB'),
-('Memoria RAM 8GB DDR4'),
-('Fuente de poder 500W'),
-('Pantalla LCD 15.6"'),
-('Teclado retroiluminado'),
-('Placa madre ASUS Prime');
-
+INSERT INTO piezas (pieza_descripcion, precio_pieza, ruta_imagen) VALUES
+('Disco duro SSD 512GB', 32000.00, 'https://media.istockphoto.com/id/1410783528/es/foto/el-disco-ssd-m2-se-cierra-sobre-fondo-oscuro.jpg?s=2048x2048&w=is&k=20&c=r2PqYuCjB5pn4kCqWTBRudqTr1qOnUu0TjR3sLjp3Lc='),
+('Memoria RAM 8GB DDR4', 18000.00, 'https://media.istockphoto.com/id/157721899/es/foto/macho-parte-de-la-instalaci%C3%B3n-de-memoria-en-placa-de-ordenador.jpg?s=2048x2048&w=is&k=20&c=pcIjoWX_1UZohSS0NaJnD8OnDzvgU5QEw_PW7VO1LYk='),
+('Fuente de poder 500W', 25000.00, 'https://media.istockphoto.com/id/1250266807/es/foto/unidad-de-fuente-de-alimentaci%C3%B3n-del-ordenador.jpg?s=2048x2048&w=is&k=20&c=mI-hGhfB75vNefD9xIRtyAZIFVB2zgPuMlCxZtyBhps='),
+('Pantalla LCD 15.6 pulgadas"', 55000.00, 'https://media.istockphoto.com/id/1002728980/es/vector/amplia-maqueta-del-monitor-de-tv.jpg?s=2048x2048&w=is&k=20&c=Z-WUa_l6SJAPDrJx_o_Jw_AMQodgWQsb3H-zhZmfnjM='),
+('Teclado retroiluminado', 15000.00, 'https://media.istockphoto.com/id/1396231106/es/foto/teclado-para-juegos-con-retroiluminaci%C3%B3n.jpg?s=2048x2048&w=is&k=20&c=5YGocOhGIes-Jtq5ZxTTgc2HjfiVCgbgSG6fExgvBd0='),
+('Placa madre', 80000.00, 'https://media.istockphoto.com/id/1174088603/es/foto/placa-de-circuito.jpg?s=2048x2048&w=is&k=20&c=zvcRPiWw2hkRgvDUwIDkyJQhgOEafAN2i355N_GjSNM=');
 
 INSERT INTO estados_de_servicios (estado_servicio_id, estado_servicio_descripcion) VALUES
 (1, 'Pendiente'),
@@ -138,20 +173,16 @@ INSERT INTO estados_de_servicios (estado_servicio_id, estado_servicio_descripcio
 (3, 'Finalizado'),
 (4, 'Entregado');
 
-
 INSERT INTO servicios (
     cedula_cliente, tipo_equipo_id, tipo_servicio_id,
     estado_servicio_id, numero_serie_equipo, fecha_ingreso_equipo,
     ruta_imagen, descripcion_problema
 ) VALUES
-(2001, 1, 2, 2, 'SN-LT-20251028-001', '2025-10-25', 'https://media.istockphoto.com/id/185291412/photo/laptop-45-degree-open.jpg?s=2048x2048&w=is&k=20&c=JdCzT8Q1mwepn5iH8WEOz05TprI5h7RVLCzRP5x1dVA=', 'No enciende la laptop, posible problema de placa madre'),
-(2002, 2, 1, 3, 'SN-PC-20251028-002', '2025-10-20', 'https://i.ytimg.com/vi/5-CYF2Oy9GU/maxresdefault.jpg', 'Se quemo la cosa'),
-(2003, 3, 4, 1, 'SN-IMP-20251028-003', '2025-10-27', 'https://mediaserver.goepson.com/ImConvServlet/imconv/61dcb6a700968d5fe27870dc9e72d7151805d623/1200Wx1200H?use=banner&hybrisId=B2C&assetDescr=L8050_aberta', 'Impresora no imprime, posible atasco de papel');
+(2001, 1, 2, 2, 'SN-LT-20251028-001', '2025-10-25', 'https://media.istockphoto.com/id/185291412/photo/laptop-45-degree-open.jpg', 'No enciende la laptop, posible problema de placa madre'),
+(2002, 2, 1, 3, 'SN-PC-20251028-002', '2025-10-20', 'https://i.ytimg.com/vi/5-CYF2Oy9GU/maxresdefault.jpg', 'Se quemo la cosa mop'),
+(2003, 3, 4, 1, 'SN-IMP-20251028-003', '2025-10-27', 'https://mediaserver.goepson.com/ImConvServlet/imconv/61dcb6a700968d5fe27870dc9e72d7151805d623/1200Wx1200H', 'Impresora no imprime, posible atasco de papel');
 
-
-INSERT INTO facturas (servicio_id, observaciones_satisfaccion_usuario) VALUES
-(1, 'Cliente satisfecho, equipo funcionando correctamente.'),
-(2, 'El cliente agradeció el mantenimiento.'),
-(3, 'Cliente a la espera de confirmación del diagnóstico.');
-
-
+INSERT INTO facturas (servicio_id, observaciones_satisfaccion_usuario, precio_final) VALUES
+(1, 'Cliente satisfecho poorque el equipo esta funcionando correctamente.', 115000.00),
+(2, 'El cliente agradeció el mantenimiento.', 60000.00),
+(3, 'Cliente feliz y ya.', 25000.00);
