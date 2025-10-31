@@ -4,11 +4,11 @@ USE terabyte_technology;
 
 
 CREATE TABLE roles (
-    rol_id INT PRIMARY KEY NOT NULL,
+    rol_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     descripcion_rol VARCHAR(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
- 
-CREATE TABLE usuarios (
+
+CREATE TABLE usuarios ( 
     cedula_usuario INT PRIMARY KEY NOT NULL,
     nombre_usuario VARCHAR(150) NOT NULL,
     correo_usuario VARCHAR(150) NOT NULL UNIQUE,
@@ -96,7 +96,6 @@ SELECT
 FROM servicios_piezas sp
 INNER JOIN piezas p ON sp.pieza_id = p.pieza_id;
 
--- Facturas
 CREATE TABLE facturas (
     factura_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     servicio_id INT NOT NULL,
@@ -131,9 +130,9 @@ LEFT JOIN servicios_piezas sp ON s.servicio_id = sp.servicio_id
 LEFT JOIN piezas p ON sp.pieza_id = p.pieza_id
 ;
 
-INSERT INTO roles (rol_id, descripcion_rol) VALUES
-(1, 'Administrador'),
-(2, 'Técnico');
+INSERT INTO roles (descripcion_rol) VALUES
+('Administrador'),
+('Técnico');
 
 INSERT INTO usuarios (cedula_usuario, nombre_usuario, correo_usuario, telefono_usuario, rol_id) VALUES
 (1001, 'David Martínez', 'carlos.martinez@terabyte.com', '88888880', 1),
