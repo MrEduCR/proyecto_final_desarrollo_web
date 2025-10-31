@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Formulario del Árbol</title>
+        <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    </head>
+    <body class="index-body">
+        <div th:replace="fragmentos :: header"></div>
+        <main class="main-content">
+            <div class="container">
+
+                <h1 th:text="${arbol.id != null} ? 'Editar Árbol' : 'Agregar Nuevo Árbol'">Formulario del Árbol</h1>
+
+                <form th:action="@{/arbol/guardar}" th:object="${arbol}" method="post">
+                    <input type="hidden" th:field="*{id}"/>
+
+                    <div>
+                        <label>Nombre Común:</label>
+                        <input type="text" th:field="*{nombreComun}" placeholder="Ingrese nombre del árbol" required/>
+                    </div>
+
+                    <div>
+                        <label>Tipo de Flor:</label>
+                        <input type="text" th:field="*{tipoFlor}" placeholder="Tipo de flor"/>
+                    </div>
+
+                    <div>
+                        <label>Dureza de Madera:</label>
+                        <input type="text" th:field="*{durezaMadera}" placeholder="Ej. Dura, Media, Blanda"/>
+                    </div>
+
+                    <div>
+                        <label>Altura Promedio (m):</label>
+                        <input type="number" step="0.01" th:field="*{alturaPromedio}" placeholder="Altura en metros"/>
+                    </div>
+
+                    <div>
+                        <label>Ruta de la Imagen:</label>
+                        <input type="text" th:field="*{rutaImagen}" placeholder="imagenes/nombre.jpg" required/>
+                        <p>Ejemplo de ruta: https://thumbs.dreamstime.com/z/%C3%A1rbol-de-pino-10688089.jpg?ct=jpeg</p>
+                    </div>
+
+                    <div>
+                        <label>Estado del Árbol:</label>
+                        <select th:field="*{estadoId}" required>
+                            <option value="" disabled selected>Seleccione un estado</option>
+                            <option th:each="estado : ${estados}" 
+                                    th:value="${estado.idEstado}" 
+                                    th:text="${estado.nombreEstado}"></option>
+                        </select>
+                    </div>
+
+                    <div style="margin-top: 20px; display: flex; gap: 15px; justify-content: center;">
+                        <button type="submit" class="button">Guardar Árbol</button>
+                        <a th:href="@{/arbol}" class="button">Cancelar</a>
+                    </div>
+                </form>
+
+            </div>
+        </main>
+        <div th:replace="fragmentos :: footer"></div>
+
+    </body>
+</html>
