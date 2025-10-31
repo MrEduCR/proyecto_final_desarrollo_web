@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Estados de Servicio - Lista</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <h1>Lista de Estados de Servicio</h1>
+        <a th:href="@{/estadoservicio/nuevo}" class="btn-module">Nuevo Estado de Servicio</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="estadoServicio : ${estadosServicio}">
+                    <td th:text="${estadoServicio.estadoServicioId}"></td>
+                    <td th:text="${estadoServicio.estadoServicioDescripcion}"></td>
+                    <td>
+                        <a th:href="@{|/estadoservicio/editar/${estadoServicio.estadoServicioId}|}"
+                            class="btn-module">Editar</a>
+                        <a th:href="@{|/estadoservicio/eliminar/${estadoServicio.estadoServicioId}|}" class="btn-module"
+                            style="background-color: #dc3545;">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+</body>
+
+</html>
