@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+
+        <div th:fragment="header">
+            <header class="site-header">
+                <div class="header-inner">
+                    <h1>Gestión de arboles</h1>
+                    <nav class="top-nav">
+                        <a th:href="@{/}">Inicio</a>
+                        <a th:href="@{/arbol}">Árboles</a>
+                        <a th:href="@{/estado}">Estados</a>
+                    </nav>
+                </div>
+            </header>
+        </div>
+
+
+
+        <div th:fragment="footer">
+            <footer class="site-footer">
+                <div class="footer-inner">
+                    <p>&copy; 2025 Proyecto Grupo #3 · <span class="small">Hecho con Java</span></p>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

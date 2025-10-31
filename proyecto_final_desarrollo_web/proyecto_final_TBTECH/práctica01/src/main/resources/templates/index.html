@@ -1,0 +1,24 @@
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Práctica Árboles Grupo #3</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body class="index-body">
+    <div th:replace="fragmentos :: header"></div>
+    <main class="main-content">
+        <div class="container">
+            <h1>Bienvenido al vivero de árboles del Grupo #3</h1>
+
+            <nav class="menu">
+                <a th:href="@{/arbol}" class="button">Listado de Árboles</a>
+                <a th:href="@{/arbol/nuevo}" class="button">Agregar Nuevo Árbol</a>
+                <a th:href="@{/estado}" class="button">Listado de Estados</a>
+                <a th:href="@{/estado/nuevo}" class="button">Agregar Nuevo Estado</a>
+            </nav>
+        </div>
+    </main>
+    <div th:replace="fragmentos :: footer"></div>
+</body>
+</html>
