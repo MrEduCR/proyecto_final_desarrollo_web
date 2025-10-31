@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <link rel="stylesheet" th:href="@{/css/blog.css}">
+</head>
+
+<body>
+    <div th:replace="fragmentosBlog :: header"></div>
+
+    <main class="blog-container">
+        <h1>Bienvenido al blog de Terabyte Technology</h1>
+
+        <section class="post">
+            <h2>Título del primer post</h2>
+            <p class="date">Publicado el 31 de octubre, 2025</p>
+
+            <img th:src="@{/images/post1.jpg}" alt="Imagen del primer post" class="post-image">
+            <p>CONTENIDO DEL POST AQUI...</p>
+        </section>
+
+        <section class="post">
+            <h2>Título del segundo post</h2>
+            <p class="date">Publicado el 30 de octubre, 2025</p>
+            <img th:src="@{/images/post2.jpg}" alt="Imagen del segundo post" class="post-image">
+            <p>CONTENIDO DEL POST AQUI...</p>
+        </section>
+
+
+
+
+    </main>
+
+    <div th:replace="fragmentosBlog :: footer"></div>
+</body>
+
+</html>
