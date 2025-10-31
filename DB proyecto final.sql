@@ -46,7 +46,7 @@ CREATE TABLE piezas (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE estados_de_servicios (
-    estado_servicio_id INT PRIMARY KEY NOT NULL,
+    estado_servicio_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     estado_servicio_descripcion VARCHAR(50)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -166,11 +166,11 @@ INSERT INTO piezas (pieza_descripcion, precio_pieza, ruta_imagen) VALUES
 ('Teclado retroiluminado', 15000.00, 'https://media.istockphoto.com/id/1396231106/es/foto/teclado-para-juegos-con-retroiluminaci%C3%B3n.jpg?s=2048x2048&w=is&k=20&c=5YGocOhGIes-Jtq5ZxTTgc2HjfiVCgbgSG6fExgvBd0='),
 ('Placa madre', 80000.00, 'https://media.istockphoto.com/id/1174088603/es/foto/placa-de-circuito.jpg?s=2048x2048&w=is&k=20&c=zvcRPiWw2hkRgvDUwIDkyJQhgOEafAN2i355N_GjSNM=');
 
-INSERT INTO estados_de_servicios (estado_servicio_id, estado_servicio_descripcion) VALUES
-(1, 'Pendiente'),
-(2, 'En proceso'),
-(3, 'Finalizado'),
-(4, 'Entregado');
+INSERT INTO estados_de_servicios (estado_servicio_descripcion) VALUES
+('Pendiente'),
+('En proceso'),
+('Finalizado'),
+('Entregado');
 
 INSERT INTO servicios (
     cedula_cliente, tipo_equipo_id, tipo_servicio_id,
@@ -185,3 +185,4 @@ INSERT INTO facturas (servicio_id, observaciones_satisfaccion_usuario, precio_fi
 (1, 'Cliente satisfecho poorque el equipo esta funcionando correctamente.', 115000.00),
 (2, 'El cliente agradeció el mantenimiento.', 60000.00),
 (3, 'Cliente feliz y ya.', 25000.00);
+
