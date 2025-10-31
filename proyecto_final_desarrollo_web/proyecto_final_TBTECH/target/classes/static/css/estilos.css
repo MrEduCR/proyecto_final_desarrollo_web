@@ -196,3 +196,8 @@ form a.btn-module:hover {
     background-color: #4b5563;
     transform: translateY(-2px);
 }
+
+.pieza-img {
+    max-width: 100px;
+    max-height: 100px;
+}

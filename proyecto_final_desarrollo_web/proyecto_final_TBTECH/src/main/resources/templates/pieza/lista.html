@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Piezas</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <style> 
+        .pieza-img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="fragmentos :: header"></div>
+    <div class="container">
+        <h1>Lista de Piezas</h1>
+        <a th:href="@{/pieza/nuevo}" class="btn-module">Nueva Pieza</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Imagen</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pieza : ${piezas}">
+                    <td th:text="${pieza.piezaId}"></td>
+                    <td th:text="${pieza.piezaDescripcion}"></td>
+                    <td th:text="${pieza.precioPieza}"></td>
+                    <!-- Mostrar imagen en vez de ruta -->
+                    <td>
+                        <img th:src="${pieza.rutaImagen}" alt="Imagen de la pieza" class="pieza-img"/>
+                    </td>
+                    <td>
+                        <a th:href="@{|/pieza/editar/${pieza.piezaId}|}" class="btn-module">Editar</a>
+                        <a th:href="@{|/pieza/eliminar/${pieza.piezaId}|}" class="btn-module"
+                            style="background-color: #dc3545;">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>
