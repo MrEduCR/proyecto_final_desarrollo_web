@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Roles - Formulario</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <h1 th:text="${rol.rolId != null} ? 'Editar Rol' : 'Nuevo Rol'"></h1>
+
+        <form th:action="@{/rol/guardar}" th:object="${rol}" method="post">
+            <div>
+                <label>Descripción del Rol:</label><br>
+                <input type="text" th:field="*{descripcionRol}" required maxlength="150"
+                    style="width: 100%; padding: 8px; margin: 10px 0;">
+            </div>
+            <div>
+                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
+                <a th:href="@{/rol}" class="btn-module" style="background-color: gray;">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>

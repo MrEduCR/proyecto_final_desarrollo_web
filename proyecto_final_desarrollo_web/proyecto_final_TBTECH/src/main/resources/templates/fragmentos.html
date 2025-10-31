@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fragmentos</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+    <header th:fragment="header">
+        <div class="logo-texto">
+            <img th:src="@{/images/logoEmpresa.png}" alt="Logo Empresa">
+            <span class="nombre-empresa">Terabyte Technology</span>
+        </div>
+        <div class="boton">
+            <a th:href="@{/}" class="button-index">Inicio</a>
+        </div>
+    </header>
+
+    <footer th:fragment="footer">
+        &copy; 2025 Terabyte Technology. Todos los derechos reservados. Version 0.1.0-pre-alpha.
+    </footer>
+</body>
+
+</html>

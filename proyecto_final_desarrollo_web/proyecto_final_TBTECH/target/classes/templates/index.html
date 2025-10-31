@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Terabyte Technology - Inicio</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <h1>Bienvenido a Terabyte Technology</h1>
+        <p>Selecciona el modulo que deseas gestionar:</p>
+        <a th:href="@{/rol}" class="btn-module">Roles</a>
+        <a th:href="@{/estado}" class="btn-module">Ejemplo de otro</a>
+        <a th:href="@{/estado}" class="btn-module">Ejemplo de otro</a>
+        <a th:href="@{/estado}" class="btn-module">Ejemplo de otro</a>
+        <a th:href="@{/estado}" class="btn-module">Ejemplo de otro</a>
+        <a th:href="@{/estado}" class="btn-module">Ejemplo de otro</a>
+        <a th:href="@{/estado}" class="btn-module">Ejemplo de otro</a>
+        <a th:href="@{/estado}" class="btn-module">Ejemplo de otro</a>
+        
+    </div>
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>
