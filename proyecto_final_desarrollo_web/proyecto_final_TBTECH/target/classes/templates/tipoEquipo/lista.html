@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tipos de Equipo - Lista</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <h1>Lista de Tipos de Equipo</h1>
+        <a th:href="@{/tipoequipo/nuevo}" class="btn-module">Nuevo Tipo de Equipo</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="tipoEquipo : ${tiposEquipo}">
+                    <td th:text="${tipoEquipo.tipoEquipoId}"></td>
+                    <td th:text="${tipoEquipo.tipoEquipoDescripcion}"></td>
+                    <td>
+                        <a th:href="@{|/tipoequipo/editar/${tipoEquipo.tipoEquipoId}|}" class="btn-module">Editar</a>
+                        <a th:href="@{|/tipoequipo/eliminar/${tipoEquipo.tipoEquipoId}|}" class="btn-module"
+                            style="background-color: #dc3545;">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>
