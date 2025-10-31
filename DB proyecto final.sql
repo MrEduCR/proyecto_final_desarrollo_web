@@ -100,7 +100,6 @@ CREATE TABLE facturas (
     factura_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     servicio_id INT NOT NULL,
     observaciones_satisfaccion_usuario VARCHAR(500),
-    precio_final DECIMAL(10,2) NOT NULL DEFAULT 0.00,
     CONSTRAINT fk_facturas_servicios
         FOREIGN KEY (servicio_id) REFERENCES servicios(servicio_id)
         ON DELETE RESTRICT ON UPDATE CASCADE
@@ -114,7 +113,6 @@ SELECT
     s.cedula_cliente,
     c.nombre_cliente,
     f.observaciones_satisfaccion_usuario,
-    f.precio_final,
     s.numero_serie_equipo,
     s.fecha_ingreso_equipo,
     s.ruta_imagen AS servicio_ruta_imagen,
@@ -122,13 +120,14 @@ SELECT
     p.pieza_id,
     p.pieza_descripcion,
     p.precio_pieza,
-    p.ruta_imagen AS pieza_ruta_imagen
+    p.ruta_imagen AS pieza_ruta_imagen,
+    SUM(p.precio_pieza) OVER (PARTITION BY f.factura_id) AS total_piezas
 FROM facturas f
 INNER JOIN servicios s ON f.servicio_id = s.servicio_id
 INNER JOIN clientes c ON s.cedula_cliente = c.cedula_cliente
 LEFT JOIN servicios_piezas sp ON s.servicio_id = sp.servicio_id
-LEFT JOIN piezas p ON sp.pieza_id = p.pieza_id
-;
+LEFT JOIN piezas p ON sp.pieza_id = p.pieza_id;
+
 
 INSERT INTO roles (descripcion_rol) VALUES
 ('Administrador'),
@@ -181,8 +180,8 @@ INSERT INTO servicios (
 (2002, 2, 1, 3, 'SN-PC-20251028-002', '2025-10-20', 'https://i.ytimg.com/vi/5-CYF2Oy9GU/maxresdefault.jpg', 'Se quemo la cosa mop'),
 (2003, 3, 4, 1, 'SN-IMP-20251028-003', '2025-10-27', 'https://mediaserver.goepson.com/ImConvServlet/imconv/61dcb6a700968d5fe27870dc9e72d7151805d623/1200Wx1200H', 'Impresora no imprime, posible atasco de papel');
 
-INSERT INTO facturas (servicio_id, observaciones_satisfaccion_usuario, precio_final) VALUES
-(1, 'Cliente satisfecho poorque el equipo esta funcionando correctamente.', 115000.00),
-(2, 'El cliente agradeció el mantenimiento.', 60000.00),
-(3, 'Cliente feliz y ya.', 25000.00);
+INSERT INTO facturas (servicio_id, observaciones_satisfaccion_usuario) VALUES
+(1, 'Cliente satisfecho poorque el equipo esta funcionando correctamente.'),
+(2, 'El cliente agradeció el mantenimiento.'),
+(3, 'Cliente feliz y ya.');
 
