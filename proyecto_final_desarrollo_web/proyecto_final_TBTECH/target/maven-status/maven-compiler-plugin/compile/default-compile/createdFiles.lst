@@ -1,0 +1,4 @@
+com\domain\Usuario.class
+com\controller\UsuarioController.class
+com\services\UsuarioService.class
+com\repository\UsuarioRepository.class

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Roles - Lista</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <h1>Lista de Usuarios</h1>
+        <a th:href="@{/usuario/nuevo}" class="btn-module">Nuevo Usuario</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Cedula</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Telefono</th>
+                    <th>Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.cedulaUsuario}"></td>
+                    <td th:text="${usuario.nombreUsuario}"></td>
+                    <td th:text="${usuario.correoUsuario}"></td>
+                    <td th:text="${usuario.telefonoUsuario}"></td>
+                    <td th:text="${usuario.rol.descripcionRol}"></td>
+                    <td>
+                        <a th:href="@{|/usuario/editar/${usuario.cedulaUsuario}|}" class="btn-module">Editar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>
