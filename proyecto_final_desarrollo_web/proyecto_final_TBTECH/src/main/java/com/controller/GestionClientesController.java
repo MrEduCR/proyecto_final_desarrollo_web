@@ -8,6 +8,6 @@ public class GestionClientesController {
 
     @GetMapping("/clientes")
     public String mostrarGestionClientes() {
-        return "clientes/clientes"; // solo para que thymeleaf busque a la pagina, no se ocupa ni service ni domain ni repo
+        return "clientes/clientes"; 
     }
 }
