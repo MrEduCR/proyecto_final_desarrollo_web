@@ -1,7 +1,6 @@
 
 package com.controller;
 
-import com.domain.Pieza;
 import com.domain.Usuario;
 import com.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
