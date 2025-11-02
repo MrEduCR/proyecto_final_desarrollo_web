@@ -1,14 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package com.services;
 
-/**
- *
- * @author Adrian Salazar R
- */
-public class ClienteService {
+import com.domain.Cliente;
+import java.util.List;
 
+public interface ClienteService {
+    void guardar(Cliente cliente);
+    List<Cliente> listar();
 }
