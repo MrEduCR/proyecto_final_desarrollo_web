@@ -1,7 +1,7 @@
 
 package com.services;
 
-import com.domain.Pieza;
+import com.domain.Rol;
 import com.domain.Usuario;
 import com.repository.RolRepository;
 import com.repository.UsuarioRepository;
@@ -27,5 +27,11 @@ public class UsuarioService {
         return usuarioRepository.findById(cedula);
     }
     
+    public Usuario saveUsuario(Usuario usuario, Long rolId){
+        Rol rol = rolRepository.findById(rolId)
+                .orElseThrow(() -> new RuntimeException("El rol con ID "+ rolId + "no existe."));
+        usuario.setRol(rol);
+        return usuarioRepository.save(usuario);
+    }
 }
 

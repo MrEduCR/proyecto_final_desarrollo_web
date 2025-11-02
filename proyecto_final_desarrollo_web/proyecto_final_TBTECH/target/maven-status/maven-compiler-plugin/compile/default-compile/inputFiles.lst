@@ -6,6 +6,7 @@ C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\TipoEquipoController.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\TipoServicioController.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\UsuarioController.java
+C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Cliente.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\EstadoServicio.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Pieza.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Rol.java
@@ -14,12 +15,15 @@ C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Usuario.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\ProjectConfig.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\ProyectoFinalApplication.java
+C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\ClienteRepository.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\EstadoServicioRepository.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\PiezaRepository.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\RolRepository.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\TipoEquipoRepository.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\TipoServicioRepository.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\UsuarioRepository.java
+C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\ClienteService.java
+C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\ClienteServicioImpl.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\EstadoServicioService.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\PiezaService.java
 C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\RolService.java

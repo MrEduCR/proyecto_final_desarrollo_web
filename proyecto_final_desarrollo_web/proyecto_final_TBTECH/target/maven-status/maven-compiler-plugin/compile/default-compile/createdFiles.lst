@@ -1,4 +1,8 @@
+com\repository\ClienteRepository.class
+com\domain\Cliente.class
 com\domain\Usuario.class
 com\controller\UsuarioController.class
 com\services\UsuarioService.class
+com\services\ClienteServicioImpl.class
+com\services\ClienteService.class
 com\repository\UsuarioRepository.class
