@@ -10,13 +10,16 @@
 <body>
     <header th:fragment="header">
         <div class="logo-texto">
-            <img th:src="@{/images/logoEmpresa.png}" alt="Logo Empresa" class="logo">
-            <span class="nombre-empresa">Terabyte Technology Blog</span>
+            <a th:href="@{/blog}" class="inicio-link">
+                <img th:src="@{/images/logoEmpresa.png}" alt="Logo Empresa" class="logo">
+                <span class="nombre-empresa">Terabyte Technology Blog</span>
+            </a>
         </div>
+
         <nav class="nav-menu">
-            <ul>
-                <li><a th:href="@{/contactoBlog}">Contacto</a></li>
-            </ul>
+            <div class="boton">
+                <a th:href="@{/contacto}" class="button-index">Contactanos hoy mismo</a>
+            </div>
         </nav>
     </header>
 
