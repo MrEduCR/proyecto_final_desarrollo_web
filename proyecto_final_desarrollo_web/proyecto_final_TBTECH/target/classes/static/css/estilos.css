@@ -55,6 +55,50 @@ header a.button-index:hover {
     transform: translateY(-2px);
 }
 
+header a.button-index {
+    padding: 10px 20px;
+    background-color: #3b82f6;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+header a.button-index:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+}
+
+header a.button-config {
+    padding: 10px 20px;
+    background-color: #6b7280;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+header a.button-config:hover {
+    background-color: #4b5563;
+    transform: translateY(-2px);
+}
+
+header a.button-logout {
+    padding: 10px 20px;
+    background-color: #ef4444;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+header a.button-logout:hover {
+    background-color: #b91c1c;
+    transform: translateY(-2px);
+}
 
 
 footer {
