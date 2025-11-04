@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Servicios - Lista</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <h1>Lista de Servicios</h1>
+        <a th:href="@{/servicio/nuevo}" class="btn-module">Nuevo Servicio</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cédula Cliente</th>
+                    <th>Tipo Equipo</th>
+                    <th>Tipo Servicio</th>
+                    <th>Estado Servicio</th>
+                    <th>Número Serie</th>
+                    <th>Fecha Ingreso</th>
+                    <th>Imagen</th>
+                    <th>Descripción Problema</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="servicio : ${servicios}">
+                    <td th:text="${servicio.servicioId}"></td>
+                    <td th:text="${servicio.cliente.cedula}"></td>
+                    <td th:text="${servicio.tipoEquipo.tipoEquipoDescripcion}"></td>
+                    <td th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></td>
+                    <td th:text="${servicio.estadoServicio.estadoServicioDescripcion}"></td>
+                    <td th:text="${servicio.numeroSerieEquipo}"></td>
+                    <td th:text="${#dates.format(servicio.fechaIngresoEquipo,'yyyy-MM-dd')}"></td>
+                    <td><img th:src="${servicio.rutaImagen}" style="width:80px; border-radius:5px;" alt="imagen"></td>
+                    <td th:text="${servicio.descripcionProblema}"></td>
+                    <td>
+                        <a th:href="@{|/servicio/editar/${servicio.servicioId}|}" class="btn-module">Editar</a>
+                        <a th:href="@{|/servicio/eliminar/${servicio.servicioId}|}" class="btn-module"
+                            style="background-color: #dc3545;">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>

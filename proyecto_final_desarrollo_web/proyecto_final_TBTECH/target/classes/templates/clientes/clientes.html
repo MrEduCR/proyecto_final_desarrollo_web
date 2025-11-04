@@ -40,58 +40,32 @@
                     </div>
 
                     <div class="col-md-8">
-                        <form>
+                        <!-- 🔹 ADAPTADO PARA GUARDAR CLIENTE -->
+                        <form th:action="@{/clientes/guardar}" th:object="${cliente}" method="post">
 
                             <h5 class="mb-3">Datos personales del cliente</h5>
 
                             <div class="mb-3">
                                 <label class="form-label">Cédula / ID:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" th:field="*{cedula}" class="form-control" placeholder="Ingrese la cédula">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Nombre completo:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ingrese el nombre completo">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Teléfono:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" th:field="*{telefono}" class="form-control" placeholder="Ingrese el número de teléfono">
                             </div>
-
-
 
                             <div class="mb-3">
                                 <label class="form-label">Correo electrónico:</label>
-                                <input type="email" class="form-control">
+                                <input type="email" th:field="*{correo}" class="form-control" placeholder="Ingrese el correo electrónico">
                             </div>
 
-
-                            <!--                   
-                           
-                                               <h5 class="mt-4 mb-3">Dirección y contacto adicional</h5>
-                           
-                                               <div class="mb-3">
-                                                   <label class="form-label">Dirección:</label>
-                                                   <input type="text" class="form-control">
-                                               </div>
-                           
-                                               <div class="mb-3">
-                                                   <label class="form-label">Empresa (opcional):</label>
-                                                   <input type="text" class="form-control">
-                                               </div>
-                           
-                                               <div class="mb-3">
-                                                   <label class="form-label">Persona de contacto alterna (opcional):</label>
-                                                   <input type="text" class="form-control">
-                                               </div>
-                           
-                                               <div class="mb-3">
-                                                   <label class="form-label">Notas u observaciones (opcional):</label>
-                                                   <textarea class="form-control" rows="3"></textarea>
-                                               </div>                                                                             -->
-
-                            <button type="button" class="btn btn-dark px-4 mt-3">Registrar</button>
+                            <button type="submit" class="btn btn-dark px-4 mt-3">Registrar</button>
 
                         </form>
                     </div>
@@ -100,12 +74,6 @@
             </div>
         </main>
 
-
         <div th:replace="fragmentosBlog :: footer"></div>
-        <!--<footer class="bg-dark text-center text-white py-3 mt-auto"> 
-            © Terabyte Technology 2025
-        
-        </footer> -->
-
     </body>
 </html>
