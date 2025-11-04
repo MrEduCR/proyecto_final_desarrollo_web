@@ -201,3 +201,67 @@ form a.btn-module:hover {
     max-width: 100px;
     max-height: 100px;
 }
+
+
+.servicios-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.servicio-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: left;
+}
+
+.servicio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.servicio-card h2 {
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.servicio-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 30px;
+    align-items: center;
+}
+
+.servicio-info div {
+    flex: 1 1 250px;
+    font-size: 1rem;
+}
+
+.servicio-info strong {
+    color: #1f2937;
+}
+
+.servicio-img {
+    width: 90px;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+.servicio-acciones {
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+}
+
+.servicio-acciones .eliminar {
+    background-color: #ef4444 !important;
+}

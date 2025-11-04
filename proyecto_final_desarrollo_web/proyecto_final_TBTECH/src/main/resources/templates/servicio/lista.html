@@ -15,41 +15,32 @@
         <h1>Lista de Servicios</h1>
         <a th:href="@{/servicio/nuevo}" class="btn-module">Nuevo Servicio</a>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Cédula Cliente</th>
-                    <th>Tipo Equipo</th>
-                    <th>Tipo Servicio</th>
-                    <th>Estado Servicio</th>
-                    <th>Número Serie</th>
-                    <th>Fecha Ingreso</th>
-                    <th>Imagen</th>
-                    <th>Descripción Problema</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="servicio : ${servicios}">
-                    <td th:text="${servicio.servicioId}"></td>
-                    <td th:text="${servicio.cliente.cedula}"></td>
-                    <td th:text="${servicio.tipoEquipo.tipoEquipoDescripcion}"></td>
-                    <td th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></td>
-                    <td th:text="${servicio.estadoServicio.estadoServicioDescripcion}"></td>
-                    <td th:text="${servicio.numeroSerieEquipo}"></td>
-                    <td th:text="${#dates.format(servicio.fechaIngresoEquipo,'yyyy-MM-dd')}"></td>
-                    <td><img th:src="${servicio.rutaImagen}" style="width:80px; border-radius:5px;" alt="imagen"></td>
-                    <td th:text="${servicio.descripcionProblema}"></td>
-                    <td>
-                        <a th:href="@{|/servicio/editar/${servicio.servicioId}|}" class="btn-module">Editar</a>
-                        <a th:href="@{|/servicio/eliminar/${servicio.servicioId}|}" class="btn-module"
-                            style="background-color: #dc3545;">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
+        <div class="servicios-lista">
+            <div th:each="servicio : ${servicios}" class="servicio-card">
+                <h2>ID Servicio: <span th:text="${servicio.servicioId}"></span></h2>
+                <div class="servicio-info">
+                    <div><strong>Cédula Cliente:</strong> <span th:text="${servicio.cliente.cedula}"></span></div>
+                    <div><strong>Tipo Equipo:</strong> <span
+                            th:text="${servicio.tipoEquipo.tipoEquipoDescripcion}"></span></div>
+                    <div><strong>Tipo Servicio:</strong> <span
+                            th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></span></div>
+                    <div><strong>Estado:</strong> <span
+                            th:text="${servicio.estadoServicio.estadoServicioDescripcion}"></span></div>
+                    <div><strong>N° Serie:</strong> <span th:text="${servicio.numeroSerieEquipo}"></span></div>
+                    <div><strong>Fecha Ingreso:</strong> <span
+                            th:text="${#dates.format(servicio.fechaIngresoEquipo,'yyyy-MM-dd')}"></span></div>
+                    <div><strong>Descripción:</strong> <span th:text="${servicio.descripcionProblema}"></span></div>
+                    <div><strong>Imagen:</strong>
+                        <img th:src="${servicio.rutaImagen}" alt="imagen" class="servicio-img">
+                    </div>
+                </div>
+                <div class="servicio-acciones">
+                    <a th:href="@{|/servicio/editar/${servicio.servicioId}|}" class="btn-module">Editar</a>
+                    <a th:href="@{|/servicio/eliminar/${servicio.servicioId}|}" class="btn-module eliminar">Eliminar</a>
+                </div>
+            </div>
+        </div>
 
-        </table>
     </div>
 
     <div th:replace="fragmentos :: footer"></div>
