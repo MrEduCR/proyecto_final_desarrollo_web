@@ -13,20 +13,23 @@
 
     <div class="container">
         <h1>Bienvenido a Terabyte Technology</h1>
-        <p>Selecciona el modulo que deseas gestionar:</p>
-        <a th:href="@{/rol}" class="btn-module">Roles</a>
-        <a th:href="@{/tipoequipo}" class="btn-module">Tipos de equipo</a>
-        <a th:href="@{/tiposervicio}" class="btn-module">Tipos de servicio</a>
-        <a th:href="@{/pieza}" class="btn-module">Piezas</a>
-        <a th:href="@{/estadoservicio}" class="btn-module">Estados de servicio</a>
-        <a th:href="@{/blog}" class="btn-module">Blog</a>
-        <a th:href="@{/servicio}" class="btn-module">Servicios</a>
-        <a th:href="@{/estado}" class="btn-module">Ejemplo de otro</a>
-        
-        <a th:href="@{/clientes}" class="btn-module">Gestion de Clientes</a>
-        <a th:href="@{/usuario}" class="btn-module">Gestion de Usuarios</a>
-        
+
+        <h2>Gestión operativa:</h2>
+        <a th:href="@{/servicio}" class="btn-module btn-operativo">Servicios</a>
+        <a th:href="@{/pieza}" class="btn-module btn-operativo">Piezas</a>
+        <a th:href="@{/clientes}" class="btn-module btn-operativo">Gestión de Clientes</a>
+
+        <h2>Marketing y redes sociales:</h2>
+        <a th:href="@{/marketing}" class="btn-module btn-marketing">Marketing</a>
+
+        <h2>Administración del sistema:</h2>
+        <a th:href="@{/rol}" class="btn-module btn-admin">Roles</a>
+        <a th:href="@{/usuario}" class="btn-module btn-admin">Gestión de Usuarios</a>
+        <a th:href="@{/tipoequipo}" class="btn-module btn-admin">Tipos de equipo</a>
+        <a th:href="@{/tiposervicio}" class="btn-module btn-admin">Tipos de servicio</a>
+        <a th:href="@{/estadoservicio}" class="btn-module btn-admin">Estados de servicio</a>
     </div>
+
     <div th:replace="fragmentos :: footer"></div>
 
 </body>

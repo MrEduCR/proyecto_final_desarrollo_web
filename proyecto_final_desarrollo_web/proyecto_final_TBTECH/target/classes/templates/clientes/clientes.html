@@ -12,7 +12,7 @@
 
     <body class="d-flex flex-column min-vh-100">
 
-        <header class="bg-light border-bottom shadow-sm py-2">
+        <!-- <header class="bg-light border-bottom shadow-sm py-2">
             <div class="container-fluid d-flex justify-content-between">
                 <div class="d-flex align-items-center gap-3">
                     <div class="bg-dark text-white px-3 py-2">Logo</div>
@@ -20,15 +20,18 @@
                 </div>
                 <div class="d-flex align-items-center gap-3">
                     <span>Editar Cliente</span>
-                    <!--            <button class="btn btn-outline-dark btn-sm">Cerrar Sesión</button>  -->
+                               <button class="btn btn-outline-dark btn-sm">Cerrar Sesión</button>  
                 </div>
             </div>
-        </header>
+        </header> -->
+
+        <div th:replace="fragmentos :: header"></div>
 
         <main class="container mt-4 mb-5">
-            <a th:href="@{/}" class="text-decoration-none">
+            <!-- <a th:href="@{/}" class="text-decoration-none">
                 <span class="fw-semibold">&#8592; Volver</span>
-            </a>
+            </a> -->
+            <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">Volver al menú principal</a>
 
             <div class="border p-4 mt-3">
                 <h2 class="fw-bold mb-4">Registro de clientes</h2>
@@ -49,22 +52,22 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Cédula / ID:</label>
-                                <input type="text" th:field="*{cedula}" class="form-control" placeholder="Ingrese la cédula">
+                                <input type="text" th:field="*{cedula}" required class="form-control" placeholder="Ingrese la cédula">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Nombre completo:</label>
-                                <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ingrese el nombre completo">
+                                <input type="text" th:field="*{nombre}" required class="form-control" placeholder="Ingrese el nombre completo" >
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Teléfono:</label>
-                                <input type="text" th:field="*{telefono}" class="form-control" placeholder="Ingrese el número de teléfono">
+                                <input type="text" th:field="*{telefono}" required class="form-control" placeholder="Ingrese el número de teléfono">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Correo electrónico:</label>
-                                <input type="email" th:field="*{correo}" class="form-control" placeholder="Ingrese el correo electrónico">
+                                <input type="email" th:field="*{correo}" required class="form-control" placeholder="Ingrese el correo electrónico">
                             </div>
 
                             <button type="submit" class="btn btn-dark px-4 mt-3">Registrar</button>
@@ -76,6 +79,6 @@
             </div>
         </main>
 
-        <div th:replace="fragmentosBlog :: footer"></div>
+        <div th:replace="fragmentos :: footer"></div>
     </body>
 </html>

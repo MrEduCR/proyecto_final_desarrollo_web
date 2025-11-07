@@ -5,19 +5,24 @@
     <meta charset="UTF-8">
     <title>Contacto - Terabyte Technology</title>
     <link rel="stylesheet" th:href="@{/css/blog.css}">
+    <!-- iconos de Font Awesome para las redes sociales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
 <body>
     <div th:replace="fragmentosBlog :: header"></div>
+
     <main class="blog-container">
         <h1>Contacto</h1>
+
         <section class="post">
             <h2>Contáctanos</h2>
-            <p class="date">Estamos aqui para ayudarte:</p>
-            <p>📍 Dirección: Heredia, San Rafael, Costa Rica</p>
-            <p>📞 Teléfono: +506 8888-8888</p>
-            <p>✉️ Correo: contacto@terabyte.cr</p>
+            <p class="date">Estamos aquí para ayudarte:</p>
+            <p><i class="fas fa-map-marker-alt"></i> Dirección: Heredia, San Rafael, Costa Rica</p>
+            <p><i class="fas fa-phone"></i> Teléfono: +506 8888-8888</p>
+            <p><i class="fas fa-envelope"></i> Correo: contacto@terabyte.cr</p>
         </section>
+
         <section class="post">
             <h2>Nuestra ubicación</h2>
             <iframe
@@ -25,16 +30,26 @@
                 width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
         </section>
+
         <section class="post">
             <h2>¡Síguenos en redes sociales!</h2>
             <div class="redes-container">
-                <a href="https://facebook.com" target="_blank" class="red">Facebook</a>
-                <a href="https://instagram.com" target="_blank" class="red">Instagram</a>
-                <a href="https://x.com" target="_blank" class="red">X / Twitter</a>
-                <a href="https://linkedin.com" target="_blank" class="red">LinkedIn</a>
+                <a href="https://facebook.com" target="_blank" class="red facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <a href="https://instagram.com" target="_blank" class="red instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://x.com" target="_blank" class="red twitter">
+                    <i class="fab fa-x-twitter"></i> X / Twitter
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="red linkedin">
+                    <i class="fab fa-linkedin-in"></i> LinkedIn
+                </a>
             </div>
         </section>
     </main>
+
     <div th:replace="fragmentosBlog :: footer"></div>
 </body>
 

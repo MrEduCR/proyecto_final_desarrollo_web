@@ -143,6 +143,31 @@ footer {
 }
 
 
+.btn-operativo {
+    background-color: #10b981; 
+}
+
+.btn-operativo:hover {
+    background-color: #059669;
+}
+
+.btn-marketing {
+    background-color: #f59e0b; 
+}
+
+.btn-marketing:hover {
+    background-color: #d97706;
+}
+
+.btn-admin {
+    background-color: #3b82f6; 
+}
+
+.btn-admin:hover {
+    background-color: #2563eb;
+}
+
+
 table {
     width: 100%;
     border-collapse: separate;
@@ -308,4 +333,32 @@ form a.btn-module:hover {
 
 .servicio-acciones .eliminar {
     background-color: #ef4444 !important;
+}
+
+.btn-small {
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    border-radius: 8px;
+}
+
+
+/* --- solo facebook para que no sea vea tan angosto --- */
+.fb-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+@media (min-width: 768px) {
+    .fb-container > .fb-page {
+        width: 500px !important;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .fb-container > .fb-page {
+        width: 100% !important;
+    }
 }

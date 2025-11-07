@@ -22,19 +22,19 @@
 
             <div>
                 <label>Nombre Completo:</label><br>
-                <input type="text" th:field="*{nombreUsuario}" maxlength="1024"
+                <input type="text" th:field="*{nombreUsuario}" required maxlength="1024"
                     style="width: 100%; padding: 8px; margin: 10px 0;">
             </div>
 
             <div>
                 <label>Correo Electronico:</label><br>
-                <input type="email" th:field="*{correoUsuario}"
+                <input type="email" th:field="*{correoUsuario}" required
                     style="width: 100%; padding: 8px; margin: 10px 0;">
             </div>
             
             <div>
                 <label>Telefono</label><br>
-                <input type="number" th:field="*{telefonoUsuario}"
+                <input type="number" th:field="*{telefonoUsuario}" required
                     style="width: 100%; padding: 8px; margin: 10px 0;">
             </div>
             
