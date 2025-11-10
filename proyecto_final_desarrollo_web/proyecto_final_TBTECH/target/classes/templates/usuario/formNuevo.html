@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Usuario - Formulario</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Usuario - Formulario</title>
+        <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    </head>
 
-<body>
-    <div th:replace="fragmentos :: header"></div>
-    <div class="container">
-        <h1>Nuevo Usuario</h1>
+    <body>
+        <div th:replace="fragmentos :: header"></div>
+        <div class="container">
+            <h1 th:text="${usuario.cedulaUsuario != null} ? 'Editar Usuario' : 'Nuevo Usuario'"></h1>
 
-        <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post">
+            <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post">
 
-            <div>
-                <label>Cedula:</label><br>
-                <input type="number" th:field="*{cedulaUsuario}"
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
+                <div>
+                    <label>Cedula:</label><br>
+                    <input type="number" th:field="*{cedulaUsuario}"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                </div>
 
-            <div>
-                <label>Nombre Completo:</label><br>
-                <input type="text" th:field="*{nombreUsuario}" required maxlength="1024"
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
+                <div>
+                    <label>Nombre Completo:</label><br>
+                    <input type="text" th:field="*{nombreUsuario}" required maxlength="1024"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                </div>
 
-            <div>
-                <label>Correo Electronico:</label><br>
-                <input type="email" th:field="*{correoUsuario}" required
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
-            
-            <div>
-                <label>Telefono</label><br>
-                <input type="number" th:field="*{telefonoUsuario}" required
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
-            
-            <div>
-                <label>Rol</label><br>
-                <select name="rolId" required>
-                    <option value="">Seleccione un rol</option>
-                    <option th:each="rol : ${roles}"
-                            th:value="${rol.rolId}"
-                        th:text="${rol.descripcionRol}">
-                    </option>
-                </select>
-            </div>
+                <div>
+                    <label>Correo Electronico:</label><br>
+                    <input type="email" th:field="*{correoUsuario}" required
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                </div>
 
-            <div>
-                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
-                <a th:href="@{/usuario}" class="btn-module" style="background-color: gray;">Cancelar</a>
-            </div>
-        </form>
-    </div>
+                <div>
+                    <label>Telefono</label><br>
+                    <input type="number" th:field="*{telefonoUsuario}" required
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                </div>
 
-    <div th:replace="fragmentos :: footer"></div>
-</body>
+                <div>
+                    <label>Rol</label><br>
+                    <select name="rolId" required style="width: 100%; padding: 8px; margin: 10px 0;">
+                        <option value="">Seleccione un rol</option>
+                        <option th:each="rol : ${roles}"
+                                th:value="${rol.rolId}"
+                                th:text="${rol.descripcionRol}">
+                        </option>
+                    </select>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
+                    <a th:href="@{/usuario}" class="btn-module" style="background-color: gray;">Cancelar</a>
+                </div>
+            </form>
+        </div>
+
+        <div th:replace="fragmentos :: footer"></div>
+    </body>
 
 </html>

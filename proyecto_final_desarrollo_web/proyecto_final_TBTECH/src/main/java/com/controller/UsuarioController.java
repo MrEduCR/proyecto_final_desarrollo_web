@@ -31,12 +31,13 @@ public class UsuarioController {
         return "usuario/lista";
     }
     
-    @GetMapping("/usuario/{id}")
-    public String editarUsuario(@PathVariable int cedula, Model model) {
+    @GetMapping("/editar/{cedulaUsuario}")
+    public String editarUsuario(@PathVariable("cedulaUsuario") int cedula, Model model) {
         Usuario usuario = usuarioService.getUsuarioByCedula(cedula)
                 .orElseThrow(() -> new IllegalArgumentException("Cedula no encontrada: " + cedula));
         model.addAttribute("usuario", usuario);
-        return "usuario/form";
+        model.addAttribute("roles", rolService.getAllRoles());
+        return "usuario/formNuevo";
     }
     
     @GetMapping("/nuevo")
