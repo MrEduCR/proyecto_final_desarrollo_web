@@ -3,37 +3,54 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tipos de Servicio - Formulario</title>
+    <title>Tipos de Servicio - Lista</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
 <body>
 
-    <div th:replace="fragmentos :: header"></div>
+<div th:replace="fragmentos :: header"></div>
 
-    <div class="container">
-        <h1 th:text="${tipoServicio.tipoServicioId != null} ? 'Editar Tipo de Servicio' : 'Nuevo Tipo de Servicio'"></h1>
+<div class="container">
 
-        <form th:action="@{/tiposervicio/guardar}" th:object="${tipoServicio}" method="post">
-            <!-- Campo oculto para el id -->
-            <input type="hidden" th:field="*{tipoServicioId}" />
+    <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">Volver al menú principal</a>
 
-            <div>
-                <label>Descripción del Tipo de Servicio:</label><br>
-                <input type="text" th:field="*{tipoServicioDescripcion}" required maxlength="50"
-                       style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
+    <h1>Lista de Tipos de Servicio</h1>
 
-            <div>
-                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
-                <a th:href="@{/tiposervicio}" class="btn-module" style="background-color: gray;">Cancelar</a>
-            </div>
-        </form>
-    </div>
+    <a th:href="@{/tiposervicio/nuevo}" class="btn-module">Nuevo Tipo de Servicio</a>
 
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Precio Base</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
 
-    <div th:replace="fragmentos :: footer"></div>
+        <tbody>
+            <tr th:each="tipoServicio : ${tiposServicio}">
+                <td th:text="${tipoServicio.tipoServicioId}"></td>
+                <td th:text="${tipoServicio.tipoServicioDescripcion}"></td>
+
+                <!-- NUEVA COLUMNA -->
+                <td>
+                    ₡ <span th:text="${tipoServicio.precioBase}"></span>
+                </td>
+
+                <td>
+                    <a th:href="@{|/tiposervicio/editar/${tipoServicio.tipoServicioId}|}" class="btn-module">Editar</a>
+                    <a th:href="@{|/tiposervicio/eliminar/${tipoServicio.tipoServicioId}|}"
+                       class="btn-module" style="background-color: #dc3545;">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div th:replace="fragmentos :: footer"></div>
 
 </body>
-
 </html>

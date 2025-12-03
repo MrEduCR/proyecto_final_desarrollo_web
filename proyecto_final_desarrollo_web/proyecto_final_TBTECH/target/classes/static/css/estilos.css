@@ -362,3 +362,20 @@ form a.btn-module:hover {
         width: 100% !important;
     }
 }
+
+
+.btn-ver {
+    background-color: #1d8fcb;
+    padding: 8px 12px;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-generar {
+    background-color: #28a745;
+    padding: 8px 12px;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+}

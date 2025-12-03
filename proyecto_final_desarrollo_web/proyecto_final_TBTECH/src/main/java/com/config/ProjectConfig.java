@@ -17,7 +17,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 @Configuration
 public class ProjectConfig implements WebMvcConfigurer {
 
-    @Override /*Cmambiar lluego */
+    @Override 
     public void addViewControllers(ViewControllerRegistry registry) {
      
         registry.addViewController("/").setViewName("index");

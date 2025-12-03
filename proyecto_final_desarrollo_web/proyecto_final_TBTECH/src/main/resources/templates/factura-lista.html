@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Facturación</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background-color: #2f7df4;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        .btn-generar, .btn-ver {
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn-generar {
+            background-color: #28a745;
+        }
+
+        .btn-ver {
+            background-color: #1e90ff;
+        }
+
+        .container-small {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div th:replace="~{fragmentos :: header}"></div>
+
+<div class="container-small">
+
+    <h1 style="text-align:center; margin-bottom: 10px;">Gestión de Facturación</h1>
+    <p style="text-align:center;">Seleccione un servicio para generar o visualizar su factura.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID Servicio</th>
+                <th>Cliente</th>
+                <th>Tipo Servicio</th>
+                <th>Estado</th>
+                <th style="width: 220px; text-align:center;">Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+    <tr th:each="servicio : ${servicios}">
+        <td th:text="${servicio.servicioId}"></td>
+
+        <td th:text="${servicio.cliente.nombre}"></td>
+
+        <td th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></td>
+
+        <td th:text="${servicio.estadoServicio.estadoServicioDescripcion}"></td>
+
+        <td style="text-align:center;">
+
+            <!-- Si YA existe factura: mostrar botón VER -->
+            <span th:if="${facturasMap[servicio.servicioId] != null}">
+                <a th:href="@{'/factura/ver/' + ${servicio.servicioId}}" 
+                   class="btn-ver">Ver factura</a>
+            </span>
+
+            <!-- Si NO existe factura: mostrar botón GENERAR -->
+            <span th:if="${facturasMap[servicio.servicioId] == null}">
+                <a th:href="@{'/factura/form-generar/' + ${servicio.servicioId}}" 
+                   class="btn-generar">Generar factura</a>
+            </span>
+
+        </td>
+    </tr>
+</tbody>

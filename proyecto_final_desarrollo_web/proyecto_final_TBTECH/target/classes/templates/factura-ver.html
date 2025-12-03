@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Factura del Servicio</title>
+
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+
+    <style>
+        .container-factura {
+            max-width: 900px;
+            margin: auto;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+            margin-top: 25px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .factura-section {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f7f7f7;
+        }
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .precio {
+            font-weight: bold;
+        }
+
+        .total-final {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0b5ed7;
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .btn-volver {
+            display: inline-block;
+            padding: 10px 18px;
+            margin-top: 25px;
+            background: #1e90ff;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div th:replace="~{fragmentos :: header}"></div>
+
+<div class="container-factura">
+
+    <h1>Factura del Servicio</h1>
+    <h3 th:text="'Factura N° ' + ${factura.facturaId}"></h3>
+
+    <!-- ==========================
+         INFO DEL CLIENTE
+    =========================== -->
+    <div class="factura-section">
+        <h2>Datos del Cliente</h2>
+
+        <div class="item-row">
+            <span><b>Nombre:</b></span>
+            <span th:text="${factura.servicio.cliente.nombre}"></span>
+        </div>
+
+        <div class="item-row">
+            <span><b>Correo:</b></span>
+            <span th:text="${factura.servicio.cliente.correo}"></span>
+        </div>
+
+        <div class="item-row">
+            <span><b>Teléfono:</b></span>
+            <span th:text="${factura.servicio.cliente.telefono}"></span>
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         INFO DEL SERVICIO
+    =========================== -->
+    <div class="factura-section">
+        <h2>Detalles del Servicio</h2>
+
+        <div class="item-row">
+            <span><b>Tipo Servicio:</b></span>
+            <span th:text="${factura.servicio.tipoServicio.tipoServicioDescripcion}"></span>
+        </div>
+
+        <div class="item-row">
+            <span><b>Equipo:</b></span>
+            <span th:text="${factura.servicio.tipoEquipo.tipoEquipoDescripcion}"></span>
+        </div>
+
+        <div class="item-row">
+            <span><b>Problema:</b></span>
+            <span th:text="${factura.servicio.descripcionProblema}"></span>
+        </div>
+
+        <div class="item-row">
+            <span><b>Fecha ingreso:</b></span>
+            <span th:text="${factura.servicio.fechaIngresoEquipo}"></span>
+        </div>
+    </div>
+
+
+    <!-- ==========================
+         COSTOS Y CÁLCULOS
+    =========================== -->
+    <div class="factura-section">
+        <h2>Resumen de Cargos</h2>
+
+        <div class="item-row">
+            <span>Subtotal piezas:</span>
+            <span class="precio" th:text="'₡ ' + ${factura.subtotalPiezas}"></span>
+        </div>
+
+        <div class="item-row">
+            <span>Mano de obra:</span>
+            <span class="precio" th:text="'₡ ' + ${factura.subtotalManoObra}"></span>
+        </div>
+
+        <div class="item-row">
+            <span>Descuento aplicado:</span>
+            <span class="precio" th:text="'₡ ' + ${factura.descuentoAplicado}"></span>
+        </div>
+
+        <div class="item-row">
+            <span>Impuestos (13%):</span>
+            <span class="precio" th:text="'₡ ' + ${factura.impuestosAplicados}"></span>
+        </div>
+
+        <div class="total-final">
+            Total final: ₡ <span th:text="${factura.totalFinal}"></span>
+        </div>
+    </div>
+
+    <div style="text-align:center;">
+        <a href="/factura/lista" class="btn-volver">Volver</a>
+    </div>
+
+</div>
+
+<div th:replace="~{fragmentos :: footer}"></div>
+
+</body>
+</html>

@@ -1,32 +1,42 @@
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\BlogController.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\EstadoServicioController.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\GestionClientesController.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\PiezaController.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\RolController.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\TipoEquipoController.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\TipoServicioController.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\UsuarioController.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Cliente.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\EstadoServicio.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Pieza.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Rol.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\TipoEquipo.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\TipoServicio.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Usuario.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\ProjectConfig.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\ProyectoFinalApplication.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\ClienteRepository.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\EstadoServicioRepository.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\PiezaRepository.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\RolRepository.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\TipoEquipoRepository.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\TipoServicioRepository.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\UsuarioRepository.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\ClienteService.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\ClienteServicioImpl.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\EstadoServicioService.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\PiezaService.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\RolService.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\TipoEquipoService.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\TipoServicioService.java
-C:\Users\ever1\Downloads\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\UsuarioService.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\BlogController.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\EstadoServicioController.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\FacturacionController.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\GestionClientesController.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\MarketingController.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\PiezaController.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\RolController.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\ServicioController.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\TipoEquipoController.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\TipoServicioController.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\controller\UsuarioController.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Cliente.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Descuentos.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\EstadoServicio.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Factura.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Pieza.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Rol.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Servicio.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\TipoEquipo.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\TipoServicio.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\domain\Usuario.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\ProjectConfig.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\ProyectoFinalApplication.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\ClienteRepository.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\EstadoServicioRepository.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\FacturaRepository.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\PiezaRepository.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\RolRepository.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\ServicioRepository.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\TipoEquipoRepository.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\TipoServicioRepository.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\repository\UsuarioRepository.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\ClienteService.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\ClienteServicioImpl.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\EstadoServicioService.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\FacturacionService.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\PiezaService.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\RolService.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\ServicioService.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\TipoEquipoService.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\TipoServicioService.java
+C:\Users\Adrian Salazar R\Documents\Proyecto_PaginasWeb\proyecto_final_desarrollo_web\proyecto_final_desarrollo_web\proyecto_final_TBTECH\src\main\java\com\services\UsuarioService.java
