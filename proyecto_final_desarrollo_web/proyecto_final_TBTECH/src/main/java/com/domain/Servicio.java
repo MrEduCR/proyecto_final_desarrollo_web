@@ -3,6 +3,7 @@ package com.domain;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
+import java.util.List; // Importante para la lista
 
 @Entity
 @Table(name = "servicios")
@@ -42,6 +43,17 @@ public class Servicio {
 
     @Column(name = "descripcion_problema", length = 500)
     private String descripcionProblema;
+
+    // --- CORRECCIÓN: AGREGAR RELACIÓN CON PIEZAS ---
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "servicios_piezas", // Nombre de la tabla intermedia en BD
+        joinColumns = @JoinColumn(name = "servicio_id"),
+        inverseJoinColumns = @JoinColumn(name = "pieza_id")
+    )
+    private List<Pieza> piezas;
+
+    // --- GETTERS Y SETTERS ---
 
     public Long getServicioId() {
         return servicioId;
@@ -115,5 +127,11 @@ public class Servicio {
         this.descripcionProblema = descripcionProblema;
     }
 
+    public List<Pieza> getPiezas() {
+        return piezas;
+    }
 
+    public void setPiezas(List<Pieza> piezas) {
+        this.piezas = piezas;
+    }
 }

@@ -29,6 +29,7 @@ public class FacturacionController {
 
 
     // ✔️ LISTA DE SERVICIOS CON BOTONES GENERAR / VER FACTURA
+    // Retorna: /templates/factura/factura-lista.html
     @GetMapping("/lista")
     public String listaServicios(Model model) {
 
@@ -44,11 +45,13 @@ public class FacturacionController {
         model.addAttribute("servicios", servicios);
         model.addAttribute("facturasMap", facturasMap);
 
-        return "factura-lista";
+        // Se usa "factura/factura-lista" para apuntar a la subcarpeta
+        return "factura/factura-lista";
     }
 
 
     // ✔️ FORMULARIO PARA ELEGIR DESCUENTO
+    // Retorna: /templates/factura/factura-generar.html
     @GetMapping("/form-generar/{servicioId}")
     public String mostrarFormularioGenerar(@PathVariable Long servicioId, Model model) {
 
@@ -56,7 +59,8 @@ public class FacturacionController {
                 .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
 
         model.addAttribute("servicio", servicio);
-        return "factura-generar";
+        // Se usa "factura/factura-generar" para apuntar a la subcarpeta
+        return "factura/factura-generar";
     }
 
 
@@ -72,6 +76,7 @@ public class FacturacionController {
 
 
     // ✔️ VER FACTURA YA GENERADA
+    // Retorna: /templates/factura/factura-ver.html
     @GetMapping("/ver/{servicioId}")
     public String verFactura(@PathVariable Long servicioId, Model model) {
 
@@ -84,6 +89,7 @@ public class FacturacionController {
         model.addAttribute("factura", factura);
         model.addAttribute("servicio", servicio);
 
-        return "factura-ver";
+        // Se usa "factura/factura-ver" para apuntar a la subcarpeta
+        return "factura/factura-ver";
     }
 }
