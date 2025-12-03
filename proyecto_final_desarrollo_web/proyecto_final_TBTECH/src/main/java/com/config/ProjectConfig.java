@@ -1,4 +1,4 @@
-package com;
+package com.config;
 
 import java.util.Locale;
 import org.springframework.context.MessageSource;

@@ -22,16 +22,19 @@
                     <th>Cedula</th>
                     <th>Nombre</th>
                     <th>Correo</th>
+                    <th>Contraseña</th>
                     <th>Telefono</th>
                     <th>Rol</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
+                <p>Quitar luego la Contraseña!!!!!!!!!!!!!!!!!!!!!</p>
                 <tr th:each="usuario : ${usuarios}">
                     <td th:text="${usuario.cedulaUsuario}"></td>
                     <td th:text="${usuario.nombreUsuario}"></td>
                     <td th:text="${usuario.correoUsuario}"></td>
+                    <td th:text="${usuario.contraseniaUsuario}"></td>
                     <td th:text="${usuario.telefonoUsuario}"></td>
                     <td th:text="${usuario.rol.descripcionRol}"></td>
                     <td>
@@ -39,6 +42,7 @@
                     </td>
                 </tr>
             </tbody>
+
         </table>
     </div>
 

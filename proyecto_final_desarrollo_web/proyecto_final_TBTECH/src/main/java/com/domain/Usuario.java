@@ -12,27 +12,26 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
-    
+
     @Id
     @Column(name = "cedula_usuario")
     private int cedulaUsuario;
-    
+
     @Column(name = "nombre_usuario", nullable = false, length = 150)
     private String nombreUsuario;
 
     @Column(name = "correo_usuario", nullable = false, length = 150, unique = true)
     private String correoUsuario;
 
+    @Column(name = "contrasenia_usuario", nullable = false, length = 100)
+    private String contraseniaUsuario;
+
     @Column(name = "telefono_usuario", nullable = false, length = 20, unique = true)
     private String telefonoUsuario;
-    
+
     @ManyToOne
-    @JoinColumn(
-            name = "rol_id",
-            nullable = false,
-            foreignKey = @ForeignKey(name = "fk_usuarios_roles")
-    )
-    
+    @JoinColumn(name = "rol_id", nullable = false, foreignKey = @ForeignKey(name = "fk_usuarios_roles"))
+
     private Rol rol;
 
     public int getCedulaUsuario() {
@@ -74,8 +73,13 @@ public class Usuario {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-    
-    
-    
-    
+
+    public String getContraseniaUsuario() {
+        return contraseniaUsuario;
+    }
+
+    public void setContraseniaUsuario(String contraseniaUsuario) {
+        this.contraseniaUsuario = contraseniaUsuario;
+    }
+
 }

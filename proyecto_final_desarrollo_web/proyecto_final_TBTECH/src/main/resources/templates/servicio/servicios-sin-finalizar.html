@@ -13,13 +13,13 @@
 
     <div class="container">
         <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">Volver al menú principal</a>
-        <h1>Lista de todos los servicios</h1>
-        <a th:href="@{/servicio/buscar}" class="btn-module">Buscar Servicio</a>
-        <a th:href="@{/servicio/servicios-sin-finalizar}" class="btn-module">Servicios sin finalizar</a>
-        <a th:href="@{/servicio/nuevo}" class="btn-module">Nuevo Servicio</a>
+        <h1>Lista de Servicios sin finalizar</h1>
+        <a th:href="@{/servicio/buscar}" class="btn-module">Buscar servicios</a>
+        <a th:href="@{/servicio}" class="btn-module">Todos los servicios</a>
+        <a th:href="@{/servicio/nuevo}" class="btn-module">Nuevo servicio</a>
 
         <div class="servicios-lista">
-            <div th:each="servicio : ${servicios}" class="servicio-card">
+            <div th:each="servicio : ${serviciosNoFinalizados}" class="servicio-card">
                 <h2>ID Servicio: <span th:text="${servicio.servicioId}"></span></h2>
                 <div class="servicio-info">
                     <div><strong>Cédula Cliente:</strong> <span th:text="${servicio.cliente.cedula}"></span></div>

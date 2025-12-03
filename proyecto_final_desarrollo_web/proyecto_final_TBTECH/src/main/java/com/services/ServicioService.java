@@ -18,6 +18,10 @@ public class ServicioService {
         return servicioRepository.findAll();
     }
 
+    public List<Servicio> getServiciosNoFinalizados() {
+        return servicioRepository.findByEstadoServicio_EstadoServicioDescripcionNot("Finalizado");
+    }
+
     public Optional<Servicio> getServicioById(Long id) {
         return servicioRepository.findById(id);
     }
@@ -28,5 +32,9 @@ public class ServicioService {
 
     public void deleteServicio(Long id) {
         servicioRepository.deleteById(id);
+    }
+
+    public Optional<Servicio> buscarPorId(Long id) {
+        return servicioRepository.findByServicioId(id);
     }
 }
