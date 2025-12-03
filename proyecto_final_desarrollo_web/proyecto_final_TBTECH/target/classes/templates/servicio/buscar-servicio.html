@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Servicio</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <h1>Buscar Servicio por ID</h1>
+
+        <!-- Formulario de busqueda normal, el /buscar-servicio se genera luego cuando hacemos la busqueda como tal, /buscar lo agarra el controler -->
+        <form th:action="@{/servicio/buscar}" method="get">
+            <input type="number" name="id" placeholder="Ingrese el ID del servicio" required>
+            <button type="submit">Buscar</button>
+        </form>
+
+        <hr>
+
+        <!-- Si se encontro el servicio -->
+        <div th:if="${servicio}">
+            <h2>Servicio encontrado:</h2>
+            <div class="servicio-card">
+                <div class="servicio-info">
+                    <p><strong>ID Servicio:</strong> <span th:text="${servicio.servicioId}"></span></p>
+                    <p><strong>Cédula Cliente:</strong> <span th:text="${servicio.cliente.cedula}"></span></p>
+                    <p><strong>Tipo Equipo:</strong> <span
+                            th:text="${servicio.tipoEquipo.tipoEquipoDescripcion}"></span></p>
+                    <p><strong>Tipo Servicio:</strong> <span
+                            th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></span></p>
+                    <p><strong>Estado:</strong> <span
+                            th:text="${servicio.estadoServicio.estadoServicioDescripcion}"></span></p>
+                    <p><strong>N° Serie:</strong> <span th:text="${servicio.numeroSerieEquipo}"></span></p>
+                    <p><strong>Fecha Ingreso:</strong> <span
+                            th:text="${#dates.format(servicio.fechaIngresoEquipo,'yyyy-MM-dd')}"></span></p>
+                    <p><strong>Descripción del problema:</strong> <span
+                            th:text="${servicio.descripcionProblema}"></span></p>
+                    <p><strong>Imagen:</strong> <img th:src="${servicio.rutaImagen}" alt="imagen" class="servicio-img">
+                    </p>
+                </div>
+                <div class="servicio-acciones">
+                    <a th:href="@{|/servicio/editar/${servicio.servicioId}|}" class="btn-module">Editar</a>
+                    <a th:href="@{|/servicio/eliminar/${servicio.servicioId}|}" class="btn-module eliminar">Eliminar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensaje de error -->
+        <div th:if="${error}" style="color: red; margin-top: 20px;">
+            <p th:text="${error}"></p>
+        </div>
+
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>

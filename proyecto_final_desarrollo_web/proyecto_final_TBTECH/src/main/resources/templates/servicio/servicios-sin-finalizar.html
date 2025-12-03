@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Servicios - Lista</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">Volver al menú principal</a>
+        <h1>Lista de Servicios sin finalizar</h1>
+        <a th:href="@{/servicio/buscar}" class="btn-module">Buscar servicios</a>
+        <a th:href="@{/servicio}" class="btn-module">Todos los servicios</a>
+        <a th:href="@{/servicio/nuevo}" class="btn-module">Nuevo servicio</a>
+
+        <div class="servicios-lista">
+            <div th:each="servicio : ${serviciosNoFinalizados}" class="servicio-card">
+                <h2>ID Servicio: <span th:text="${servicio.servicioId}"></span></h2>
+                <div class="servicio-info">
+                    <div><strong>Cédula Cliente:</strong> <span th:text="${servicio.cliente.cedula}"></span></div>
+                    <div><strong>Tipo Equipo:</strong> <span
+                            th:text="${servicio.tipoEquipo.tipoEquipoDescripcion}"></span></div>
+                    <div><strong>Tipo Servicio:</strong> <span
+                            th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></span></div>
+                    <div><strong>Estado:</strong> <span
+                            th:text="${servicio.estadoServicio.estadoServicioDescripcion}"></span></div>
+                    <div><strong>N° Serie:</strong> <span th:text="${servicio.numeroSerieEquipo}"></span></div>
+                    <div><strong>Fecha Ingreso:</strong> <span
+                            th:text="${#dates.format(servicio.fechaIngresoEquipo,'yyyy-MM-dd')}"></span></div>
+                    <div><strong>Descripción:</strong> <span th:text="${servicio.descripcionProblema}"></span></div>
+                    <div><strong>Imagen:</strong>
+                        <img th:src="${servicio.rutaImagen}" alt="imagen" class="servicio-img">
+                    </div>
+                </div>
+                <div class="servicio-acciones">
+                    <a th:href="@{|/servicio/editar/${servicio.servicioId}|}" class="btn-module">Editar</a>
+                    <a th:href="@{|/servicio/eliminar/${servicio.servicioId}|}" class="btn-module eliminar">Eliminar</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>

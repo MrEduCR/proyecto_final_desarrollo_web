@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Generar Factura</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    
+    <style>
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select {
+            width: 200px;
+            padding: 6px;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div th:replace="~{fragmentos :: header}"></div>
+
+<div class="container">
+
+    <div class="card">
+        <h1 style="text-align:center;">Generar Factura</h1>
+
+        <h3>Servicio ID: <span th:text="${servicio.servicioId}"></span></h3>
+
+        <p><strong>Cliente:</strong> <span th:text="${servicio.cliente.nombre}"></span></p>
+
+        <p><strong>Tipo de servicio:</strong>
+            <span th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></span>
+        </p>
+
+        <p><strong>Precio base mano de obra:</strong>
+            ₡<span th:text="${servicio.tipoServicio.precioBase}"></span>
+        </p>
+
+        <form th:action="@{/factura/generar}" method="post">
+
+            <input type="hidden" name="servicioId" th:value="${servicio.servicioId}" />
+
+            <label for="descuento">Seleccione un descuento:</label>
+            <br>
+
+            <select name="descuento" id="descuento">
+                <option value="0">Sin descuento</option>
+                <option value="5">5% descuento</option>
+                <option value="10">10% descuento</option>
+                <option value="15">15% descuento</option>
+                <option value="20">20% descuento</option>
+            </select>
+
+            <div class="btn-container">
+                <button type="submit" class="btn-module">Generar Factura</button>
+                <a th:href="@{/factura/lista}" class="btn-module" style="background-color: gray;">Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<div th:replace="~{fragmentos :: footer}"></div>
+
+</body>
+</html>
+

@@ -1,4 +1,4 @@
-package com;
+package com.config;
 
 import java.util.Locale;
 import org.springframework.context.MessageSource;
@@ -17,7 +17,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 @Configuration
 public class ProjectConfig implements WebMvcConfigurer {
 
-    @Override /*Cmambiar lluego */
+    @Override 
     public void addViewControllers(ViewControllerRegistry registry) {
      
         registry.addViewController("/").setViewName("index");
@@ -62,12 +62,12 @@ public class ProjectConfig implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
-  
+  /* 
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("messages/messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
-    }
+    }*/
 }
