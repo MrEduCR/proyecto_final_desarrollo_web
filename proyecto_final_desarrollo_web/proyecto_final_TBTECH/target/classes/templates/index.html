@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -16,21 +16,25 @@
 
         <h2>Gestión operativa:</h2>
         <a th:href="@{/servicio}" class="btn-module btn-operativo">Servicios</a>
-        <a th:href="@{/pieza}" class="btn-module btn-operativo">Piezas</a>
-        <a th:href="@{/clientes}" class="btn-module btn-operativo">Gestión de Clientes</a>
-        <a th:href="@{/factura/lista}" class="btn-module btn-operativo">Facturación</a>
         <a th:href="@{/serviciopieza}" class="btn-module btn-operativo">Servicios-Piezas</a>
 
-        <h2>Marketing y redes sociales:</h2>
-        <a th:href="@{/marketing}" class="btn-module btn-marketing">Marketing</a>
+        <!-- solo para ADMIN -->
+        <div sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/pieza}" class="btn-module btn-operativo">Piezas</a>
+            <a th:href="@{/clientes}" class="btn-module btn-operativo">Gestión de Clientes</a>
+            <a th:href="@{/factura/lista}" class="btn-module btn-operativo">Facturación</a>
 
-        <h2>Administración del sistema:</h2>
-        <a th:href="@{/rol}" class="btn-module btn-admin">Roles</a>
-        <a th:href="@{/usuario}" class="btn-module btn-admin">Gestión de Usuarios</a>
-        <a th:href="@{/tipoequipo}" class="btn-module btn-admin">Tipos de equipo</a>
-        <a th:href="@{/tiposervicio}" class="btn-module btn-admin">Tipos de servicio</a>
-        <a th:href="@{/estadoservicio}" class="btn-module btn-admin">Estados de servicio</a>
-        
+            <h2>Marketing y redes sociales:</h2>
+            <a th:href="@{/marketing}" class="btn-module btn-marketing">Marketing</a>
+
+            <h2>Administración del sistema:</h2>
+            <a th:href="@{/rol}" class="btn-module btn-admin">Roles</a>
+            <a th:href="@{/usuario}" class="btn-module btn-admin">Gestión de Usuarios</a>
+            <a th:href="@{/tipoequipo}" class="btn-module btn-admin">Tipos de equipo</a>
+            <a th:href="@{/tiposervicio}" class="btn-module btn-admin">Tipos de servicio</a>
+            <a th:href="@{/estadoservicio}" class="btn-module btn-admin">Estados de servicio</a>
+        </div>
+
     </div>
 
     <div th:replace="fragmentos :: footer"></div>

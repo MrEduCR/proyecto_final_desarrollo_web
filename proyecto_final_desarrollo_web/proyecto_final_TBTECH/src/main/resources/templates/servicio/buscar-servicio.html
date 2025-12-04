@@ -13,16 +13,12 @@
 
     <div class="container">
         <h1>Buscar Servicio por ID</h1>
-
-        <!-- Formulario de busqueda normal, el /buscar-servicio se genera luego cuando hacemos la busqueda como tal, /buscar lo agarra el controler -->
         <form th:action="@{/servicio/buscar}" method="get">
             <input type="number" name="id" placeholder="Ingrese el ID del servicio" required>
             <button type="submit">Buscar</button>
         </form>
 
         <hr>
-
-        <!-- Si se encontro el servicio -->
         <div th:if="${servicio}">
             <h2>Servicio encontrado:</h2>
             <div class="servicio-card">
@@ -43,14 +39,33 @@
                     <p><strong>Imagen:</strong> <img th:src="${servicio.rutaImagen}" alt="imagen" class="servicio-img">
                     </p>
                 </div>
+
+
+                <div class="piezas-usadas">
+                    <strong>Piezas Utilizadas:</strong>
+                    <ul th:if="${!#lists.isEmpty(servicio.piezas)}">
+                        <li th:each="pieza : ${servicio.piezas}">
+                            <span th:text="${pieza.piezaDescripcion}"></span>
+                            (<span th:text="'₡ ' + ${pieza.precioPieza}"></span>)
+                        </li>
+                    </ul>
+                    <span th:if="${#lists.isEmpty(servicio.piezas)}"
+                        style="color: gray; font-style: italic; font-size: 0.9em;">
+                        Ninguna pieza utilizada.
+                    </span>
+                </div>
+
                 <div class="servicio-acciones">
                     <a th:href="@{|/servicio/editar/${servicio.servicioId}|}" class="btn-module">Editar</a>
-                    <a th:href="@{|/servicio/eliminar/${servicio.servicioId}|}" class="btn-module eliminar">Eliminar</a>
+                    <a th:href="@{|/servicio/eliminar/${servicio.servicioId}|}" class="btn-module eliminar"
+                        sec:authorize="!hasRole('TECNICO')">
+                        Eliminar
+                    </a>
                 </div>
+
             </div>
         </div>
 
-        <!-- Mensaje de error -->
         <div th:if="${error}" style="color: red; margin-top: 20px;">
             <p th:text="${error}"></p>
         </div>

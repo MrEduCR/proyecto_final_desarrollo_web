@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -14,73 +14,105 @@
         <h1 th:text="${servicio.servicioId != null} ? 'Editar Servicio' : 'Nuevo Servicio'"></h1>
 
         <form th:action="@{/servicio/guardar}" th:object="${servicio}" method="post">
-            <!-- ID oculto pa editar-->
+
             <input type="hidden" th:field="*{servicioId}" />
 
-            <!-- cedula cliente INPUT -->
-            <div>
+            
+            <div sec:authorize="hasRole('ADMIN')">
                 <label>Cédula del cliente:</label><br>
-                <input type="number" th:field="*{cliente.cedula}" required
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div> <!-- cedula cliente PODRIAMOS USAR DISABLED luego -->
+                <input type="number" th:field="*{cliente.cedula}" required style="width: 100%; padding: 8px; margin: 10px 0;">
+            </div>
+            <div sec:authorize="hasRole('TECNICO')">
+                <label>Cédula del cliente:</label><br>
+                <span th:text="*{cliente.cedula}"></span>
+                <input type="hidden" th:field="*{cliente.cedula}" />
+            </div>
 
-
-
-            <!-- porque Spring sabe que el th:field="*{tipoEquipo}" es un manytoone
-y al poner th:value="${te.tipoEquipoId}" Spring busca ese id en DB y arma el objeto,podemos usarlo asi tambien lueog en otros HTML -->
-            <div>
+            <div sec:authorize="hasRole('ADMIN')">
                 <label>Tipo de Equipo:</label><br>
                 <select th:field="*{tipoEquipo}" required>
                     <option value="">-- Seleccionar --</option>
-                    <option th:each="te : ${tiposEquipo}" th:value="${te.tipoEquipoId}"
-                        th:text="${te.tipoEquipoDescripcion}">
-                    </option>
+                    <option th:each="te : ${tiposEquipo}" th:value="${te.tipoEquipoId}" th:text="${te.tipoEquipoDescripcion}"></option>
                 </select>
-
             </div>
-            <div>
+            <div sec:authorize="hasRole('TECNICO')">
+                <label>Tipo de Equipo:</label><br>
+                <span th:text="*{tipoEquipo.tipoEquipoDescripcion}"></span>
+                <input type="hidden" th:field="*{tipoEquipo.tipoEquipoId}" />
+            </div>
+
+         
+            <div sec:authorize="hasRole('ADMIN')">
                 <label>Tipo de Servicio:</label><br>
                 <select th:field="*{tipoServicio}" required>
                     <option value="">-- Seleccionar --</option>
-                    <option th:each="ts : ${tiposServicio}" th:value="${ts.tipoServicioId}"
-                        th:text="${ts.tipoServicioDescripcion}">
-                    </option>
+                    <option th:each="ts : ${tiposServicio}" th:value="${ts.tipoServicioId}" th:text="${ts.tipoServicioDescripcion}"></option>
                 </select>
-
             </div>
+            <div sec:authorize="hasRole('TECNICO')">
+                <label>Tipo de Servicio:</label><br>
+                <span th:text="*{tipoServicio.tipoServicioDescripcion}"></span>
+                <input type="hidden" th:field="*{tipoServicio.tipoServicioId}" />
+            </div>
+
             <div>
                 <label>Estado del Servicio:</label><br>
                 <select th:field="*{estadoServicio}" required>
                     <option value="">-- Seleccionar --</option>
-                    <option th:each="es : ${estadosServicio}" th:value="${es.estadoServicioId}"
-                        th:text="${es.estadoServicioDescripcion}">
-                    </option>
+                    <option th:each="es : ${estadosServicio}" th:value="${es.estadoServicioId}" th:text="${es.estadoServicioDescripcion}"></option>
                 </select>
-
             </div>
 
-            <div>
+    
+            <div sec:authorize="hasRole('ADMIN')">
                 <label>Número de serie del equipo:</label><br>
-                <input type="text" th:field="*{numeroSerieEquipo}" required maxlength="500"
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
+                <input type="text" th:field="*{numeroSerieEquipo}" required maxlength="500" style="width: 100%; padding: 8px; margin: 10px 0;">
             </div>
-            <div>
-                <label>Fecha de ingreso(USAR FORMATO yyyy-MM-dd):</label><br>
+            <div sec:authorize="hasRole('TECNICO')">
+                <label>Número de serie del equipo:</label><br>
+                <span th:text="*{numeroSerieEquipo}"></span>
+                <input type="hidden" th:field="*{numeroSerieEquipo}" />
+            </div>
+
+
+            <div sec:authorize="hasRole('ADMIN')">
+                <label>Fecha de ingreso (yyyy-MM-dd):</label><br>
                 <input type="text" th:field="*{fechaIngresoEquipo}" placeholder="yyyy-MM-dd" required>
             </div>
-            <div>
-                <label>URL Imagen Equipo:</label><br>
-                <input type="url" th:field="*{rutaImagen}" required maxlength="1024"
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
+            <div sec:authorize="hasRole('TECNICO')">
+                <label>Fecha de ingreso:</label><br>
+                <span th:text="*{fechaIngresoEquipo}"></span>
+                <input type="hidden" th:field="*{fechaIngresoEquipo}" />
             </div>
-            <div>
+
+          
+            <div sec:authorize="hasRole('ADMIN')">
+                <label>URL Imagen Equipo:</label><br>
+                <input type="url" th:field="*{rutaImagen}" required maxlength="1024" style="width: 100%; padding: 8px; margin: 10px 0;">
+            </div>
+            <div sec:authorize="hasRole('TECNICO')">
+                <label>Imagen del equipo:</label><br>
+                <span th:text="*{rutaImagen}"></span>
+                <input type="hidden" th:field="*{rutaImagen}" />
+            </div>
+
+
+            <div sec:authorize="hasRole('ADMIN')">
                 <label>Descripción problema:</label><br>
-                <textarea th:field="*{descripcionProblema}" required maxlength="500" rows="4"
-                    style="width: 100%; padding: 8px; margin: 10px 0;"></textarea>
+                <textarea th:field="*{descripcionProblema}" required maxlength="500" rows="4" style="width: 100%; padding: 8px; margin: 10px 0;"></textarea>
+            </div>
+            <div sec:authorize="hasRole('TECNICO')">
+                <label>Descripción problema:</label><br>
+                <span th:text="*{descripcionProblema}"></span>
+                <input type="hidden" th:field="*{descripcionProblema}" />
+            </div>
+
+          
+            <div sec:authorize="hasAnyRole('ADMIN','TECNICO')">
+                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
             </div>
 
             <div>
-                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
                 <a th:href="@{/servicio}" class="btn-module" style="background-color: gray;">Cancelar</a>
             </div>
 
@@ -90,5 +122,4 @@ y al poner th:value="${te.tipoEquipoId}" Spring busca ese id en DB y arma el obj
     <div th:replace="fragmentos :: footer"></div>
 
 </body>
-
 </html>

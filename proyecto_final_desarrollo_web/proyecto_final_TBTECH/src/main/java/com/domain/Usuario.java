@@ -15,7 +15,7 @@ public class Usuario {
 
     @Id
     @Column(name = "cedula_usuario")
-    private int cedulaUsuario;
+    private Integer cedulaUsuario;
 
     @Column(name = "nombre_usuario", nullable = false, length = 150)
     private String nombreUsuario;
@@ -34,11 +34,11 @@ public class Usuario {
 
     private Rol rol;
 
-    public int getCedulaUsuario() {
+    public Integer getCedulaUsuario() {
         return cedulaUsuario;
     }
 
-    public void setCedulaUsuario(int cedulaUsuario) {
+    public void setCedulaUsuario(Integer cedulaUsuario) {
         this.cedulaUsuario = cedulaUsuario;
     }
 

@@ -5,8 +5,9 @@ import com.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
-@Service  // Esto le dice a Spring que esta clase es un servicio
+@Service
 public class ClienteServicioImpl implements ClienteService {
 
     @Autowired
@@ -14,12 +15,16 @@ public class ClienteServicioImpl implements ClienteService {
 
     @Override
     public void guardar(Cliente cliente) {
-        clienteRepository.save(cliente); // Guarda el cliente en la BD
+        clienteRepository.save(cliente);
     }
 
     @Override
     public List<Cliente> listar() {
-        return clienteRepository.findAll(); // Devuelve todos los clientes
+        return clienteRepository.findAll();
+    }
+
+    @Override
+    public Optional<Cliente> buscarPorCedula(int cedula) {
+        return clienteRepository.findByCedula(cedula);
     }
 }
-

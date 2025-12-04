@@ -3,54 +3,45 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tipos de Servicio - Lista</title>
+    <title>Tipo de Servicio - Formulario</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
 <body>
 
-<div th:replace="fragmentos :: header"></div>
+    <div th:replace="fragmentos :: header"></div>
 
-<div class="container">
+    <div class="container">
 
-    <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">Volver al menú principal</a>
+        <a th:href="@{/tiposervicio}" class="btn-module btn-small" style="background-color: gray;">Volver a la lista</a>
 
-    <h1>Lista de Tipos de Servicio</h1>
+        <h1 th:text="${tipoServicio.tipoServicioId} != null ? 'Editar Tipo de Servicio' : 'Nuevo Tipo de Servicio'">
+        </h1>
 
-    <a th:href="@{/tiposervicio/nuevo}" class="btn-module">Nuevo Tipo de Servicio</a>
+        <form th:action="@{/tiposervicio/guardar}" th:object="${tipoServicio}" method="post">
+            <input type="hidden" th:field="*{tipoServicioId}" />
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Descripción</th>
-                <th>Precio Base</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" th:field="*{tipoServicioDescripcion}"
+                    placeholder="Ingrese descripción" required />
+            </div>
 
-        <tbody>
-            <tr th:each="tipoServicio : ${tiposServicio}">
-                <td th:text="${tipoServicio.tipoServicioId}"></td>
-                <td th:text="${tipoServicio.tipoServicioDescripcion}"></td>
+            <div class="form-group">
+                <label for="precio">Precio Base:</label>
+                <input type="number" id="precio" th:field="*{precioBase}" step="0.01" min="0"
+                    placeholder="Ingrese precio base" required />
+            </div>
 
-                <!-- NUEVA COLUMNA -->
-                <td>
-                    ₡ <span th:text="${tipoServicio.precioBase}"></span>
-                </td>
+            <button type="submit" class="btn-module" style="background-color: #28a745;">
+                <span th:text="${tipoServicio.tipoServicioId} != null ? 'Actualizar' : 'Guardar'"></span>
+            </button>
+        </form>
 
-                <td>
-                    <a th:href="@{|/tiposervicio/editar/${tipoServicio.tipoServicioId}|}" class="btn-module">Editar</a>
-                    <a th:href="@{|/tiposervicio/eliminar/${tipoServicio.tipoServicioId}|}"
-                       class="btn-module" style="background-color: #dc3545;">Eliminar</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    </div>
 
-</div>
-
-<div th:replace="fragmentos :: footer"></div>
+    <div th:replace="fragmentos :: footer"></div>
 
 </body>
+
 </html>
