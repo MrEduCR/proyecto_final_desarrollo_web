@@ -44,7 +44,6 @@ public class Servicio {
     @Column(name = "descripcion_problema", length = 500)
     private String descripcionProblema;
 
-    // --- CORRECCIÓN: AGREGAR RELACIÓN CON PIEZAS ---
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "servicios_piezas", // Nombre de la tabla intermedia en BD

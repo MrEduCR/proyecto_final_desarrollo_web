@@ -16,12 +16,17 @@
         <div class="boton">
             <a th:href="@{/}" class="button-index">Inicio</a>
             <a class="button-config">Configuracion</a>
-            <a class="button-logout">Cerrar sesion</a>
-        </div>
+            
+            <form th:action="@{/logout}" th:method="post" style="display:inline;">
+                <button type="submit" class="button-logout" style="cursor:pointer; border: none;">
+                    Cerrar sesion
+                </button>
+            </form>
+            </div>
     </header>
 
     <footer th:fragment="footer">
-        &copy; 2025 Terabyte Technology. Todos los derechos reservados. Version 0.10.0 (solo disponible el modo administrador).
+        &copy; 2025 Terabyte Technology. Todos los derechos reservados. Version 0.15.0 (solo disponible el modo administrador).
     </footer>
 </body>
 

@@ -28,8 +28,15 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth // Lo que realmente protege son rutas de controlador NO LOS HTML
                         .requestMatchers("/servicio/form/**").hasRole("ADMIN")
-                        .requestMatchers("/index").hasRole("ADMIN")
+                        .requestMatchers("/index").hasAnyRole("ADMIN", "TECNICO") //confirmar ahorita
                         .requestMatchers("/servicio/lista/**").hasAnyRole("ADMIN", "TECNICO")
+
+
+
+
+
+
+
                         // aqui no se puede permitall xq podria entrar un usuario random con un rol ahi
                         // raro
                         .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()

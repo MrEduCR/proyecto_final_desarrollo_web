@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionar Piezas de Servicio</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container" style="max-width: 500px; margin-top: 30px;">
+        <h2 style="text-align:center;">Agregar / Eliminar Piezas de un Servicio</h2>
+
+        <div th:if="${mensaje}" style="color: green; font-weight: bold; margin-bottom: 20px; text-align:center;">
+            <p th:text="${mensaje}"></p>
+        </div>
+
+        <form th:action="@{/serviciopieza/agregar}" method="post">
+            <label>ID del Servicio:</label>
+            <input type="number" name="servicioId" required placeholder="Ej: 1">
+
+            <label>Selecciona una pieza:</label>
+            <select name="piezaId" required>
+                <option th:each="pieza : ${piezas}"
+                        th:value="${pieza.piezaId}"
+                        th:text="${pieza.piezaDescripcion}"></option>
+            </select>
+
+            <button type="submit">Agregar Pieza</button>
+        </form>
+
+        <hr style="margin: 30px 0;">
+
+        <form th:action="@{/serviciopieza/eliminar}" method="post">
+            <label>ID del Servicio:</label>
+            <input type="number" name="servicioId" required placeholder="Ej: 1">
+
+            <label>Selecciona una pieza:</label>
+            <select name="piezaId" required>
+                <option th:each="pieza : ${piezas}"
+                        th:value="${pieza.piezaId}"
+                        th:text="${pieza.piezaDescripcion}"></option>
+            </select>
+
+            <button type="submit" style="background-color: #dc3545;">Eliminar Pieza</button>
+        </form>
+
+        <div style="text-align:center; margin-top: 20px;">
+            <a th:href="@{/}" class="btn-module">Volver al Inicio</a>
+        </div>
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+</body>
+
+</html>

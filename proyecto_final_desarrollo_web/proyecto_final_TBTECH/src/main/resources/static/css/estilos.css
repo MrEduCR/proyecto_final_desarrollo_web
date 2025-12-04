@@ -85,17 +85,17 @@ header a.button-config:hover {
     transform: translateY(-2px);
 }
 
-header a.button-logout {
+
+header .button-logout {
     padding: 10px 20px;
-    background-color: #ef4444;
+    background-color: #ef4444; 
     color: white;
-    text-decoration: none;
     border-radius: 10px;
     font-weight: bold;
     transition: background-color 0.3s, transform 0.2s;
 }
 
-header a.button-logout:hover {
+header .button-logout:hover {
     background-color: #b91c1c;
     transform: translateY(-2px);
 }
