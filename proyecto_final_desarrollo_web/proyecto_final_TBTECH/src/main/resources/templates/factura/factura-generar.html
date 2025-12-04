@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <title>Generar Factura</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
-    
+
     <style>
         .card {
             background: #fff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
             max-width: 600px;
             margin: auto;
         }
@@ -28,57 +28,119 @@
         .btn-container {
             margin-top: 20px;
         }
+
+        .costos-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .costos-table th,
+        .costos-table td {
+            padding: 8px 0;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .costos-table th {
+            background-color: #f7f7f7;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .subtotal-row {
+            border-top: 2px solid #000000;
+            font-weight: bold;
+            background-color: #e9ecef;
+        }
     </style>
 </head>
 
 <body>
 
-<div th:replace="~{fragmentos :: header}"></div>
+    <div th:replace="~{fragmentos :: header}"></div>
 
-<div class="container">
+    <div class="container">
 
-    <div class="card">
-        <h1 style="text-align:center;">Generar Factura</h1>
+        <div class="card">
+            <h1 style="text-align:center;">Generar Factura</h1>
 
-        <h3>Servicio ID: <span th:text="${servicio.servicioId}"></span></h3>
+            <h3>Servicio ID: <span th:text="${servicio.servicioId}"></span></h3>
 
-        <p><strong>Cliente:</strong> <span th:text="${servicio.cliente.nombre}"></span></p>
+            <p><strong>Cliente:</strong> <span th:text="${servicio.cliente.nombre}"></span></p>
 
-        <p><strong>Tipo de servicio:</strong>
-            <span th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></span>
-        </p>
+            <p><strong>Tipo de servicio:</strong>
+                <span th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></span>
+            </p>
 
-        <p><strong>Precio base mano de obra:</strong>
-            ₡<span th:text="${servicio.tipoServicio.precioBase}"></span>
-        </p>
+            <hr>
 
-        <form th:action="@{/factura/generar}" method="post">
+            <h4 style="margin-top:20px; text-align: center;">Detalle de Costos Previos</h4>
 
-            <input type="hidden" name="servicioId" th:value="${servicio.servicioId}" />
+            <table class="costos-table">
+                <thead>
+                    <tr>
+                        <th style="width: 70%; text-align: left;">Concepto</th>
+                        <th style="width: 30%; text-align: right;">Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            <label for="descuento">Seleccione un descuento:</label>
-            <br>
+                    <tr>
+                        <td>Mano de obra (Precio base)</td>
+                        <td style="text-align: right;">
+                            ₡<span th:text="${servicio.tipoServicio.precioBase}"></span>
+                        </td>
+                    </tr>
 
-            <select name="descuento" id="descuento">
-                <option value="0">Sin descuento</option>
-                <option value="5">5% descuento</option>
-                <option value="10">10% descuento</option>
-                <option value="15">15% descuento</option>
-                <option value="20">20% descuento</option>
-            </select>
+                    <tr th:if="${!#lists.isEmpty(servicio.piezas)}">
+                        <td colspan="2" style="font-style: italic; background-color: #f0f0f0;">
+                            Piezas Requeridas
+                        </td>
+                    </tr>
 
-            <div class="btn-container">
-                <button type="submit" class="btn-module">Generar Factura</button>
-                <a th:href="@{/factura/lista}" class="btn-module" style="background-color: gray;">Cancelar</a>
-            </div>
+                    <tr th:each="pieza : ${servicio.piezas}">
+                        <td th:text="${pieza.piezaDescripcion}"></td>
+                        <td style="text-align: right;">
+                            ₡<span th:text="${pieza.precioPieza}"></span>
+                        </td>
+                    </tr>
 
-        </form>
+                    <tr th:if="${#lists.isEmpty(servicio.piezas)}">
+                        <td colspan="2" style="color: gray; font-style: italic; text-align: center;">
+                            Ninguna pieza utilizada.
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <form th:action="@{/factura/generar}" method="post">
+
+                <input type="hidden" name="servicioId" th:value="${servicio.servicioId}" />
+
+                <label for="descuento">Seleccione un descuento:</label>
+                <br>
+
+                <select name="descuento" id="descuento">
+                    <option value="0">Sin descuento</option>
+                    <option value="5">5% descuento</option>
+                    <option value="10">10% descuento</option>
+                    <option value="15">15% descuento</option>
+                    <option value="20">20% descuento</option>
+                </select>
+
+                <div class="btn-container">
+                    <button type="submit" class="btn-module">Generar Factura</button>
+                    <a th:href="@{/factura/lista}" class="btn-module" style="background-color: gray;">Cancelar</a>
+                </div>
+
+            </form>
+        </div>
+
     </div>
 
-</div>
-
-<div th:replace="~{fragmentos :: footer}"></div>
+    <div th:replace="~{fragmentos :: footer}"></div>
 
 </body>
-</html>
 
+</html>

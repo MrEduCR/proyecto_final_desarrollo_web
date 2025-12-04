@@ -32,22 +32,16 @@ public class FacturacionService {
         Servicio servicio = servicioRepository.findById(servicioId)
                 .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
 
-        // Verificar si ya existe factura
         if (facturaRepository.findByServicio(servicio).isPresent()) {
-            // Nota: Podrías retornar la existente en vez de lanzar error si prefieres
             throw new RuntimeException("El servicio ya ha sido facturado.");
         }
 
-        // 1. Calcular Subtotales Reales
         BigDecimal subtotalPiezas = calcularSubtotalPiezas(servicio);
         
-        // Obtener precio base del tipo de servicio (Mano de obra)
         BigDecimal subtotalManoObra = servicio.getTipoServicio().getPrecioBase();
 
-        // 2. Subtotal Neto
         BigDecimal subtotalNeto = subtotalPiezas.add(subtotalManoObra);
 
-        // 3. Descuento
         BigDecimal descuento = subtotalNeto
                 .multiply(BigDecimal.valueOf(descuentoPorcentaje).divide(BigDecimal.valueOf(100)))
                 .setScale(2, RoundingMode.HALF_UP);
@@ -55,16 +49,13 @@ public class FacturacionService {
         BigDecimal subtotalConDescuento = subtotalNeto.subtract(descuento)
                 .setScale(2, RoundingMode.HALF_UP);
 
-        // 4. Impuestos
         BigDecimal impuestos = subtotalConDescuento
                 .multiply(TASA_IMPUESTO)
                 .setScale(2, RoundingMode.HALF_UP);
 
-        // 5. Total Final
         BigDecimal totalFinal = subtotalConDescuento.add(impuestos)
                 .setScale(2, RoundingMode.HALF_UP);
 
-        // Construcción y guardado de factura
         Factura factura = new Factura();
         factura.setServicio(servicio);
         factura.setSubtotalPiezas(subtotalPiezas);

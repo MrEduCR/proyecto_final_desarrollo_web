@@ -5,6 +5,26 @@
     <meta charset="UTF-8">
     <title>Servicios - Lista</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
+
+    <style>
+        .piezas-usadas {
+            margin: 15px 0 10px 0;
+            padding: 10px;
+            border-left: 5px solid #007bff;
+            background-color: #f8f9fa;
+        }
+
+        .piezas-usadas ul {
+            list-style-type: disc;
+            padding-left: 25px;
+            margin-top: 5px;
+        }
+
+        .piezas-usadas li {
+            font-size: 0.9em;
+            margin-bottom: 3px;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,6 +41,7 @@
         <div class="servicios-lista">
             <div th:each="servicio : ${servicios}" class="servicio-card">
                 <h2>ID Servicio: <span th:text="${servicio.servicioId}"></span></h2>
+
                 <div class="servicio-info">
                     <div><strong>Cédula Cliente:</strong> <span th:text="${servicio.cliente.cedula}"></span></div>
                     <div><strong>Tipo Equipo:</strong> <span
@@ -37,6 +58,24 @@
                         <img th:src="${servicio.rutaImagen}" alt="imagen" class="servicio-img">
                     </div>
                 </div>
+
+                <div class="piezas-usadas">
+                    <strong>Piezas Utilizadas:</strong>
+
+                    <ul th:if="${!#lists.isEmpty(servicio.piezas)}">
+                        <li th:each="pieza : ${servicio.piezas}">
+                            <span th:text="${pieza.piezaDescripcion}"></span>
+                            (<span th:text="'₡ ' + ${pieza.precioPieza}"></span>)
+                        </li>
+                    </ul>
+
+                    <span th:if="${#lists.isEmpty(servicio.piezas)}"
+                        style="color: gray; font-style: italic; font-size: 0.9em;">
+                        Ninguna pieza utilizada.
+                    </span>
+                </div>
+                <hr style="border: 0; height: 1px; background-color: #ddd; margin: 10px 0;">
+
                 <div class="servicio-acciones">
                     <a th:href="@{|/servicio/editar/${servicio.servicioId}|}" class="btn-module">Editar</a>
                     <a th:href="@{|/servicio/eliminar/${servicio.servicioId}|}" class="btn-module eliminar">Eliminar</a>
