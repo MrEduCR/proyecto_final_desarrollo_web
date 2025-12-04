@@ -172,8 +172,7 @@ INSERT INTO piezas (pieza_descripcion, precio_pieza, ruta_imagen) VALUES
 INSERT INTO estados_de_servicios (estado_servicio_descripcion) VALUES
 ('Pendiente'),
 ('En proceso'),
-('Finalizado'),
-('Entregado');
+('Finalizado');
 
 INSERT INTO servicios (
     cedula_cliente, tipo_equipo_id, tipo_servicio_id,
