@@ -41,7 +41,7 @@ public class ProjectConfig implements WebMvcConfigurer {
         return resolver;
     }
 
-
+//test en rama de prueba
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
