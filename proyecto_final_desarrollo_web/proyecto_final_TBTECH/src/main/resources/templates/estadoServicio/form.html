@@ -1,71 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Estados de Servicio - Formulario</title>
-        <link rel="stylesheet" th:href="@{/css/estilos.css}">
+<head>
+    <meta charset="UTF-8">
+    <title>[[#{estadoServicio.titulo}]] - [[#{servicio.formulario.nuevo}]]</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 
-        <style>
-            input:invalid {
-                border: 2px solid red;
-            }
-            input:valid {
-                border: 2px solid green;
-            }
-        </style>
-    </head>
+    <style>
+        input:invalid {
+            border: 2px solid red;
+        }
+        input:valid {
+            border: 2px solid green;
+        }
+    </style>
+</head>
 
-    <body>
+<body>
 
-        <div th:replace="fragmentos :: header"></div>
+    <div th:replace="fragmentos :: header"></div>
 
-        <div class="container">
-            <h1 th:text="${estadoServicio.estadoServicioId != null} 
-                ? 'Editar Estado de Servicio' 
-                : 'Nuevo Estado de Servicio'">
-            </h1>
+    <div class="container">
+        <h1 th:text="${estadoServicio.estadoServicioId != null} ? #{estadoServicio.editar} : #{estadoServicio.nuevo}">
+        </h1>
 
-            <form th:action="@{/estadoservicio/guardar}"
-                  th:object="${estadoServicio}"
-                  method="post"
-                  novalidate>
+        <form th:action="@{/estadoservicio/guardar}"
+              th:object="${estadoServicio}"
+              method="post"
+              novalidate>
 
-                <input type="hidden" th:field="*{estadoServicioId}" />
+            <input type="hidden" th:field="*{estadoServicioId}" />
 
-          
-                <div>
-                    <label>Descripción del estado de servicio:</label><br>
+            <div>
+                <label>[[#{estadoServicio.descripcion}]]:</label><br>
 
-                    <input type="text"
-                           th:field="*{estadoServicioDescripcion}"
-                           required
-                           minlength="3"
-                           maxlength="50"
-                           pattern="^(?!\\s*$)[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ ]+$"
-                           placeholder="Ingrese descripción"
-                           oninvalid="this.setCustomValidity('Ingrese una descripción válida. No puede estar vacía ni tener solo espacios.')"
-                           oninput="this.setCustomValidity('')"
-                           style="width: 100%; padding: 8px; margin: 10px 0;">
-                </div>
+                <input type="text"
+                       th:field="*{estadoServicioDescripcion}"
+                       required
+                       minlength="3"
+                       maxlength="50"
+                       pattern="^(?!\\s*$)[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ ]+$"
+                       th:placeholder="#{estadoServicio.ingresarDescripcion}"
+                       oninvalid="this.setCustomValidity('Ingrese una descripción válida. No puede estar vacía ni tener solo espacios.')"
+                       oninput="this.setCustomValidity('')"
+                       style="width: 100%; padding: 8px; margin: 10px 0;">
+            </div>
 
-                <div>
-                    <button type="submit" class="btn-module" style="background-color: #007bff;">
-                        Guardar
-                    </button>
+            <div>
+                <button type="submit" class="btn-module" style="background-color: #007bff;">
+                    [[#{accion.guardar}]]
+                </button>
 
-                    <a th:href="@{/estadoservicio}" 
-                       class="btn-module" 
-                       style="background-color: gray;">
-                        Cancelar
-                    </a>
-                </div>
+                <a th:href="@{/estadoservicio}" 
+                   class="btn-module" 
+                   style="background-color: gray;">
+                    [[#{accion.cancelar}]]
+                </a>
+            </div>
 
-            </form>
-        </div>
+        </form>
+    </div>
 
+    <div th:replace="fragmentos :: footer"></div>
 
-        <div th:replace="fragmentos :: footer"></div>
-
-    </body>
+</body>
 </html>

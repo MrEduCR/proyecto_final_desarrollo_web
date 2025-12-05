@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Estados de Servicio - Lista</title>
+    <title>[[#{estadoServicio.titulo}]] - [[#{servicio.listado}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
@@ -11,16 +11,16 @@
     <div th:replace="fragmentos :: header"></div>
 
     <div class="container">
-        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">Volver al menú principal</a>
-        <h1>Lista de Estados de Servicio</h1>
-        <a th:href="@{/estadoservicio/nuevo}" class="btn-module">Nuevo Estado de Servicio</a>
+        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">[[#{servicio.volverMenu}]]</a>
+        <h1>[[#{estadoServicio.lista}]]</h1>
+        <a th:href="@{/estadoservicio/nuevo}" class="btn-module">[[#{estadoServicio.nuevo}]]</a>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Descripción</th>
-                    <th>Acciones</th>
+                    <th>[[#{tipoEquipo.id}]]</th>
+                    <th>[[#{tipoServicio.descripcion}]]</th>
+                    <th>[[#{tipoEquipo.acciones}]]</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,9 +29,9 @@
                     <td th:text="${estadoServicio.estadoServicioDescripcion}"></td>
                     <td>
                         <a th:href="@{|/estadoservicio/editar/${estadoServicio.estadoServicioId}|}"
-                            class="btn-module">Editar</a>
+                            class="btn-module">[[#{accion.editar}]]</a>
                         <a th:href="@{|/estadoservicio/eliminar/${estadoServicio.estadoServicioId}|}" class="btn-module"
-                            style="background-color: #dc3545;">Eliminar</a>
+                            style="background-color: #dc3545;">[[#{accion.eliminar}]]</a>
                     </td>
                 </tr>
             </tbody>

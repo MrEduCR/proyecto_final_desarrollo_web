@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Piezas</title>
+    <title>[[#{pieza.lista}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
     <style> 
         .pieza-img {
@@ -15,18 +15,18 @@
 <body>
     <div th:replace="fragmentos :: header"></div>
     <div class="container">
-        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">Volver al menú principal</a>
-        <h1>Lista de Piezas</h1>
-        <a th:href="@{/pieza/nuevo}" class="btn-module">Nueva Pieza</a>
+        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">[[#{servicio.volverMenu}]]</a>
+        <h1>[[#{pieza.lista}]]</h1>
+        <a th:href="@{/pieza/nuevo}" class="btn-module">[[#{pieza.nueva}]]</a>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Descripción</th>
-                    <th>Precio(₡)</th>
-                    <th>Imagen</th>
-                    <th>Acciones</th>
+                    <th>[[#{tipoEquipo.id}]]</th>
+                    <th>[[#{tipoServicio.descripcion}]]</th>
+                    <th>[[#{servicio.precio}]](₡)</th>
+                    <th>[[#{pieza.imagen}]]</th>
+                    <th>[[#{tipoEquipo.acciones}]]</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,9 +39,9 @@
                         <img th:src="${pieza.rutaImagen}" alt="Imagen de la pieza" class="pieza-img"/>
                     </td>
                     <td>
-                        <a th:href="@{|/pieza/editar/${pieza.piezaId}|}" class="btn-module">Editar</a>
+                        <a th:href="@{|/pieza/editar/${pieza.piezaId}|}" class="btn-module">[[#{accion.editar}]]</a>
                         <a th:href="@{|/pieza/eliminar/${pieza.piezaId}|}" class="btn-module"
-                            style="background-color: #dc3545;">Eliminar</a>
+                            style="background-color: #dc3545;">[[#{accion.eliminar}]]</a>
                     </td>
                 </tr>
             </tbody>
