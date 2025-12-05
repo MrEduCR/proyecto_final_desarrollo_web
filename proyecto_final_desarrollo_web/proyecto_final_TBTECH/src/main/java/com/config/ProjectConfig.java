@@ -44,7 +44,7 @@ public class ProjectConfig implements WebMvcConfigurer {
         return resolver;
     }
 
-
+//test en rama de prueba
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
@@ -65,12 +65,12 @@ public class ProjectConfig implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
-  /* 
+  
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("messages/messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
-    }*/
+    }
 }

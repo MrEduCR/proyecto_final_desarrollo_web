@@ -3,28 +3,28 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tipos de Equipo - Formulario</title>
+    <title>[[#{tipoEquipo.titulo}]] - [[#{servicio.formulario.nuevo}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
 <body>
     <div th:replace="fragmentos :: header"></div>
     <div class="container">
-        <h1 th:text="${tipoEquipo.tipoEquipoId != null} ? 'Editar Tipo de Equipo' : 'Nuevo Tipo de Equipo'"></h1>
+        <h1 th:text="${tipoEquipo.tipoEquipoId != null} ? #{tipoEquipo.editar} : #{tipoEquipo.nuevo}"></h1>
 
         <form th:action="@{/tipoequipo/guardar}" th:object="${tipoEquipo}" method="post">
             <!-- Campo oculto para el id -->
             <input type="hidden" th:field="*{tipoEquipoId}" />
 
             <div>
-                <label>Descripción del tipo de equipo:</label><br>
+                <label>[[#{tipoEquipo.descripcion}]]:</label><br>
                 <input type="text" th:field="*{tipoEquipoDescripcion}" required maxlength="50"
                        style="width: 100%; padding: 8px; margin: 10px 0;">
             </div>
 
             <div>
-                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
-                <a th:href="@{/tipoequipo}" class="btn-module" style="background-color: gray;">Cancelar</a>
+                <button type="submit" class="btn-module" style="background-color: #007bff;">[[#{accion.guardar}]]</button>
+                <a th:href="@{/tipoequipo}" class="btn-module" style="background-color: gray;">[[#{accion.cancelar}]]</a>
             </div>
         </form>
     </div>

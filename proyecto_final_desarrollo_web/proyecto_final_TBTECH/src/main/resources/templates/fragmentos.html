@@ -14,19 +14,31 @@
             <span class="nombre-empresa">Terabyte Technology</span>
         </div>
         <div class="boton">
-            <a th:href="@{/}" class="button-index">Inicio</a>
-            <a th:href="@{/usuario/configuracion}" class="button-config">Configuracion</a>
+            <!--selector de lenguajes -->
+            <div style="display:inline; margin: 0 10px;">
+                <a th:href="@{''(lang=es)}" title="Español">
+                    <img th:src="@{/images/banderas_es.png}" alt="Español" 
+                         style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 2px solid #ddd; vertical-align: middle;">
+                </a>
+                <a th:href="@{''(lang=en)}" title="English">
+                    <img th:src="@{/images/banderas_us.png}" alt="English" 
+                         style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 2px solid #ddd; vertical-align: middle;">
+                </a>
+            </div>
+            
+            <a th:href="@{/}" class="button-index">[[#{menu.inicio}]]</a>
+            <a th:href="@{/usuario/configuracion}" class="button-config">[[#{menu.configuracion}]]</a>
             
             <form th:action="@{/logout}" th:method="post" style="display:inline;">
                 <button type="submit" class="button-logout" style="cursor:pointer; border: none;">
-                    Cerrar sesion
+                    [[#{accion.cerrarSesion}]]
                 </button>
             </form>
             </div>
     </header>
 
     <footer th:fragment="footer">
-        &copy; 2025 Terabyte Technology. Todos los derechos reservados. Version 0.15.0 (solo disponible el modo administrador).
+        &copy; 2025 Terabyte Technology. [[#{footer.derechos}]]. Version 0.15.0 ([[#{footer.modoAdmin}]]).
     </footer>
 </body>
 
