@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/usuario")
@@ -37,7 +36,7 @@ public class UsuarioController {
     @GetMapping("/editar/{cedulaUsuario}")
     public String editarUsuario(@PathVariable("cedulaUsuario") int cedula, Model model) {
         Usuario usuario = usuarioService.getUsuarioByCedula(cedula)
-                .orElseThrow(() -> new IllegalArgumentException("Cedula no encontrada: " + cedula));
+                .orElseThrow(() -> new IllegalArgumentException("Cédula no encontrada: " + cedula));
         model.addAttribute("usuario", usuario);
         model.addAttribute("roles", rolService.getAllRoles());
         return "usuario/formNuevo";
@@ -47,43 +46,168 @@ public class UsuarioController {
     public String guardarUsuario(
             @ModelAttribute("usuario") Usuario usuario,
             @RequestParam("rolId") Long rolId,
-            @RequestParam(value = "nuevaContrasenia", required = false) String nuevaContrasenia) {
-
-        Usuario existente = usuarioService.getUsuarioByCedula(usuario.getCedulaUsuario()).orElse(null);
-
-        if (existente != null) {
-            if (nuevaContrasenia != null && !nuevaContrasenia.isBlank()) {
-                usuario.setContraseniaUsuario(nuevaContrasenia);
-            } else {
-                usuario.setContraseniaUsuario(existente.getContraseniaUsuario());
-            }
-        }
-
-        usuarioService.saveUsuario(usuario, rolId);
-        return "redirect:/usuario";
-    }
-
-    @GetMapping("/configuracion")
-    public String mostrarConfiguracion(Model model, Principal principal) {
-        Usuario usuario = usuarioService.getUsuarioByCorreo(principal.getName())
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
-        model.addAttribute("usuario", usuario);
-        return "usuario/configuracion";
-    }
-
-    @PostMapping("/configuracion/guardar")
-    public String guardarConfiguracion(
             @RequestParam(value = "nuevaContrasenia", required = false) String nuevaContrasenia,
-            Principal principal) {
+            Model model,
+            RedirectAttributes redirectAttributes) {
 
-        Usuario existente = usuarioService.getUsuarioByCorreo(principal.getName())
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+        try {
+            // ===== VALIDACIONES DEL SERVIDOR =====
+            
+            // 1. Validar cédula
+            if (usuario.getCedulaUsuario() == null || usuario.getCedulaUsuario() <= 0) {
+                model.addAttribute("error", "La cédula debe ser un número válido y positivo");
+                model.addAttribute("roles", rolService.getAllRoles());
+                return "usuario/formNuevo";
+            }
 
-        if (nuevaContrasenia != null && !nuevaContrasenia.isBlank()) {
-            existente.setContraseniaUsuario(nuevaContrasenia);
+            // 2. Validar nombre
+            if (usuario.getNombreUsuario() == null || usuario.getNombreUsuario().trim().isEmpty()) {
+                model.addAttribute("error", "El nombre es obligatorio");
+                model.addAttribute("roles", rolService.getAllRoles());
+                return "usuario/formNuevo";
+            }
+            if (usuario.getNombreUsuario().trim().length() < 3) {
+                model.addAttribute("error", "El nombre debe tener al menos 3 caracteres");
+                model.addAttribute("roles", rolService.getAllRoles());
+                return "usuario/formNuevo";
+            }
+            if (!usuario.getNombreUsuario().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$")) {
+                model.addAttribute("error", "El nombre solo puede contener letras y espacios");
+                model.addAttribute("roles", rolService.getAllRoles());
+                return "usuario/formNuevo";
+            }
+
+            // 3. Validar correo
+            if (usuario.getCorreoUsuario() == null || usuario.getCorreoUsuario().trim().isEmpty()) {
+                model.addAttribute("error", "El correo es obligatorio");
+                model.addAttribute("roles", rolService.getAllRoles());
+                return "usuario/formNuevo";
+            }
+            if (!usuario.getCorreoUsuario().matches("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$")) {
+                model.addAttribute("error", "El correo electrónico no es válido");
+                model.addAttribute("roles", rolService.getAllRoles());
+                return "usuario/formNuevo";
+            }
+
+            // 4. Validar teléfono
+            if (usuario.getTelefonoUsuario() == null || usuario.getTelefonoUsuario().trim().isEmpty()) {
+                model.addAttribute("error", "El teléfono es obligatorio");
+                model.addAttribute("roles", rolService.getAllRoles());
+                return "usuario/formNuevo";
+            }
+            if (!usuario.getTelefonoUsuario().matches("^[0-9]{8,10}$")) {
+                model.addAttribute("error", "El teléfono debe tener entre 8 y 10 dígitos");
+                model.addAttribute("roles", rolService.getAllRoles());
+                return "usuario/formNuevo";
+            }
+
+            // 5. Validar rol
+            if (rolId == null || rolId <= 0) {
+                model.addAttribute("error", "Debe seleccionar un rol válido");
+                model.addAttribute("roles", rolService.getAllRoles());
+                return "usuario/formNuevo";
+            }
+
+            // Verificar si el usuario ya existe
+            Usuario existente = usuarioService.getUsuarioByCedula(usuario.getCedulaUsuario()).orElse(null);
+            boolean esEdicion = existente != null;
+
+            if (esEdicion) {
+                // ===== MODO EDICIÓN =====
+                
+                // Validar que el correo no esté siendo usado por otro usuario
+                Usuario usuarioPorCorreo = usuarioService.getUsuarioByCorreo(usuario.getCorreoUsuario()).orElse(null);
+                if (usuarioPorCorreo != null && 
+                    !usuarioPorCorreo.getCedulaUsuario().equals(usuario.getCedulaUsuario())) {
+                    model.addAttribute("error", "El correo electrónico ya está registrado con otro usuario");
+                    model.addAttribute("roles", rolService.getAllRoles());
+                    return "usuario/formNuevo";
+                }
+
+                // Validar que el teléfono no esté siendo usado por otro usuario
+                Usuario usuarioPorTelefono = usuarioService.getUsuarioByTelefono(usuario.getTelefonoUsuario()).orElse(null);
+                if (usuarioPorTelefono != null && 
+                    !usuarioPorTelefono.getCedulaUsuario().equals(usuario.getCedulaUsuario())) {
+                    model.addAttribute("error", "El teléfono ya está registrado con otro usuario");
+                    model.addAttribute("roles", rolService.getAllRoles());
+                    return "usuario/formNuevo";
+                }
+
+                // Manejo de contraseña en edición
+                if (nuevaContrasenia != null && !nuevaContrasenia.isBlank()) {
+                    // Validar nueva contraseña
+                    if (nuevaContrasenia.length() < 6) {
+                        model.addAttribute("error", "La contraseña debe tener al menos 6 caracteres");
+                        model.addAttribute("roles", rolService.getAllRoles());
+                        return "usuario/formNuevo";
+                    }
+                    if (!nuevaContrasenia.matches("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")) {
+                        model.addAttribute("error", "La contraseña debe contener mayúsculas, minúsculas y números");
+                        model.addAttribute("roles", rolService.getAllRoles());
+                        return "usuario/formNuevo";
+                    }
+                    usuario.setContraseniaUsuario(nuevaContrasenia);
+                } else {
+                    // Mantener contraseña actual
+                    usuario.setContraseniaUsuario(existente.getContraseniaUsuario());
+                }
+            } else {
+                // ===== MODO CREACIÓN =====
+                
+                // Validar que la cédula no exista
+                if (usuarioService.getUsuarioByCedula(usuario.getCedulaUsuario()).isPresent()) {
+                    model.addAttribute("error", "Ya existe un usuario con esta cédula");
+                    model.addAttribute("roles", rolService.getAllRoles());
+                    return "usuario/formNuevo";
+                }
+
+                // Validar que el correo no exista
+                if (usuarioService.getUsuarioByCorreo(usuario.getCorreoUsuario()).isPresent()) {
+                    model.addAttribute("error", "El correo electrónico ya está registrado");
+                    model.addAttribute("roles", rolService.getAllRoles());
+                    return "usuario/formNuevo";
+                }
+
+                // Validar que el teléfono no exista
+                if (usuarioService.getUsuarioByTelefono(usuario.getTelefonoUsuario()).isPresent()) {
+                    model.addAttribute("error", "El teléfono ya está registrado");
+                    model.addAttribute("roles", rolService.getAllRoles());
+                    return "usuario/formNuevo";
+                }
+
+                // Validar contraseña en creación
+                if (usuario.getContraseniaUsuario() == null || usuario.getContraseniaUsuario().trim().isEmpty()) {
+                    model.addAttribute("error", "La contraseña es obligatoria");
+                    model.addAttribute("roles", rolService.getAllRoles());
+                    return "usuario/formNuevo";
+                }
+                if (usuario.getContraseniaUsuario().length() < 6) {
+                    model.addAttribute("error", "La contraseña debe tener al menos 6 caracteres");
+                    model.addAttribute("roles", rolService.getAllRoles());
+                    return "usuario/formNuevo";
+                }
+                if (!usuario.getContraseniaUsuario().matches("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")) {
+                    model.addAttribute("error", "La contraseña debe contener mayúsculas, minúsculas y números");
+                    model.addAttribute("roles", rolService.getAllRoles());
+                    return "usuario/formNuevo";
+                }
+            }
+
+            // Guardar usuario
+            usuarioService.saveUsuario(usuario, rolId);
+
+            // Mensaje de éxito
+            String mensaje = esEdicion ? 
+                "Usuario actualizado correctamente" : 
+                "Usuario registrado correctamente";
+            redirectAttributes.addFlashAttribute("mensaje", mensaje);
+            
+            return "redirect:/usuario";
+
+        } catch (Exception e) {
+            model.addAttribute("error", "Error al procesar la solicitud: " + e.getMessage());
+            model.addAttribute("roles", rolService.getAllRoles());
+            return "usuario/formNuevo";
         }
-
-        usuarioService.saveUsuario(existente, existente.getRol().getRolId());
-        return "redirect:/usuario/configuracion";
     }
 }

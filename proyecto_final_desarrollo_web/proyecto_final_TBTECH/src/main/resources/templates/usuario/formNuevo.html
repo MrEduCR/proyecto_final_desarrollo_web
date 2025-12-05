@@ -1,79 +1,284 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Usuario - Formulario</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Usuario - Formulario</title>
+        <link rel="stylesheet" th:href="@{/css/estilos.css}">
+        <style>
+            .error-message {
+                color: #dc3545;
+                font-size: 14px;
+                margin-top: 5px;
+                display: block;
+            }
+            .field-error {
+                border: 2px solid #dc3545 !important;
+                background-color: #fff5f5;
+            }
+            .alert {
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+            .alert-danger {
+                color: #721c24;
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+            }
+            .alert-success {
+                color: #155724;
+                background-color: #d4edda;
+                border-color: #c3e6cb;
+            }
+            .required::after {
+                content: " *";
+                color: #dc3545;
+                font-weight: bold;
+            }
+        </style>
+    </head>
 
-<body>
+    <body>
 
-    <div th:replace="fragmentos :: header"></div>
+        <div th:replace="fragmentos :: header"></div>
 
-    <div class="container">
+        <div class="container">
 
-        <h1 th:if="${usuario != null and usuario.cedulaUsuario != null}">Editar Usuario</h1>
-        <h1 th:unless="${usuario != null and usuario.cedulaUsuario != null}">Nuevo Usuario</h1>
+            <h1 th:if="${usuario != null and usuario.cedulaUsuario != null}">Editar Usuario</h1>
+            <h1 th:unless="${usuario != null and usuario.cedulaUsuario != null}">Nuevo Usuario</h1>
 
-        <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post">
-
-            <div>
-                <label>Cédula:</label><br>
-                <input type="number" th:field="*{cedulaUsuario}" style="width: 100%; padding: 8px; margin: 10px 0;"
-                    th:readonly="${usuario != null and usuario.cedulaUsuario != null}">
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+                <strong>⚠ Error:</strong> <span th:text="${error}"></span>
             </div>
 
-            <div>
-                <label>Nombre Completo:</label><br>
-                <input type="text" th:field="*{nombreUsuario}" required maxlength="150"
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
+            <div th:if="${mensaje}" class="alert alert-success" role="alert">
+                <strong>✓ Éxito:</strong> <span th:text="${mensaje}"></span>
             </div>
 
-            <div>
-                <label>Correo Electrónico:</label><br>
-                <input type="email" th:field="*{correoUsuario}" required
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
+            <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post" id="usuarioForm">
 
-            <div>
-                <label>Teléfono:</label><br>
-                <input type="number" th:field="*{telefonoUsuario}" required
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
+                <div>
+                    <label class="required">Cédula:</label><br>
+                    <input type="number" 
+                           th:field="*{cedulaUsuario}" 
+                           style="width: 100%; padding: 8px; margin: 10px 0;"
+                           th:readonly="${usuario != null and usuario.cedulaUsuario != null}"
+                           required
+                           min="1"
+                           max="999999999"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                           title="Ingrese un número de cédula válido">
+                    <span class="error-message" id="errorCedula"></span>
+                </div>
 
-            <div th:if="${usuario != null and usuario.cedulaUsuario != null}">
-                <label>Nueva Contraseña (opcional):</label><br>
-                <input type="password" name="nuevaContrasenia" placeholder="Déjelo vacío si quiere mantener la actual"
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
+                <div>
+                    <label class="required">Nombre Completo:</label><br>
+                    <input type="text" 
+                           th:field="*{nombreUsuario}" 
+                           required 
+                           maxlength="150"
+                           minlength="3"
+                           pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"
+                           title="Solo letras y espacios, mínimo 3 caracteres"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                    <span class="error-message" id="errorNombre"></span>
+                </div>
 
-            <div th:unless="${usuario != null and usuario.cedulaUsuario != null}">
-                <label>Contraseña:</label><br>
-                <input type="password" th:field="*{contraseniaUsuario}" required
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
+                <div>
+                    <label class="required">Correo Electrónico:</label><br>
+                    <input type="email" 
+                           th:field="*{correoUsuario}" 
+                           required
+                           maxlength="150"
+                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                           title="Ingrese un correo electrónico válido"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                    <span class="error-message" id="errorCorreo"></span>
+                </div>
 
-            <div>
-                <label>Rol:</label><br>
-                <select name="rolId" required style="width: 100%; padding: 8px; margin: 10px 0;">
-                    <option value="">Seleccione un rol</option>
-                    <option th:each="rol : ${roles}" th:value="${rol.rolId}" th:text="${rol.descripcionRol}"
-                        th:selected="${usuario.rol != null} ? ${rol.rolId} == ${usuario.rol.rolId} : false">
-                    </option>
-                </select>
-            </div>
+                <div>
+                    <label class="required">Teléfono:</label><br>
+                    <input type="text" 
+                           th:field="*{telefonoUsuario}" 
+                           required
+                           pattern="[0-9]{8,10}"
+                           maxlength="10"
+                           title="Ingrese un teléfono válido (8-10 dígitos)"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                    <span class="error-message" id="errorTelefono"></span>
+                </div>
 
-            <div>
-                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
-                <a th:href="@{/usuario}" class="btn-module" style="background-color: gray;">Cancelar</a>
-            </div>
+                <div th:if="${usuario != null and usuario.cedulaUsuario != null}">
+                    <label>Nueva Contraseña (opcional):</label><br>
+                    <input type="password" 
+                           name="nuevaContrasenia" 
+                           placeholder="Déjelo vacío si quiere mantener la actual"
+                           minlength="6"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                           title="Mínimo 6 caracteres: debe contener mayúsculas, minúsculas y números"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                    <span class="error-message" id="errorPassword"></span>
+                </div>
 
-        </form>
-    </div>
+                <div th:unless="${usuario != null and usuario.cedulaUsuario != null}">
+                    <label class="required">Contraseña:</label><br>
+                    <input type="password" 
+                           th:field="*{contraseniaUsuario}" 
+                           required
+                           minlength="6"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                           title="Mínimo 6 caracteres: debe contener mayúsculas, minúsculas y números"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                    <span class="error-message" id="errorPassword"></span>
+                </div>
 
-    <div th:replace="fragmentos :: footer"></div>
+                <div>
+                    <label class="required">Rol:</label><br>
+                    <select name="rolId" required style="width: 100%; padding: 8px; margin: 10px 0;">
+                        <option value="">Seleccione un rol</option>
+                        <option th:each="rol : ${roles}" 
+                                th:value="${rol.rolId}" 
+                                th:text="${rol.descripcionRol}"
+                                th:selected="${usuario.rol != null} ? ${rol.rolId} == ${usuario.rol.rolId} : false">
+                        </option>
+                    </select>
+                    <span class="error-message" id="errorRol"></span>
+                </div>
 
-</body>
+                <div>
+                    <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
+                    <a th:href="@{/usuario}" class="btn-module" style="background-color: gray;">Cancelar</a>
+                </div>
+
+            </form>
+        </div>
+
+        <div th:replace="fragmentos :: footer"></div>
+
+        <script>
+            document.getElementById('usuarioForm').addEventListener('submit', function (e) {
+                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                document.querySelectorAll('input, select').forEach(el => el.classList.remove('field-error'));
+
+                let isValid = true;
+                let errorMessages = [];
+
+                // Validar cédula
+                const cedula = document.querySelector('[name="cedulaUsuario"]');
+                if (cedula && !cedula.readOnly) {
+                    if (!cedula.value || cedula.value.trim() === '') {
+                        document.getElementById('errorCedula').textContent = 'La cédula es obligatoria';
+                        cedula.classList.add('field-error');
+                        errorMessages.push('La cédula es obligatoria');
+                        isValid = false;
+                    } else if (parseInt(cedula.value) <= 0) {
+                        document.getElementById('errorCedula').textContent = 'La cédula debe ser un número positivo';
+                        cedula.classList.add('field-error');
+                        errorMessages.push('La cédula debe ser un número positivo');
+                        isValid = false;
+                    }
+                }
+
+
+                const nombre = document.querySelector('[name="nombreUsuario"]');  // Validar nombre
+                if (!nombre.value || nombre.value.trim() === '') {
+                    document.getElementById('errorNombre').textContent = 'El nombre es obligatorio';
+                    nombre.classList.add('field-error');
+                    errorMessages.push('El nombre es obligatorio');
+                    isValid = false;
+                } else if (nombre.value.trim().length < 3) {
+                    document.getElementById('errorNombre').textContent = 'El nombre debe tener al menos 3 caracteres';
+                    nombre.classList.add('field-error');
+                    errorMessages.push('El nombre debe tener al menos 3 caracteres');
+                    isValid = false;
+                } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(nombre.value)) {
+                    document.getElementById('errorNombre').textContent = 'El nombre solo puede contener letras y espacios';
+                    nombre.classList.add('field-error');
+                    errorMessages.push('El nombre solo puede contener letras y espacios');
+                    isValid = false;
+                }
+
+
+                const correo = document.querySelector('[name="correoUsuario"]'); // Validar correo
+                const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+                if (!correo.value || correo.value.trim() === '') {
+                    document.getElementById('errorCorreo').textContent = 'El correo es obligatorio';
+                    correo.classList.add('field-error');
+                    errorMessages.push('El correo es obligatorio');
+                    isValid = false;
+                } else if (!emailPattern.test(correo.value)) {
+                    document.getElementById('errorCorreo').textContent = 'Ingrese un correo electrónico válido';
+                    correo.classList.add('field-error');
+                    errorMessages.push('Ingrese un correo electrónico válido');
+                    isValid = false;
+                }
+
+
+                const telefono = document.querySelector('[name="telefonoUsuario"]'); // Validar teléfono
+                if (!telefono.value || telefono.value.trim() === '') {
+                    document.getElementById('errorTelefono').textContent = 'El teléfono es obligatorio';
+                    telefono.classList.add('field-error');
+                    errorMessages.push('El teléfono es obligatorio');
+                    isValid = false;
+                } else if (telefono.value.length < 8 || telefono.value.length > 10) {
+                    document.getElementById('errorTelefono').textContent = 'El teléfono debe tener entre 8 y 10 dígitos';
+                    telefono.classList.add('field-error');
+                    errorMessages.push('El teléfono debe tener entre 8 y 10 dígitos');
+                    isValid = false;
+                }
+
+
+                const passwordField = document.querySelector('[name="contraseniaUsuario"]'); // Validar contraseña 
+                if (passwordField) {
+                    const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+                    if (!passwordField.value || passwordField.value.trim() === '') {
+                        document.getElementById('errorPassword').textContent = 'La contraseña es obligatoria';
+                        passwordField.classList.add('field-error');
+                        errorMessages.push('La contraseña es obligatoria');
+                        isValid = false;
+                    } else if (!passwordPattern.test(passwordField.value)) {
+                        document.getElementById('errorPassword').textContent = 'La contraseña debe tener al menos 6 caracteres, incluir mayúsculas, minúsculas y números';
+                        passwordField.classList.add('field-error');
+                        errorMessages.push('La contraseña no cumple con los requisitos de seguridad');
+                        isValid = false;
+                    }
+                }
+
+
+                const rol = document.querySelector('[name="rolId"]');// Validar rol
+                if (!rol.value || rol.value === '') {
+                    document.getElementById('errorRol').textContent = 'Debe seleccionar un rol';
+                    rol.classList.add('field-error');
+                    errorMessages.push('Debe seleccionar un rol');
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('❌ Por favor corrija los siguientes errores:\n\n• ' + errorMessages.join('\n• '));
+                    const firstError = document.querySelector('.field-error');
+                    if (firstError) {
+                        firstError.scrollIntoView({behavior: 'smooth', block: 'center'});
+                        firstError.focus();
+                    }
+                }
+            });
+
+
+            document.querySelectorAll('input, select').forEach(element => {// Limpiar error cuando el usuario empiece a escribir
+                element.addEventListener('input', function () {
+                    this.classList.remove('field-error');
+                    const errorSpan = this.parentElement.querySelector('.error-message');
+                    if (errorSpan) {
+                        errorSpan.textContent = '';
+                    }
+                });
+            });
+        </script>
+
+    </body>
 
 </html>

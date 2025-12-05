@@ -49,4 +49,9 @@ public class UsuarioService {
 
         return usuarioRepository.save(usuario);
     }
+
+    public Optional<Usuario> getUsuarioByTelefono(String telefono) {
+        return usuarioRepository.findByTelefonoUsuario(telefono);
+    }
+
 }
