@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Estados de Servicio - Formulario</title>
+    <title>[[#{estadoServicio.titulo}]] - [[#{servicio.formulario.nuevo}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
@@ -12,7 +12,7 @@
 
     <div class="container">
         <h1
-            th:text="${estadoServicio.estadoServicioId != null} ? 'Editar Estado de Servicio' : 'Nuevo Estado de Servicio'">
+            th:text="${estadoServicio.estadoServicioId != null} ? #{estadoServicio.editar} : #{estadoServicio.nuevo}">
         </h1>
 
         <form th:action="@{/estadoservicio/guardar}" th:object="${estadoServicio}" method="post">
@@ -20,14 +20,14 @@
             <input type="hidden" th:field="*{estadoServicioId}" />
 
             <div>
-                <label>Descripción del estado de servicio:</label><br>
+                <label>[[#{estadoServicio.descripcion}]]:</label><br>
                 <input type="text" th:field="*{estadoServicioDescripcion}" required maxlength="50"
                     style="width: 100%; padding: 8px; margin: 10px 0;">
             </div>
 
             <div>
-                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
-                <a th:href="@{/estadoservicio}" class="btn-module" style="background-color: gray;">Cancelar</a>
+                <button type="submit" class="btn-module" style="background-color: #007bff;">[[#{accion.guardar}]]</button>
+                <a th:href="@{/estadoservicio}" class="btn-module" style="background-color: gray;">[[#{accion.cancelar}]]</a>
             </div>
         </form>
     </div>

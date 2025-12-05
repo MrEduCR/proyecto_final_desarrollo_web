@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tipos de Servicio - Lista</title>
+    <title>[[#{tipoServicio.titulo}]] - [[#{servicio.listado}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
@@ -12,17 +12,17 @@
 <div th:replace="fragmentos :: header"></div>
 
 <div class="container">
-    <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">Volver al menú principal</a>
-    <h1>Lista de Tipos de Servicio</h1>
-    <a th:href="@{/tiposervicio/nuevo}" class="btn-module">Nuevo Tipo de Servicio</a>
+    <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">[[#{servicio.volverMenu}]]</a>
+    <h1>[[#{tipoServicio.lista}]]</h1>
+    <a th:href="@{/tiposervicio/nuevo}" class="btn-module">[[#{tipoServicio.nuevo}]]</a>
 
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Descripción</th>
-                <th>Precio Base</th>
-                <th>Acciones</th>
+                <th>[[#{tipoEquipo.id}]]</th>
+                <th>[[#{tipoServicio.descripcion}]]</th>
+                <th>[[#{tipoServicio.precioBase}]]</th>
+                <th>[[#{tipoEquipo.acciones}]]</th>
             </tr>
         </thead>
         <tbody>
@@ -33,9 +33,9 @@
                     ₡ <span th:text="${tipoServicio.precioBase}"></span>
                 </td>
                 <td>
-                    <a th:href="@{|/tiposervicio/editar/${tipoServicio.tipoServicioId}|}" class="btn-module">Editar</a>
+                    <a th:href="@{|/tiposervicio/editar/${tipoServicio.tipoServicioId}|}" class="btn-module">[[#{accion.editar}]]</a>
                     <a th:href="@{|/tiposervicio/eliminar/${tipoServicio.tipoServicioId}|}"
-                       class="btn-module" style="background-color: #dc3545;">Eliminar</a>
+                       class="btn-module" style="background-color: #dc3545;">[[#{accion.eliminar}]]</a>
                 </td>
             </tr>
         </tbody>

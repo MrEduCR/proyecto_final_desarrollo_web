@@ -3,40 +3,40 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Piezas - Formulario</title>
+    <title>[[#{pieza.titulo}]] - [[#{servicio.formulario.nuevo}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
 <body>
     <div th:replace="fragmentos :: header"></div>
     <div class="container">
-        <h1 th:text="${pieza.piezaId != null} ? 'Editar Pieza' : 'Nueva Pieza'"></h1>
+        <h1 th:text="${pieza.piezaId != null} ? #{pieza.editar} : #{pieza.nueva}"></h1>
 
         <form th:action="@{/pieza/guardar}" th:object="${pieza}" method="post">
             <!-- Campo oculto para el id -->
             <input type="hidden" th:field="*{piezaId}" />
 
             <div>
-                <label>Descripción de la pieza:</label><br>
+                <label>[[#{pieza.descripcion}]]:</label><br>
                 <input type="text" th:field="*{piezaDescripcion}" required maxlength="50"
                     style="width: 100%; padding: 8px; margin: 10px 0;">
             </div>
 
             <div>
-                <label>Precio de la pieza:</label><br>
+                <label>[[#{pieza.precio}]]:</label><br>
                 <input type="number" th:field="*{precioPieza}" required step="0.01"
                     style="width: 100%; padding: 8px; margin: 10px 0;">
             </div>
 
             <div>
-                <label>Ruta de la imagen:</label><br>
+                <label>[[#{pieza.rutaImagen}]]:</label><br>
                 <input type="text" th:field="*{rutaImagen}" maxlength="1024"
                     style="width: 100%; padding: 8px; margin: 10px 0;">
             </div>
 
             <div>
-                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
-                <a th:href="@{/pieza}" class="btn-module" style="background-color: gray;">Cancelar</a>
+                <button type="submit" class="btn-module" style="background-color: #007bff;">[[#{accion.guardar}]]</button>
+                <a th:href="@{/pieza}" class="btn-module" style="background-color: gray;">[[#{accion.cancelar}]]</a>
             </div>
         </form>
     </div>

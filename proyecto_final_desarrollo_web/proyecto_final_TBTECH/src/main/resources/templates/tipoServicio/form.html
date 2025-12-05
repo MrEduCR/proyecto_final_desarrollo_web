@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tipo de Servicio - Formulario</title>
+    <title>[[#{tipoServicio.titulo}]] - [[#{servicio.formulario.nuevo}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
@@ -13,28 +13,28 @@
 
     <div class="container">
 
-        <a th:href="@{/tiposervicio}" class="btn-module btn-small" style="background-color: gray;">Volver a la lista</a>
+        <a th:href="@{/tiposervicio}" class="btn-module btn-small" style="background-color: gray;">[[#{tipoServicio.volverLista}]]</a>
 
-        <h1 th:text="${tipoServicio.tipoServicioId} != null ? 'Editar Tipo de Servicio' : 'Nuevo Tipo de Servicio'">
+        <h1 th:text="${tipoServicio.tipoServicioId} != null ? #{tipoServicio.editar} : #{tipoServicio.nuevo}">
         </h1>
 
         <form th:action="@{/tiposervicio/guardar}" th:object="${tipoServicio}" method="post">
             <input type="hidden" th:field="*{tipoServicioId}" />
 
             <div class="form-group">
-                <label for="descripcion">Descripción:</label>
+                <label for="descripcion">[[#{tipoServicio.descripcion}]]:</label>
                 <input type="text" id="descripcion" th:field="*{tipoServicioDescripcion}"
-                    placeholder="Ingrese descripción" required />
+                    th:placeholder="#{tipoServicio.ingresarDescripcion}" required />
             </div>
 
             <div class="form-group">
-                <label for="precio">Precio Base:</label>
+                <label for="precio">[[#{tipoServicio.precioBase}]]:</label>
                 <input type="number" id="precio" th:field="*{precioBase}" step="0.01" min="0"
-                    placeholder="Ingrese precio base" required />
+                    th:placeholder="#{tipoServicio.ingresarPrecio}" required />
             </div>
 
             <button type="submit" class="btn-module" style="background-color: #28a745;">
-                <span th:text="${tipoServicio.tipoServicioId} != null ? 'Actualizar' : 'Guardar'"></span>
+                <span th:text="${tipoServicio.tipoServicioId} != null ? #{accion.actualizar} : #{accion.guardar}"></span>
             </button>
         </form>
 
