@@ -1,40 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Roles - Formulario</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Roles - Formulario</title>
+        <link rel="stylesheet" th:href="@{/css/estilos.css}">
 
-<body>
+        <style>
+            input:invalid {
+                border: 2px solid red;
+            }
+            input:valid {
+                border: 2px solid green;
+            }
+        </style>
+    </head>
 
-    <div th:replace="fragmentos :: header"></div>
+    <body>
 
-    <div class="container">
-        <h1 th:text="${rol.rolId != null} ? 'Editar Rol' : 'Nuevo Rol'"></h1>
+        <div th:replace="fragmentos :: header"></div>
 
-        <form th:action="@{/rol/guardar}" th:object="${rol}" method="post">
-            <!-- Campo oculto para el id xq si no se agrega en vez de hacer update-->
-            <input type="hidden" th:field="*{rolId}" />
+        <div class="container">
+            <h1 th:text="${rol.rolId != null} ? 'Editar Rol' : 'Nuevo Rol'"></h1>
 
-            <div>
-                <label>Descripción del Rol:</label><br>
-                <input type="text" th:field="*{descripcionRol}" required maxlength="150"
-                       style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
+            <form th:action="@{/rol/guardar}" th:object="${rol}" method="post" novalidate>
 
-            <div>
-                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
-                <a th:href="@{/rol}" class="btn-module" style="background-color: gray;">Cancelar</a>
-            </div>
-        </form>
-    </div>
+                <input type="hidden" th:field="*{rolId}" />
 
-    <!-- Footer -->
-    <div th:replace="fragmentos :: footer"></div>
+                <div>
+                    <label>Descripción del Rol:</label><br>
 
-</body>
+                    <input type="text"
+                           th:field="*{descripcionRol}"
+                           required
+                           minlength="3"
+                           maxlength="150"
+                           pattern="[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ ]+"
+                           placeholder="Ej: Administrador, Técnico, Cliente..."
+                           oninvalid="this.setCustomValidity('Ingrese una descripción válida: mínimo 3 caracteres, sin símbolos raros.')"
+                           oninput="this.setCustomValidity('')"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                </div>
+
+                <div>
+                    <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
+                    <a th:href="@{/rol}" class="btn-module" style="background-color: gray;">Cancelar</a>
+                </div>
+
+            </form>
+        </div>
+
+        <div th:replace="fragmentos :: footer"></div>
+
+    </body>
 
 </html>
-

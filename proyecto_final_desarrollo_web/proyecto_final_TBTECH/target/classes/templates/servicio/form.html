@@ -1,125 +1,194 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head>
-    <meta charset="UTF-8">
-    <title>[[#{servicio.titulo}]] - [[#{servicio.formulario.nuevo}]]</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>[[#{servicio.titulo}]] - [[#{servicio.formulario.nuevo}]]</title>
+        <link rel="stylesheet" th:href="@{/css/estilos.css}">
 
-<body>
-    <div th:replace="fragmentos :: header"></div>
+        <style>
+            input:invalid, select:invalid, textarea:invalid {
+                border: 2px solid red;
+            }
+            input:valid, select:valid, textarea:valid {
+                border: 2px solid green;
+            }
+        </style>
+    </head>
 
-    <div class="container">
-        <h1 th:text="${servicio.servicioId != null} ? #{servicio.formulario.editar} : #{servicio.formulario.nuevo}"></h1>
+    <body>
 
-        <form th:action="@{/servicio/guardar}" th:object="${servicio}" method="post">
+        <div th:replace="fragmentos :: header"></div>
 
-            <input type="hidden" th:field="*{servicioId}" />
+        <div class="container">
+            <h1 th:text="${servicio.servicioId != null} ? #{servicio.formulario.editar} : #{servicio.formulario.nuevo}"></h1>
 
-            
-            <div sec:authorize="hasRole('ADMIN')">
-                <label>[[#{servicio.cedula}]]:</label><br>
-                <input type="number" th:field="*{cliente.cedula}" required style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
-            <div sec:authorize="hasRole('TECNICO')">
-                <label>[[#{servicio.cedula}]]:</label><br>
-                <span th:text="*{cliente.cedula}"></span>
-                <input type="hidden" th:field="*{cliente.cedula}" />
-            </div>
+            <form th:action="@{/servicio/guardar}" th:object="${servicio}" method="post" novalidate>
 
-            <div sec:authorize="hasRole('ADMIN')">
-                <label>[[#{servicio.tipoEquipo}]]:</label><br>
-                <select th:field="*{tipoEquipo}" required>
-                    <option value="">[[#{servicio.seleccionar}]]</option>
-                    <option th:each="te : ${tiposEquipo}" th:value="${te.tipoEquipoId}" th:text="${te.tipoEquipoDescripcion}"></option>
-                </select>
-            </div>
-            <div sec:authorize="hasRole('TECNICO')">
-                <label>[[#{servicio.tipoEquipo}]]:</label><br>
-                <span th:text="*{tipoEquipo.tipoEquipoDescripcion}"></span>
-                <input type="hidden" th:field="*{tipoEquipo.tipoEquipoId}" />
-            </div>
-
-         
-            <div sec:authorize="hasRole('ADMIN')">
-                <label>[[#{servicio.tipoServicio}]]:</label><br>
-                <select th:field="*{tipoServicio}" required>
-                    <option value="">[[#{servicio.seleccionar}]]</option>
-                    <option th:each="ts : ${tiposServicio}" th:value="${ts.tipoServicioId}" th:text="${ts.tipoServicioDescripcion}"></option>
-                </select>
-            </div>
-            <div sec:authorize="hasRole('TECNICO')">
-                <label>[[#{servicio.tipoServicio}]]:</label><br>
-                <span th:text="*{tipoServicio.tipoServicioDescripcion}"></span>
-                <input type="hidden" th:field="*{tipoServicio.tipoServicioId}" />
-            </div>
-
-            <div>
-                <label>[[#{servicio.estadoServicio}]]:</label><br>
-                <select th:field="*{estadoServicio}" required>
-                    <option value="">[[#{servicio.seleccionar}]]</option>
-                    <option th:each="es : ${estadosServicio}" th:value="${es.estadoServicioId}" th:text="${es.estadoServicioDescripcion}"></option>
-                </select>
-            </div>
-
-    
-            <div sec:authorize="hasRole('ADMIN')">
-                <label>[[#{servicio.numeroSerieEquipo}]]:</label><br>
-                <input type="text" th:field="*{numeroSerieEquipo}" required maxlength="500" style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
-            <div sec:authorize="hasRole('TECNICO')">
-                <label>[[#{servicio.numeroSerieEquipo}]]:</label><br>
-                <span th:text="*{numeroSerieEquipo}"></span>
-                <input type="hidden" th:field="*{numeroSerieEquipo}" />
-            </div>
+                <input type="hidden" th:field="*{servicioId}" />
 
 
-            <div sec:authorize="hasRole('ADMIN')">
-                <label>[[#{servicio.fechaIngresoFormato}]]:</label><br>
-                <input type="text" th:field="*{fechaIngresoEquipo}" placeholder="yyyy-MM-dd" required>
-            </div>
-            <div sec:authorize="hasRole('TECNICO')">
-                <label>[[#{servicio.fechaIngreso}]]:</label><br>
-                <span th:text="*{fechaIngresoEquipo}"></span>
-                <input type="hidden" th:field="*{fechaIngresoEquipo}" />
-            </div>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <label>[[#{servicio.cedula}]]:</label><br>
+                    <input type="number"
+                           th:field="*{cliente.cedula}"
+                           required
+                           min="100000000"
+                           max="999999999999"
+                           oninvalid="this.setCustomValidity('Ingrese una cédula válida (9-12 dígitos).')"
+                           oninput="setCustomValidity('')"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                </div>
 
-          
-            <div sec:authorize="hasRole('ADMIN')">
-                <label>[[#{servicio.urlImagen}]]:</label><br>
-                <input type="url" th:field="*{rutaImagen}" required maxlength="1024" style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
-            <div sec:authorize="hasRole('TECNICO')">
-                <label>[[#{servicio.imagenEquipo}]]:</label><br>
-                <span th:text="*{rutaImagen}"></span>
-                <input type="hidden" th:field="*{rutaImagen}" />
-            </div>
+                <div sec:authorize="hasRole('TECNICO')">
+                    <label>[[#{servicio.cedula}]]:</label><br>
+                    <span th:text="*{cliente.cedula}"></span>
+                    <input type="hidden" th:field="*{cliente.cedula}" />
+                </div>
 
 
-            <div sec:authorize="hasRole('ADMIN')">
-                <label>[[#{servicio.descripcionProblema}]]:</label><br>
-                <textarea th:field="*{descripcionProblema}" required maxlength="500" rows="4" style="width: 100%; padding: 8px; margin: 10px 0;"></textarea>
-            </div>
-            <div sec:authorize="hasRole('TECNICO')">
-                <label>[[#{servicio.descripcionProblema}]]:</label><br>
-                <span th:text="*{descripcionProblema}"></span>
-                <input type="hidden" th:field="*{descripcionProblema}" />
-            </div>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <label>[[#{servicio.tipoEquipo}]]:</label><br>
+                    <select th:field="*{tipoEquipo}"
+                            required
+                            oninvalid="this.setCustomValidity('Seleccione un tipo de equipo.')"
+                            oninput="setCustomValidity('')">
+                        <option value="">[[#{servicio.seleccionar}]]</option>
+                        <option th:each="te : ${tiposEquipo}"
+                                th:value="${te.tipoEquipoId}"
+                                th:text="${te.tipoEquipoDescripcion}"></option>
+                    </select>
+                </div>
 
-          
-            <div sec:authorize="hasAnyRole('ADMIN','TECNICO')">
-                <button type="submit" class="btn-module" style="background-color: #007bff;">[[#{accion.guardar}]]</button>
-            </div>
+                <div sec:authorize="hasRole('TECNICO')">
+                    <label>[[#{servicio.tipoEquipo}]]:</label><br>
+                    <span th:text="*{tipoEquipo.tipoEquipoDescripcion}"></span>
+                    <input type="hidden" th:field="*{tipoEquipo.tipoEquipoId}" />
+                </div>
 
-            <div>
-                <a th:href="@{/servicio}" class="btn-module" style="background-color: gray;">[[#{accion.cancelar}]]</a>
-            </div>
 
-        </form>
-    </div>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <label>[[#{servicio.tipoServicio}]]:</label><br>
+                    <select th:field="*{tipoServicio}"
+                            required
+                            oninvalid="this.setCustomValidity('Seleccione un tipo de servicio.')"
+                            oninput="setCustomValidity('')">
+                        <option value="">[[#{servicio.seleccionar}]]</option>
+                        <option th:each="ts : ${tiposServicio}"
+                                th:value="${ts.tipoServicioId}"
+                                th:text="${ts.tipoServicioDescripcion}"></option>
+                    </select>
+                </div>
 
-    <div th:replace="fragmentos :: footer"></div>
+                <div sec:authorize="hasRole('TECNICO')">
+                    <label>[[#{servicio.tipoServicio}]]:</label><br>
+                    <span th:text="*{tipoServicio.tipoServicioDescripcion}"></span>
+                    <input type="hidden" th:field="*{tipoServicio.tipoServicioId}" />
+                </div>
 
-</body>
+
+                <div>
+                    <label>[[#{servicio.estadoServicio}]]:</label><br>
+                    <select th:field="*{estadoServicio}"
+                            required
+                            oninvalid="this.setCustomValidity('Seleccione un estado válido.')"
+                            oninput="setCustomValidity('')">
+                        <option value="">[[#{servicio.seleccionar}]]</option>
+                        <option th:each="es : ${estadosServicio}"
+                                th:value="${es.estadoServicioId}"
+                                th:text="${es.estadoServicioDescripcion}"></option>
+                    </select>
+                </div>
+
+
+                <div sec:authorize="hasRole('ADMIN')">
+                    <label>[[#{servicio.numeroSerieEquipo}]]:</label><br>
+                    <input type="text"
+                           th:field="*{numeroSerieEquipo}"
+                           required
+                           maxlength="50"
+                           pattern="[A-Za-z0-9-]+"
+                           placeholder="Ej: ABC123-XYZ"
+                           oninvalid="this.setCustomValidity('Ingrese un número de serie válido (solo letras, números y guiones).')"
+                           oninput="setCustomValidity('')"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                </div>
+
+                <div sec:authorize="hasRole('TECNICO')">
+                    <label>[[#{servicio.numeroSerieEquipo}]]:</label><br>
+                    <span th:text="*{numeroSerieEquipo}"></span>
+                    <input type="hidden" th:field="*{numeroSerieEquipo}" />
+                </div>
+
+
+                <div sec:authorize="hasRole('ADMIN')">
+                    <label>[[#{servicio.fechaIngresoFormato}]]:</label><br>
+                    <input type="date"
+                           th:field="*{fechaIngresoEquipo}"
+                           required
+                           max="${#temporals.format(#temporals.createNow(),'yyyy-MM-dd')}"
+                           oninvalid="this.setCustomValidity('Ingrese una fecha válida. No puede ser futura.')"
+                           oninput="setCustomValidity('')">
+                </div>
+
+                <div sec:authorize="hasRole('TECNICO')">
+                    <label>[[#{servicio.fechaIngreso}]]:</label><br>
+                    <span th:text="*{fechaIngresoEquipo}"></span>
+                    <input type="hidden" th:field="*{fechaIngresoEquipo}" />
+                </div>
+
+
+                <div sec:authorize="hasRole('ADMIN')">
+                    <label>[[#{servicio.urlImagen}]]:</label><br>
+                    <input type="url"
+                           th:field="*{rutaImagen}"
+                           required
+                           maxlength="1024"
+                           pattern="https?://.*"
+                           placeholder="https://ejemplo.com/imagen.jpg"
+                           oninvalid="this.setCustomValidity('Ingrese una URL válida que inicie con http o https.')"
+                           oninput="setCustomValidity('')"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                </div>
+
+                <div sec:authorize="hasRole('TECNICO')">
+                    <label>[[#{servicio.imagenEquipo}]]:</label><br>
+                    <span th:text="*{rutaImagen}"></span>
+                    <input type="hidden" th:field="*{rutaImagen}" />
+                </div>
+
+
+                <div sec:authorize="hasRole('ADMIN')">
+                    <label>[[#{servicio.descripcionProblema}]]:</label><br>
+                    <textarea th:field="*{descripcionProblema}"
+                              required
+                              minlength="10"
+                              maxlength="500"
+                              oninvalid="this.setCustomValidity('La descripción debe tener entre 10 y 500 caracteres.')"
+                              oninput="setCustomValidity('')"
+                              rows="4"
+                              style="width: 100%; padding: 8px; margin: 10px 0;"></textarea>
+                </div>
+
+                <div sec:authorize="hasRole('TECNICO')">
+                    <label>[[#{servicio.descripcionProblema}]]:</label><br>
+                    <span th:text="*{descripcionProblema}"></span>
+                    <input type="hidden" th:field="*{descripcionProblema}" />
+                </div>
+
+
+                <div sec:authorize="hasAnyRole('ADMIN','TECNICO')">
+                    <button type="submit" class="btn-module" style="background-color: #007bff;">[[#{accion.guardar}]]</button>
+                </div>
+
+                <div>
+                    <a th:href="@{/servicio}" class="btn-module" style="background-color: gray;">[[#{accion.cancelar}]]</a>
+                </div>
+
+            </form>
+        </div>
+
+        <div th:replace="fragmentos :: footer"></div>
+
+    </body>
 </html>

@@ -1,47 +1,84 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Tipo de Servicio - Formulario</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Tipo de Servicio - Formulario</title>
+        <link rel="stylesheet" th:href="@{/css/estilos.css}">
 
-<body>
+        <style>
+            input:invalid {
+                border: 2px solid red;
+            }
 
-    <div th:replace="fragmentos :: header"></div>
+            input:valid {
+                border: 2px solid green;
+            }
+        </style>
+    </head>
 
-    <div class="container">
+    <body>
 
-        <a th:href="@{/tiposervicio}" class="btn-module btn-small" style="background-color: gray;">Volver a la lista</a>
+        <div th:replace="fragmentos :: header"></div>
 
-        <h1 th:text="${tipoServicio.tipoServicioId} != null ? 'Editar Tipo de Servicio' : 'Nuevo Tipo de Servicio'">
-        </h1>
+        <div class="container">
 
-        <form th:action="@{/tiposervicio/guardar}" th:object="${tipoServicio}" method="post">
-            <input type="hidden" th:field="*{tipoServicioId}" />
+            <a th:href="@{/tiposervicio}" class="btn-module btn-small" style="background-color: gray;">
+                Volver a la lista
+            </a>
 
-            <div class="form-group">
-                <label for="descripcion">Descripción:</label>
-                <input type="text" id="descripcion" th:field="*{tipoServicioDescripcion}"
-                    placeholder="Ingrese descripción" required />
-            </div>
+            <h1 th:text="${tipoServicio.tipoServicioId} != null ? 'Editar Tipo de Servicio' : 'Nuevo Tipo de Servicio'"></h1>
 
-            <div class="form-group">
-                <label for="precio">Precio Base:</label>
-                <input type="number" id="precio" th:field="*{precioBase}" step="0.01" min="0"
-                    placeholder="Ingrese precio base" required />
-            </div>
+            <form th:action="@{/tiposervicio/guardar}" th:object="${tipoServicio}" method="post" novalidate>
+                <input type="hidden" th:field="*{tipoServicioId}" />
 
-            <button type="submit" class="btn-module" style="background-color: #28a745;">
-                <span th:text="${tipoServicio.tipoServicioId} != null ? 'Actualizar' : 'Guardar'"></span>
-            </button>
-        </form>
 
-    </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
 
-    <div th:replace="fragmentos :: footer"></div>
+                    <input type="text"
+                           id="descripcion"
+                           th:field="*{tipoServicioDescripcion}"
+                           placeholder="Ingrese descripción"
+                           required
+                           minlength="3"
+                           maxlength="100"
+                           pattern="^(?!\s*$)[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ ]+$"
+                           oninvalid="this.setCustomValidity('La descripción no puede estar vacía ni ser solo espacios. Use de 3 a 100 caracteres, solo letras, números y espacios.')"
+                           oninput="this.setCustomValidity('')"
+                           style="width: 100%; padding: 8px;">
+                </div>
 
-</body>
+
+                <div class="form-group">
+                    <label for="precio">Precio Base:</label>
+
+                    <input type="number"
+                           id="precio"
+                           th:field="*{precioBase}"
+                           step="0.01"
+                           min="0.01"
+                           max="999999.99"
+                           placeholder="Ingrese precio base"
+                           required
+                           oninput="
+                           if (this.value < 0) this.value = '';
+                           this.setCustomValidity('');
+                           "
+                           oninvalid="this.setCustomValidity('Ingrese un precio válido mayor a 0.')"
+                           style="width: 100%; padding: 8px;">
+                </div>
+
+                <button type="submit" class="btn-module" style="background-color: #28a745;">
+                    <span th:text="${tipoServicio.tipoServicioId} != null ? 'Actualizar' : 'Guardar'"></span>
+                </button>
+
+            </form>
+
+        </div>
+
+        <div th:replace="fragmentos :: footer"></div>
+
+    </body>
 
 </html>

@@ -1,37 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>[[#{tipoEquipo.titulo}]] - [[#{servicio.formulario.nuevo}]]</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>[[#{tipoEquipo.titulo}]] - [[#{servicio.formulario.nuevo}]]</title>
+        <link rel="stylesheet" th:href="@{/css/estilos.css}">
 
-<body>
-    <div th:replace="fragmentos :: header"></div>
-    <div class="container">
-        <h1 th:text="${tipoEquipo.tipoEquipoId != null} ? #{tipoEquipo.editar} : #{tipoEquipo.nuevo}"></h1>
+        <style>
+            input:invalid {
+                border: 2px solid red;
+            }
 
-        <form th:action="@{/tipoequipo/guardar}" th:object="${tipoEquipo}" method="post">
-            <!-- Campo oculto para el id -->
-            <input type="hidden" th:field="*{tipoEquipoId}" />
+            input:valid {
+                border: 2px solid green;
+            }
+        </style>
+    </head>
 
-            <div>
-                <label>[[#{tipoEquipo.descripcion}]]:</label><br>
-                <input type="text" th:field="*{tipoEquipoDescripcion}" required maxlength="50"
-                       style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
+    <body>
+        <div th:replace="fragmentos :: header"></div>
 
-            <div>
-                <button type="submit" class="btn-module" style="background-color: #007bff;">[[#{accion.guardar}]]</button>
-                <a th:href="@{/tipoequipo}" class="btn-module" style="background-color: gray;">[[#{accion.cancelar}]]</a>
-            </div>
-        </form>
-    </div>
+        <div class="container">
+            <h1 th:text="${tipoEquipo.tipoEquipoId != null} ? #{tipoEquipo.editar} : #{tipoEquipo.nuevo}"></h1>
+
+            <form th:action="@{/tipoequipo/guardar}" th:object="${tipoEquipo}" method="post" novalidate>
+
+                <input type="hidden" th:field="*{tipoEquipoId}" />
 
 
-    <div th:replace="fragmentos :: footer"></div>
+                <div>
+                    <label>[[#{tipoEquipo.descripcion}]]:</label><br>
 
-</body>
+                    <input type="text"
+                           th:field="*{tipoEquipoDescripcion}"
+                           required
+                           minlength="5"
+                           maxlength="50"
+                           pattern="^(?!\\s*$)[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ ]+$"
+                           placeholder="Ingrese tipo de equipo"
+                           oninvalid="this.setCustomValidity('Debe ingresar una descripción válida (no vacía, no solo espacios, mínimo 5 caracteres).')"
+                           oninput="this.setCustomValidity('')"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                </div>
+
+                <div>
+                    <button type="submit" class="btn-module" style="background-color: #007bff;">
+                        [[#{accion.guardar}]]
+                    </button>
+
+                    <a th:href="@{/tipoequipo}" class="btn-module" style="background-color: gray;">
+                        [[#{accion.cancelar}]]
+                    </a>
+                </div>
+
+            </form>
+        </div>
+
+        <div th:replace="fragmentos :: footer"></div>
+
+    </body>
 
 </html>

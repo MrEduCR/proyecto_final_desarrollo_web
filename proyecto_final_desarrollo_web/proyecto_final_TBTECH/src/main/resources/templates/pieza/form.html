@@ -1,47 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Piezas - Formulario</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Piezas - Formulario</title>
+        <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    </head>
 
-<body>
-    <div th:replace="fragmentos :: header"></div>
-    <div class="container">
-        <h1 th:text="${pieza.piezaId != null} ? 'Editar Pieza' : 'Nueva Pieza'"></h1>
+    <body>
 
-        <form th:action="@{/pieza/guardar}" th:object="${pieza}" method="post">
-            <!-- Campo oculto para el id -->
-            <input type="hidden" th:field="*{piezaId}" />
 
-            <div>
-                <label>Descripción de la pieza:</label><br>
-                <input type="text" th:field="*{piezaDescripcion}" required maxlength="50"
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
+        <div th:replace="fragmentos :: header"></div>
 
-            <div>
-                <label>Precio de la pieza:</label><br>
-                <input type="number" th:field="*{precioPieza}" required step="0.01"
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
+        <div class="container">
+            <h1 th:text="${pieza.piezaId != null} ? 'Editar Pieza' : 'Nueva Pieza'"></h1>
 
-            <div>
-                <label>Ruta de la imagen:</label><br>
-                <input type="text" th:field="*{rutaImagen}" maxlength="1024"
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
-            </div>
+            <form th:action="@{/pieza/guardar}" th:object="${pieza}" method="post">
 
-            <div>
-                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
-                <a th:href="@{/pieza}" class="btn-module" style="background-color: gray;">Cancelar</a>
-            </div>
-        </form>
-    </div>
 
-    <div th:replace="fragmentos :: footer"></div>
-</body>
+                <input type="hidden" th:field="*{piezaId}" />
+
+
+                <div>
+                    <label>Descripción de la pieza:</label><br>
+                    <input type="text" 
+                           th:field="*{piezaDescripcion}"
+                           required maxlength="50"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                </div>
+
+
+                <div>
+                    <label>Precio de la pieza:</label><br>
+                    <input type="number"
+                           id="precio"
+                           th:field="*{precioBase}"
+                           step="0.01"
+                           min="0.01"
+                           max="999999.99"
+                           placeholder="Ingrese precio base"
+                           required
+                           oninput="
+                           if (this.value < 0) this.value = '';
+                           this.setCustomValidity('');
+                           "
+                           oninvalid="this.setCustomValidity('Ingrese un precio válido mayor a 0.')"
+                           style="width: 100%; padding: 8px;">
+                </div>
+
+
+                <div>
+                    <label>Ruta de la imagen:</label><br>
+                    <input type="text" 
+                           th:field="*{rutaImagen}"
+                           maxlength="1024"
+                           placeholder="/images/piezas/foto.png"
+                           style="width: 100%; padding: 8px; margin: 10px 0;">
+                </div>
+
+
+                <div>
+                    <button type="submit" class="btn-module" style="background-color: #007bff;">
+                        Guardar
+                    </button>
+
+                    <a th:href="@{/pieza}" class="btn-module" style="background-color: gray;">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+        </div>
+
+
+        <div th:replace="fragmentos :: footer"></div>
+
+    </body>
 
 </html>
