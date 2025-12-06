@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Configuración de Perfil</title>
+    <title>Configuración de nueva contraseña</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
@@ -14,54 +14,41 @@
     <div class="container">
         <h1>Configuración de Perfil</h1>
 
-        <form th:action="@{/usuario/configuracion/guardar}" th:object="${usuario}" method="post">
-
-            <!-- Campo oculto solo para la cédula -->
-            <input type="hidden" th:field="*{cedulaUsuario}">
+        <form th:action="@{/usuario/configuracion/guardar}" method="post">
 
             <div>
-                <label>Cédula:</label><br>
-                <input type="text" th:value="*{cedulaUsuario}" readonly
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
+                <label>Cédula:</label>
+                <input type="text" th:value="${usuario.cedulaUsuario}" readonly>
             </div>
 
             <div>
-                <label>Nombre:</label><br>
-                <input type="text" th:value="*{nombreUsuario}" readonly
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
+                <label>Nombre:</label>
+                <input type="text" th:value="${usuario.nombreUsuario}" readonly>
             </div>
 
             <div>
-                <label>Correo:</label><br>
-                <input type="email" th:value="*{correoUsuario}" readonly
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
+                <label>Correo:</label>
+                <input type="email" th:value="${usuario.correoUsuario}" readonly>
             </div>
 
             <div>
-                <label>Teléfono:</label><br>
-                <input type="text" th:value="*{telefonoUsuario}" readonly
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
+                <label>Teléfono:</label>
+                <input type="text" th:value="${usuario.telefonoUsuario}" readonly>
             </div>
 
             <div>
-                <label>Rol:</label><br>
-                <input type="text" th:value="*{rol.descripcionRol}" readonly
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
+                <label>Rol:</label>
+                <input type="text" th:value="${usuario.rol.descripcionRol}" readonly>
             </div>
 
             <div>
-                <label>Nueva contraseña (opcional):</label><br>
-                <input type="password" name="nuevaContrasenia"
-                    placeholder="Dejar en blanco para mantener la actual"
-                    style="width: 100%; padding: 8px; margin: 10px 0;">
+                <label>Nueva contraseña (opcional):</label>
+                <input type="password" name="nuevaContrasenia">
             </div>
 
-            <div>
-                <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
-                <a th:href="@{/}" class="btn-module" style="background-color: gray;">Cancelar</a>
-            </div>
-
+            <button type="submit">Guardar</button>
         </form>
+
     </div>
 
     <div th:replace="fragmentos :: footer"></div>
