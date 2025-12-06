@@ -53,16 +53,15 @@ public class UsuarioController {
             RedirectAttributes redirectAttributes) {
 
         try {
-            // ===== VALIDACIONES DEL SERVIDOR =====
 
-            // 1. Validar cédula
+            // Validar cédula
             if (usuario.getCedulaUsuario() == null || usuario.getCedulaUsuario() <= 0) {
                 model.addAttribute("error", "La cédula debe ser un número válido y positivo");
                 model.addAttribute("roles", rolService.getAllRoles());
                 return "usuario/formNuevo";
             }
 
-            // 2. Validar nombre
+            // Validar nombre
             if (usuario.getNombreUsuario() == null || usuario.getNombreUsuario().trim().isEmpty()) {
                 model.addAttribute("error", "El nombre es obligatorio");
                 model.addAttribute("roles", rolService.getAllRoles());
@@ -79,20 +78,14 @@ public class UsuarioController {
                 return "usuario/formNuevo";
             }
 
-            // 3. Validar correo
+            //  Validar correo
             if (usuario.getCorreoUsuario() == null || usuario.getCorreoUsuario().trim().isEmpty()) {
                 model.addAttribute("error", "El correo es obligatorio");
                 model.addAttribute("roles", rolService.getAllRoles());
                 return "usuario/formNuevo";
             }
-            /* 
-            if (!usuario.getCorreoUsuario().matches("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$")) {
-                model.addAttribute("error", "El correo electrónico no es válido");
-                model.addAttribute("roles", rolService.getAllRoles());
-                return "usuario/formNuevo";
-            }*/
 
-            // 4. Validar teléfono
+            //  Validar teléfono
             if (usuario.getTelefonoUsuario() == null || usuario.getTelefonoUsuario().trim().isEmpty()) {
                 model.addAttribute("error", "El teléfono es obligatorio");
                 model.addAttribute("roles", rolService.getAllRoles());
@@ -104,7 +97,7 @@ public class UsuarioController {
                 return "usuario/formNuevo";
             }
 
-            // 5. Validar rol
+            //  Validar rol
             if (rolId == null || rolId <= 0) {
                 model.addAttribute("error", "Debe seleccionar un rol válido");
                 model.addAttribute("roles", rolService.getAllRoles());
@@ -116,12 +109,11 @@ public class UsuarioController {
             boolean esEdicion = existente != null;
 
             if (esEdicion) {
-                // ===== MODO EDICIÓN =====
 
                 // Validar correo único
                 Usuario usuarioPorCorreo = usuarioService.getUsuarioByCorreo(usuario.getCorreoUsuario()).orElse(null);
-                if (usuarioPorCorreo != null &&
-                        !usuarioPorCorreo.getCedulaUsuario().equals(usuario.getCedulaUsuario())) {
+                if (usuarioPorCorreo != null
+                        && !usuarioPorCorreo.getCedulaUsuario().equals(usuario.getCedulaUsuario())) {
                     model.addAttribute("error", "El correo electrónico ya está registrado con otro usuario");
                     model.addAttribute("roles", rolService.getAllRoles());
                     return "usuario/formNuevo";
@@ -129,8 +121,8 @@ public class UsuarioController {
 
                 // Validar teléfono único
                 Usuario usuarioPorTelefono = usuarioService.getUsuarioByTelefono(usuario.getTelefonoUsuario()).orElse(null);
-                if (usuarioPorTelefono != null &&
-                        !usuarioPorTelefono.getCedulaUsuario().equals(usuario.getCedulaUsuario())) {
+                if (usuarioPorTelefono != null
+                        && !usuarioPorTelefono.getCedulaUsuario().equals(usuario.getCedulaUsuario())) {
                     model.addAttribute("error", "El teléfono ya está registrado con otro usuario");
                     model.addAttribute("roles", rolService.getAllRoles());
                     return "usuario/formNuevo";
@@ -153,7 +145,6 @@ public class UsuarioController {
                     usuario.setContraseniaUsuario(existente.getContraseniaUsuario());
                 }
             } else {
-                // ===== MODO CREACIÓN =====
 
                 if (usuarioService.getUsuarioByCedula(usuario.getCedulaUsuario()).isPresent()) {
                     model.addAttribute("error", "Ya existe un usuario con esta cédula");
@@ -192,9 +183,9 @@ public class UsuarioController {
 
             usuarioService.saveUsuario(usuario, rolId);
 
-            String mensaje = esEdicion ?
-                    "Usuario actualizado correctamente" :
-                    "Usuario registrado correctamente";
+            String mensaje = esEdicion
+                    ? "Usuario actualizado correctamente"
+                    : "Usuario registrado correctamente";
 
             redirectAttributes.addFlashAttribute("mensaje", mensaje);
             return "redirect:/usuario";
