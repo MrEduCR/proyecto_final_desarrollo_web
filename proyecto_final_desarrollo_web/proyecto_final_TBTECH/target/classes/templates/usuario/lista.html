@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Usuario - Lista</title>
+    <title>[[#{usuario.titulo}]] - [[#{usuario.lista}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
@@ -12,19 +12,19 @@
     <div th:replace="fragmentos :: header"></div>
 
     <div class="container">
-        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">Volver al menú principal</a>
-        <h1>Lista de Usuarios</h1>
-        <a th:href="@{/usuario/nuevo}" class="btn-module">Nuevo Usuario</a>
+        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">[[#{servicio.volverMenu}]]</a>
+        <h1>[[#{usuario.lista}]]</h1>
+        <a th:href="@{/usuario/nuevo}" class="btn-module">[[#{usuario.nuevo}]]</a>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th>Cedula</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Telefono</th>
-                    <th>Rol</th>
-                    <th>Acciones</th>
+                    <th>[[#{usuario.cedula}]]</th>
+                    <th>[[#{usuario.nombre}]]</th>
+                    <th>[[#{usuario.correo}]]</th>
+                    <th>[[#{usuario.telefono}]]</th>
+                    <th>[[#{usuario.rol}]]</th>
+                    <th>[[#{tipoEquipo.acciones}]]</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,7 +35,7 @@
                     <td th:text="${usuario.telefonoUsuario}"></td>
                     <td th:text="${usuario.rol.descripcionRol}"></td>
                     <td>
-                        <a th:href="@{|/usuario/editar/${usuario.cedulaUsuario}|}" class="btn-module">Editar</a>
+                        <a th:href="@{|/usuario/editar/${usuario.cedulaUsuario}|}" class="btn-module">[[#{accion.editar}]]</a>
                     </td>
                 </tr>
             </tbody>

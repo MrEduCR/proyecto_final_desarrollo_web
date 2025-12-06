@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Servicios - Lista</title>
+    <title>[[#{servicio.titulo}]] - [[#{servicio.sinFinalizar}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
@@ -12,37 +12,37 @@
     <div th:replace="fragmentos :: header"></div>
 
     <div class="container">
-        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">Volver al menú principal</a>
+        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">[[#{servicio.volverMenu}]]</a>
 
-        <h1>Lista de Servicios sin finalizar</h1>
+        <h1>[[#{servicio.sinFinalizar}]]</h1>
 
-        <a th:href="@{/servicio/buscar}" class="btn-module">Buscar servicios</a>
-        <a th:href="@{/servicio}" class="btn-module">Todos los servicios</a>
-        <a th:href="@{/servicio/nuevo}" class="btn-module" sec:authorize="!hasRole('TECNICO')">Nuevo servicio</a>
+        <a th:href="@{/servicio/buscar}" class="btn-module">[[#{servicio.buscar}]]</a>
+        <a th:href="@{/servicio}" class="btn-module">[[#{servicio.todosLosServicios}]]</a>
+        <a th:href="@{/servicio/nuevo}" class="btn-module" sec:authorize="!hasRole('TECNICO')">[[#{servicio.nuevoServicio}]]</a>
 
         <div class="servicios-lista">
             <div th:each="servicio : ${serviciosNoFinalizados}" class="servicio-card">
-                <h2>ID Servicio: <span th:text="${servicio.servicioId}"></span></h2>
+                <h2>[[#{servicio.id}]]: <span th:text="${servicio.servicioId}"></span></h2>
 
                 <div class="servicio-info">
-                    <div><strong>Cédula Cliente:</strong> <span th:text="${servicio.cliente.cedula}"></span></div>
-                    <div><strong>Tipo Equipo:</strong> <span
+                    <div><strong>[[#{servicio.cedulaCliente}]]:</strong> <span th:text="${servicio.cliente.cedula}"></span></div>
+                    <div><strong>[[#{servicio.tipoEquipo}]]:</strong> <span
                             th:text="${servicio.tipoEquipo.tipoEquipoDescripcion}"></span></div>
-                    <div><strong>Tipo Servicio:</strong> <span
+                    <div><strong>[[#{servicio.tipoServicio}]]:</strong> <span
                             th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></span></div>
-                    <div><strong>Estado:</strong> <span
+                    <div><strong>[[#{servicio.estado}]]:</strong> <span
                             th:text="${servicio.estadoServicio.estadoServicioDescripcion}"></span></div>
-                    <div><strong>N° Serie:</strong> <span th:text="${servicio.numeroSerieEquipo}"></span></div>
-                    <div><strong>Fecha Ingreso:</strong> <span
+                    <div><strong>[[#{servicio.numeroSerie}]]:</strong> <span th:text="${servicio.numeroSerieEquipo}"></span></div>
+                    <div><strong>[[#{servicio.fechaIngreso}]]:</strong> <span
                             th:text="${#dates.format(servicio.fechaIngresoEquipo,'yyyy-MM-dd')}"></span></div>
-                    <div><strong>Descripción:</strong> <span th:text="${servicio.descripcionProblema}"></span></div>
-                    <div><strong>Imagen:</strong>
+                    <div><strong>[[#{servicio.descripcionProblema}]]:</strong> <span th:text="${servicio.descripcionProblema}"></span></div>
+                    <div><strong>[[#{servicio.imagen}]]:</strong>
                         <img th:src="${servicio.rutaImagen}" alt="imagen" class="servicio-img">
                     </div>
                 </div>
 
                 <div class="piezas-usadas">
-                    <strong>Piezas Utilizadas:</strong>
+                    <strong>[[#{servicio.piezasUtilizadas}]]:</strong>
 
                     <ul th:if="${!#lists.isEmpty(servicio.piezas)}">
                         <li th:each="pieza : ${servicio.piezas}">
@@ -53,7 +53,7 @@
 
                     <span th:if="${#lists.isEmpty(servicio.piezas)}"
                         style="color: gray; font-style: italic; font-size: 0.9em;">
-                        Ninguna pieza utilizada (aún).
+                        [[#{servicio.ningunapiezaAun}]]
                     </span>
                 </div>
 
@@ -61,11 +61,11 @@
 
                 <div class="servicio-acciones">
                     <a th:href="@{|/servicio/editar/${servicio.servicioId}|}" class="btn-module">
-                        Editar
+                        [[#{accion.editar}]]
                     </a>
                     <a th:href="@{|/servicio/eliminar/${servicio.servicioId}|}" class="btn-module eliminar"
                         sec:authorize="!hasRole('TECNICO')">
-                        Eliminar
+                        [[#{accion.eliminar}]]
                     </a>
 
                 </div>

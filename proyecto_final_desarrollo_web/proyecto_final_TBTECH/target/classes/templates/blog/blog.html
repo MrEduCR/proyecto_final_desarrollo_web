@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Blog de TB Tech</title>
+    <title>[[#{blog.titulo}]]</title>
     <link rel="stylesheet" th:href="@{/css/blog.css}">
 </head>
 
@@ -11,32 +11,21 @@
     <div th:replace="fragmentosBlog :: header"></div>
 
     <main class="blog-container">
-        <h1>Bienvenido al blog de Terabyte Technology</h1>
+        <h1>[[#{blog.bienvenida}]]</h1>
 
         <section class="post">
-            <h2>Como limpiar su laptop de manera segura</h2>
-            <p class="date">Publicado el 31 de octubre, 2025</p>
+            <h2>[[#{blog.post1.titulo}]]</h2>
+            <p class="date">[[#{blog.post1.fecha}]]</p>
 
             <img th:src="@{/images/post1.jpg}" alt="Imagen del primer post" class="post-image">
-            <p>Para limpiar su laptop de forma segura, primero debe apagarla y desconectarla del cargador. Use un paño
-                suave de microfibra ligeramente humedecido con agua o con una mezcla de agua y alcohol isopropílico para
-                limpiar la pantalla y la carcasa, evitando que entre líquido en las ranuras. Para el teclado, puede usar
-                aire comprimido o un cepillo pequeño para quitar el polvo y la suciedad entre las teclas. No utilice
-                productos abrasivos ni toallas de papel, ya que pueden rayar la superficie. Finalmente, asegúrese de que
-                todo se seque completamente antes de encenderla de nuevo.</p>
+            <p>[[#{blog.post1.contenido}]]</p>
         </section>
 
         <section class="post">
-            <h2>Elegir los componentes de su PC de manera eficiente</h2>
-            <p class="date">Publicado el 30 de octubre, 2025</p>
+            <h2>[[#{blog.post2.titulo}]]</h2>
+            <p class="date">[[#{blog.post2.fecha}]]</p>
             <img th:src="@{/images/post2.jpg}" alt="Imagen del segundo post" class="post-image">
-            <p>Para elegir los componentes de su PC de manera adecuada, primero debe definir el uso principal que le
-                dará, como trabajo, estudio, diseño o videojuegos. Luego, seleccione un procesador que se ajuste a sus
-                necesidades de rendimiento y una placa base compatible con él. Asegúrese de elegir suficiente memoria
-                RAM y un disco duro o SSD con capacidad suficiente para sus archivos y programas. La tarjeta gráfica
-                debe elegirse según la demanda de los programas o juegos que use. Finalmente, no olvide considerar una
-                fuente de poder confiable y un buen sistema de enfriamiento para mantener la estabilidad y la vida útil
-                de su equipo.</p>
+            <p>[[#{blog.post2.contenido}]]</p>
         </section>
 
 

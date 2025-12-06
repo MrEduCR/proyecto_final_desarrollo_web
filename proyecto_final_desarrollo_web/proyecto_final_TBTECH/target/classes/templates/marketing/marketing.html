@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Marketing - Redes sociales</title>
+    <title>[[#{marketing.titulo}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
     <!-- iconos Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -14,9 +14,9 @@
     <div th:replace="fragmentos :: header"></div>
 
     <div class="container">
-        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">Volver al menú principal</a>
-        <h1 style="color: #1f2937;">Redes Sociales</h1>
-        <p>(Puede tardar unos segundos en mostrarse)</p>
+        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">[[#{marketing.volverMenu}]]</a>
+        <h1 style="color: #1f2937;">[[#{marketing.redesSociales}]]</h1>
+        <p>[[#{marketing.espera}]]</p>
 
         <div id="fb-root"></div>
         <script async defer crossorigin="anonymous"
@@ -34,7 +34,7 @@
 
     
     <div class="container">
-        <h2 style="margin-bottom: 20px;">Ir a otras redes:</h2>
+        <h2 style="margin-bottom: 20px;">[[#{marketing.irOtras}]]</h2>
         <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
             <a href="https://www.instagram.com" target="_blank" class="btn-module" style="background-color: #ba00c4;">
                 <i class="fab fa-instagram"></i> Instagram

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Buscar Servicio</title>
+    <title>[[#{servicio.buscar}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
@@ -12,37 +12,37 @@
     <div th:replace="fragmentos :: header"></div>
 
     <div class="container">
-        <h1>Buscar Servicio por ID</h1>
+        <h1>[[#{servicio.buscarPorId}]]</h1>
         <form th:action="@{/servicio/buscar}" method="get">
-            <input type="number" name="id" placeholder="Ingrese el ID del servicio" required>
-            <button type="submit">Buscar</button>
+            <input type="number" name="id" th:placeholder="#{servicio.ingresarId}" required>
+            <button type="submit">[[#{accion.buscar}]]</button>
         </form>
 
         <hr>
         <div th:if="${servicio}">
-            <h2>Servicio encontrado:</h2>
+            <h2>[[#{servicio.encontrado}]]</h2>
             <div class="servicio-card">
                 <div class="servicio-info">
-                    <p><strong>ID Servicio:</strong> <span th:text="${servicio.servicioId}"></span></p>
-                    <p><strong>Cédula Cliente:</strong> <span th:text="${servicio.cliente.cedula}"></span></p>
-                    <p><strong>Tipo Equipo:</strong> <span
+                    <p><strong>[[#{servicio.id}]]:</strong> <span th:text="${servicio.servicioId}"></span></p>
+                    <p><strong>[[#{servicio.cedulaCliente}]]:</strong> <span th:text="${servicio.cliente.cedula}"></span></p>
+                    <p><strong>[[#{servicio.tipoEquipo}]]:</strong> <span
                             th:text="${servicio.tipoEquipo.tipoEquipoDescripcion}"></span></p>
-                    <p><strong>Tipo Servicio:</strong> <span
+                    <p><strong>[[#{servicio.tipoServicio}]]:</strong> <span
                             th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></span></p>
-                    <p><strong>Estado:</strong> <span
+                    <p><strong>[[#{servicio.estado}]]:</strong> <span
                             th:text="${servicio.estadoServicio.estadoServicioDescripcion}"></span></p>
-                    <p><strong>N° Serie:</strong> <span th:text="${servicio.numeroSerieEquipo}"></span></p>
-                    <p><strong>Fecha Ingreso:</strong> <span
+                    <p><strong>[[#{servicio.numeroSerie}]]:</strong> <span th:text="${servicio.numeroSerieEquipo}"></span></p>
+                    <p><strong>[[#{servicio.fechaIngreso}]]:</strong> <span
                             th:text="${#dates.format(servicio.fechaIngresoEquipo,'yyyy-MM-dd')}"></span></p>
-                    <p><strong>Descripción del problema:</strong> <span
+                    <p><strong>[[#{servicio.descripcionProblema}]]:</strong> <span
                             th:text="${servicio.descripcionProblema}"></span></p>
-                    <p><strong>Imagen:</strong> <img th:src="${servicio.rutaImagen}" alt="imagen" class="servicio-img">
+                    <p><strong>[[#{servicio.imagen}]]:</strong> <img th:src="${servicio.rutaImagen}" alt="imagen" class="servicio-img">
                     </p>
                 </div>
 
 
                 <div class="piezas-usadas">
-                    <strong>Piezas Utilizadas:</strong>
+                    <strong>[[#{servicio.piezasUtilizadas}]]:</strong>
                     <ul th:if="${!#lists.isEmpty(servicio.piezas)}">
                         <li th:each="pieza : ${servicio.piezas}">
                             <span th:text="${pieza.piezaDescripcion}"></span>
@@ -51,15 +51,15 @@
                     </ul>
                     <span th:if="${#lists.isEmpty(servicio.piezas)}"
                         style="color: gray; font-style: italic; font-size: 0.9em;">
-                        Ninguna pieza utilizada.
+                        [[#{servicio.ningunapieza}]].
                     </span>
                 </div>
 
                 <div class="servicio-acciones">
-                    <a th:href="@{|/servicio/editar/${servicio.servicioId}|}" class="btn-module">Editar</a>
+                    <a th:href="@{|/servicio/editar/${servicio.servicioId}|}" class="btn-module">[[#{accion.editar}]]</a>
                     <a th:href="@{|/servicio/eliminar/${servicio.servicioId}|}" class="btn-module eliminar"
                         sec:authorize="!hasRole('TECNICO')">
-                        Eliminar
+                        [[#{accion.eliminar}]]
                     </a>
                 </div>
 

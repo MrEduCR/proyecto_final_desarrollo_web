@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Gestionar Piezas de Servicio</title>
+        <title>[[#{servicioPieza.titulo}]]</title>
         <link rel="stylesheet" th:href="@{/css/estilos.css}">
 
         <style>
@@ -30,7 +30,7 @@
         <div th:replace="fragmentos :: header"></div>
 
         <div class="container" style="max-width: 500px; margin-top: 30px;">
-            <h2 style="text-align:center;">Agregar / Eliminar Piezas de un Servicio</h2>
+            <h2 style="text-align:center;">[[#{servicioPieza.agregarEliminar}]]</h2>
 
             <div th:if="${mensaje}" style="color: green; font-weight: bold; margin-bottom: 20px; text-align:center;">
                 <p th:text="${mensaje}"></p>
@@ -39,7 +39,7 @@
 
             <form th:action="@{/serviciopieza/agregar}" method="post" novalidate>
 
-                <label>ID del Servicio:</label>
+                <label>[[#{servicioPieza.servicioId}]]:</label>
                 <input type="number"
                        name="servicioId"
                        required
@@ -50,19 +50,19 @@
                        oninvalid="this.setCustomValidity('Debe ingresar un ID de servicio válido (solo números enteros positivos).')"
                        oninput="this.setCustomValidity('')">
 
-                <label>Selecciona una pieza:</label>
+                <label>[[#{servicioPieza.seleccionarPieza}]]:</label>
                 <select name="piezaId"
                         required
                         oninvalid="this.setCustomValidity('Debe seleccionar una pieza.')"
                         oninput="this.setCustomValidity('')">
-                    <option value="">Seleccione una pieza</option>
+                    <option value="">[[#{servicioPieza.seleccioneUna}]]</option>
                     <option th:each="pieza : ${piezas}"
                             th:value="${pieza.piezaId}"
                             th:text="${pieza.piezaDescripcion}">
                     </option>
                 </select>
 
-                <button type="submit">Agregar Pieza</button>
+                <button type="submit">[[#{servicioPieza.agregar}]]</button>
             </form>
 
             <hr style="margin: 30px 0;">
@@ -70,7 +70,7 @@
 
             <form th:action="@{/serviciopieza/eliminar}" method="post" novalidate>
 
-                <label>ID del Servicio:</label>
+                <label>[[#{servicioPieza.servicioId}]]:</label>
                 <input type="number"
                        name="servicioId"
                        required
@@ -81,23 +81,23 @@
                        oninvalid="this.setCustomValidity('Debe ingresar un ID de servicio válido (solo números enteros positivos).')"
                        oninput="this.setCustomValidity('')">
 
-                <label>Selecciona una pieza:</label>
+                <label>[[#{servicioPieza.seleccionarPieza}]]:</label>
                 <select name="piezaId"
                         required
                         oninvalid="this.setCustomValidity('Debe seleccionar una pieza para eliminar.')"
                         oninput="this.setCustomValidity('')">
-                    <option value="">Seleccione una pieza</option>
+                    <option value="">[[#{servicioPieza.seleccioneUna}]]</option>
                     <option th:each="pieza : ${piezas}"
                             th:value="${pieza.piezaId}"
                             th:text="${pieza.piezaDescripcion}">
                     </option>
                 </select>
 
-                <button type="submit" style="background-color: #dc3545;">Eliminar Pieza</button>
+                <button type="submit" style="background-color: #dc3545;">[[#{servicioPieza.eliminar}]]</button>
             </form>
 
             <div style="text-align:center; margin-top: 20px;">
-                <a th:href="@{/}" class="btn-module">Volver al Inicio</a>
+                <a th:href="@{/}" class="btn-module">[[#{servicioPieza.volverInicio}]]</a>
             </div>
         </div>
 

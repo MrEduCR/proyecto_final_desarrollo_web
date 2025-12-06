@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Contacto - Terabyte Technology</title>
+    <title>[[#{contacto.titulo}]]</title>
     <link rel="stylesheet" th:href="@{/css/blog.css}">
     <!-- iconos de Font Awesome para las redes sociales -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -13,18 +13,18 @@
     <div th:replace="fragmentosBlog :: header"></div>
 
     <main class="blog-container">
-        <h1>Contacto</h1>
+        <h1>[[#{contacto.contactanos}]]</h1>
 
         <section class="post">
-            <h2>Contáctanos</h2>
-            <p class="date">Estamos aquí para ayudarte:</p>
-            <p><i class="fas fa-map-marker-alt"></i> Dirección: Heredia, San Rafael, Costa Rica</p>
-            <p><i class="fas fa-phone"></i> Teléfono: +506 8888-8888</p>
-            <p><i class="fas fa-envelope"></i> Correo: contacto@terabyte.cr</p>
+            <h2>[[#{contacto.contactanos}]]</h2>
+            <p class="date">[[#{contacto.ayuda}]]</p>
+            <p><i class="fas fa-map-marker-alt"></i> [[#{contacto.direccion}]]</p>
+            <p><i class="fas fa-phone"></i> [[#{contacto.telefono}]]</p>
+            <p><i class="fas fa-envelope"></i> [[#{contacto.correo}]]</p>
         </section>
 
         <section class="post">
-            <h2>Nuestra ubicación</h2>
+            <h2>[[#{contacto.ubicacion}]]</h2>
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.770146881479!2d-84.11035352386575!3d10.035816890071422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0f15a934e387d%3A0xd30c1c02b0460bd0!2sTerabyte%20Technology%20CR!5e0!3m2!1ses-419!2scr!4v1762054146147!5m2!1ses-419!2scr"
                 width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
@@ -32,7 +32,7 @@
         </section>
 
         <section class="post">
-            <h2>¡Síguenos en redes sociales!</h2>
+            <h2>[[#{contacto.redes}]]</h2>
             <div class="redes-container">
                 <a href="https://facebook.com" target="_blank" class="red facebook">
                     <i class="fab fa-facebook-f"></i> Facebook

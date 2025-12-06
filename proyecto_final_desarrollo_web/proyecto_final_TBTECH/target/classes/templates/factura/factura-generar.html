@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Generar Factura</title>
+    <title>[[#{factura.generarTitulo}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 
     <style>
@@ -63,31 +63,31 @@
     <div class="container">
 
         <div class="card">
-            <h1 style="text-align:center;">Generar Factura</h1>
+            <h1 style="text-align:center;">[[#{factura.generarTitulo}]]</h1>
 
-            <h3>Servicio ID: <span th:text="${servicio.servicioId}"></span></h3>
+            <h3>[[#{factura.idServicio}]]: <span th:text="${servicio.servicioId}"></span></h3>
 
-            <p><strong>Cliente:</strong> <span th:text="${servicio.cliente.nombre}"></span></p>
+            <p><strong>[[#{factura.cliente}]]:</strong> <span th:text="${servicio.cliente.nombre}"></span></p>
 
-            <p><strong>Tipo de servicio:</strong>
+            <p><strong>[[#{factura.tipoServicio}]]:</strong>
                 <span th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></span>
             </p>
 
             <hr>
 
-            <h4 style="margin-top:20px; text-align: center;">Detalle de Costos Previos</h4>
+            <h4 style="margin-top:20px; text-align: center;">[[#{factura.detalleCostos}]]</h4>
 
             <table class="costos-table">
                 <thead>
                     <tr>
-                        <th style="width: 70%; text-align: left;">Concepto</th>
-                        <th style="width: 30%; text-align: right;">Precio</th>
+                        <th style="width: 70%; text-align: left;">[[#{factura.concepto}]]</th>
+                        <th style="width: 30%; text-align: right;">[[#{factura.precio}]]</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr>
-                        <td>Mano de obra (Precio base)</td>
+                        <td>[[#{factura.manoObra}]]</td>
                         <td style="text-align: right;">
                             ₡<span th:text="${servicio.tipoServicio.precioBase}"></span>
                         </td>
@@ -95,7 +95,7 @@
 
                     <tr th:if="${!#lists.isEmpty(servicio.piezas)}">
                         <td colspan="2" style="font-style: italic; background-color: #f0f0f0;">
-                            Piezas Requeridas
+                            [[#{factura.piezasRequeridas}]]
                         </td>
                     </tr>
 
@@ -108,7 +108,7 @@
 
                     <tr th:if="${#lists.isEmpty(servicio.piezas)}">
                         <td colspan="2" style="color: gray; font-style: italic; text-align: center;">
-                            Ninguna pieza utilizada.
+                            [[#{factura.ninguna}]]
                         </td>
                     </tr>
 
@@ -118,11 +118,11 @@
 
                 <input type="hidden" name="servicioId" th:value="${servicio.servicioId}" />
 
-                <label for="descuento">Seleccione un descuento:</label>
+                <label for="descuento">[[#{factura.seleccionarDescuento}]]</label>
                 <br>
 
                 <select name="descuento" id="descuento">
-                    <option value="0">Sin descuento</option>
+                    <option value="0">[[#{factura.sinDescuento}]]</option>
                     <option value="5">5% descuento</option>
                     <option value="10">10% descuento</option>
                     <option value="15">15% descuento</option>
@@ -130,8 +130,8 @@
                 </select>
 
                 <div class="btn-container">
-                    <button type="submit" class="btn-module">Generar Factura</button>
-                    <a th:href="@{/factura/lista}" class="btn-module" style="background-color: gray;">Cancelar</a>
+                    <button type="submit" class="btn-module">[[#{factura.generarTitulo}]]</button>
+                    <a th:href="@{/factura/lista}" class="btn-module" style="background-color: gray;">[[#{accion.cancelar}]]</a>
                 </div>
 
             </form>

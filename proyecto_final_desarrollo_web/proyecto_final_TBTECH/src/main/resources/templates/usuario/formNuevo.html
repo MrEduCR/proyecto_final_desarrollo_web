@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Usuario - Formulario</title>
+        <title>[[#{usuario.titulo}]] - [[#{servicio.formulario.nuevo}]]</title>
         <link rel="stylesheet" th:href="@{/css/estilos.css}">
         <style>
             .error-message {
@@ -46,8 +46,8 @@
 
         <div class="container">
 
-            <h1 th:if="${usuario != null and usuario.cedulaUsuario != null}">Editar Usuario</h1>
-            <h1 th:unless="${usuario != null and usuario.cedulaUsuario != null}">Nuevo Usuario</h1>
+            <h1 th:if="${usuario != null and usuario.cedulaUsuario != null}">[[#{usuario.editar}]]</h1>
+            <h1 th:unless="${usuario != null and usuario.cedulaUsuario != null}">[[#{usuario.nuevo}]]</h1>
 
             <div th:if="${error}" class="alert alert-danger" role="alert">
                 <strong>⚠ Error:</strong> <span th:text="${error}"></span>
@@ -60,7 +60,7 @@
             <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post" id="usuarioForm">
 
                 <div>
-                    <label class="required">Cédula:</label><br>
+                    <label class="required">[[#{usuario.cedula}]]:</label><br>
                     <input type="number" 
                            th:field="*{cedulaUsuario}" 
                            style="width: 100%; padding: 8px; margin: 10px 0;"
@@ -74,7 +74,7 @@
                 </div>
 
                 <div>
-                    <label class="required">Nombre Completo:</label><br>
+                    <label class="required">[[#{usuario.nombre}]]:</label><br>
                     <input type="text" 
                            th:field="*{nombreUsuario}" 
                            required 
@@ -87,7 +87,7 @@
                 </div>
 
                 <div>
-                    <label class="required">Correo Electrónico:</label><br>
+                    <label class="required">[[#{usuario.correo}]]:</label><br>
                     <input type="email" 
                            th:field="*{correoUsuario}" 
                            required
@@ -99,7 +99,7 @@
                 </div>
 
                 <div>
-                    <label class="required">Teléfono:</label><br>
+                    <label class="required">[[#{usuario.telefono}]]:</label><br>
                     <input type="text" 
                            th:field="*{telefonoUsuario}" 
                            required
@@ -112,7 +112,7 @@
                 </div>
 
                 <div th:if="${usuario != null and usuario.cedulaUsuario != null}">
-                    <label>Nueva Contraseña (opcional):</label><br>
+                    <label>[[#{usuario.nuevaPassword}]]:</label><br>
                     <input type="password" 
                            name="nuevaContrasenia" 
                            placeholder="Déjelo vacío si quiere mantener la actual"
@@ -124,7 +124,7 @@
                 </div>
 
                 <div th:unless="${usuario != null and usuario.cedulaUsuario != null}">
-                    <label class="required">Contraseña:</label><br>
+                    <label class="required">[[#{usuario.password}]]:</label><br>
                     <input type="password" 
                            th:field="*{contraseniaUsuario}" 
                            required
@@ -136,9 +136,9 @@
                 </div>
 
                 <div>
-                    <label class="required">Rol:</label><br>
+                    <label class="required">[[#{usuario.rol}]]:</label><br>
                     <select name="rolId" required style="width: 100%; padding: 8px; margin: 10px 0;">
-                        <option value="">Seleccione un rol</option>
+                        <option value="">[[#{servicio.seleccionar}]]</option>
                         <option th:each="rol : ${roles}" 
                                 th:value="${rol.rolId}" 
                                 th:text="${rol.descripcionRol}"
@@ -149,8 +149,8 @@
                 </div>
 
                 <div>
-                    <button type="submit" class="btn-module" style="background-color: #007bff;">Guardar</button>
-                    <a th:href="@{/usuario}" class="btn-module" style="background-color: gray;">Cancelar</a>
+                    <button type="submit" class="btn-module" style="background-color: #007bff;">[[#{accion.guardar}]]</button>
+                    <a th:href="@{/usuario}" class="btn-module" style="background-color: gray;">[[#{accion.cancelar}]]</a>
                 </div>
 
             </form>

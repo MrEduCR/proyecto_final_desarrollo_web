@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Factura del Servicio</title>
+    <title>[[#{factura.delServicio}]]</title>
 
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 
@@ -70,54 +70,54 @@
 
     <div class="container-factura">
 
-        <h1>Factura del Servicio</h1>
-        <h3 th:text="'Factura N° ' + ${factura.facturaId}"></h3>
+        <h1>[[#{factura.delServicio}]]</h1>
+        <h3 th:text="#{factura.numero} + ' ' + ${factura.facturaId}"></h3>
 
         <div class="factura-section">
-            <h2>Datos del Cliente</h2>
+            <h2>[[#{factura.datosCliente}]]</h2>te}]]</h2>
             <div class="item-row">
-                <span><b>Nombre:</b></span>
+                <span><b>[[#{factura.nombre}]]:</b></span>
                 <span th:text="${factura.servicio.cliente.nombre}"></span>
             </div>
             <div class="item-row">
-                <span><b>Correo:</b></span>
+                <span><b>[[#{factura.correo}]]:</b></span>
                 <span th:text="${factura.servicio.cliente.correo}"></span>
             </div>
             <div class="item-row">
-                <span><b>Teléfono:</b></span>
+                <span><b>[[#{factura.telefono}]]:</b></span>
                 <span th:text="${factura.servicio.cliente.telefono}"></span>
             </div>
         </div>
         <div class="factura-section">
-            <h2>Detalles del Servicio</h2>
+            <h2>[[#{factura.detallesServicio}]]</h2>
             <div class="item-row">
-                <span><b>Tipo Servicio:</b></span>
+                <span><b>[[#{factura.tipoServicio}]]:</b></span>
                 <span th:text="${factura.servicio.tipoServicio.tipoServicioDescripcion}"></span>
             </div>
             <div class="item-row">
-                <span><b>Equipo:</b></span>
+                <span><b>[[#{factura.equipo}]]:</b></span>
                 <span th:text="${factura.servicio.tipoEquipo.tipoEquipoDescripcion}"></span>
             </div>
             <div class="item-row">
-                <span><b>Problema:</b></span>
+                <span><b>[[#{factura.problema}]]:</b></span>
                 <span th:text="${factura.servicio.descripcionProblema}"></span>
             </div>
             <div class="item-row">
-                <span><b>Fecha ingreso:</b></span>
+                <span><b>[[#{factura.fechaIngreso}]]:</b></span>
                 <span th:text="${factura.servicio.fechaIngresoEquipo}"></span>
             </div>
         </div>
         <div class="factura-section">
-            <h2>Piezas Utilizadas</h2>
+            <h2>[[#{factura.piezasUtilizadas}]]</h2>
             <div th:if="${#lists.isEmpty(factura.servicio.piezas)}" style="text-align: center; color: #666;">
-                <p><em>No se requirieron piezas adicionales para este servicio.</em></p>
+                <p><em>[[#{factura.sinPiezas}]]</em></p>
             </div>
             <table th:unless="${#lists.isEmpty(factura.servicio.piezas)}"
                 style="width: 100%; border-collapse: collapse; margin-top: 10px;">
                 <thead>
                     <tr style="border-bottom: 2px solid #ddd;">
-                        <th style="text-align: left; padding: 8px; color: #555;">Descripción de la Pieza</th>
-                        <th style="text-align: right; padding: 8px; color: #555;">Precio Unitario</th>
+                        <th style="text-align: left; padding: 8px; color: #555;">[[#{factura.descripcionPieza}]]</th>
+                        <th style="text-align: right; padding: 8px; color: #555;">[[#{factura.precioUnitario}]]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,31 +133,31 @@
             </table>
         </div>
         <div class="factura-section">
-            <h2>Resumen de Cargos</h2>
+            <h2>[[#{factura.resumenCargos}]]</h2>
             <div class="item-row">
-                <span>Subtotal piezas:</span>
+                <span>[[#{factura.subtotalPiezas}]]:</span>
                 <span class="precio" th:text="'₡ ' + ${factura.subtotalPiezas}"></span>
             </div>
             <div class="item-row">
-                <span>Mano de obra:</span>
+                <span>[[#{factura.manoObra}]]:</span>
                 <span class="precio" th:text="'₡ ' + ${factura.subtotalManoObra}"></span>
             </div>
             <div class="item-row">
-                <span>Descuento aplicado:</span>
+                <span>[[#{factura.descuentoAplicado}]]:</span>
                 <span class="precio" th:text="'₡ ' + ${factura.descuentoAplicado}"></span>
             </div>
             <div class="item-row">
-                <span>Impuestos (13%):</span>
+                <span>[[#{factura.impuestos}]]:</span>
                 <span class="precio" th:text="'₡ ' + ${factura.impuestosAplicados}"></span>
             </div>
             <div class="total-final">
-                Total final: ₡ <span th:text="${factura.totalFinal}"></span>
+                [[#{factura.totalFinal}]]: ₡ <span th:text="${factura.totalFinal}"></span>
             </div>
         </div>
         <div style="text-align:center; margin-top: 20px;">
-            <a href="/factura/lista" class="btn-volver">Volver</a>
+            <a href="/factura/lista" class="btn-volver">[[#{accion.volver}]]</a>
             <a th:href="@{'/factura/descargar/' + ${factura.servicio.servicioId}}" class="btn-volver"
-                style="background-color: #28a745; margin-left:10px;">Descargar PDF</a>
+                style="background-color: #28a745; margin-left:10px;">[[#{factura.descargarPDF}]]</a>
         </div>
 
     </div>

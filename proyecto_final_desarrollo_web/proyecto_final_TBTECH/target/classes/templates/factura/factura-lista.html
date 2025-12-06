@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Gestión de Facturación</title>
+    <title>[[#{factura.gestion}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
     
     <style>
@@ -60,17 +60,17 @@
 
 <div class="container-small">
 
-    <h1 style="text-align:center; margin-bottom: 10px;">Gestión de Facturación</h1>
-    <p style="text-align:center;">Seleccione un servicio para generar o visualizar su factura.</p>
+    <h1 style="text-align:center; margin-bottom: 10px;">[[#{factura.gestion}]]</h1>
+    <p style="text-align:center;">[[#{factura.seleccionar}]]</p>
 
     <table>
         <thead>
             <tr>
-                <th>ID Servicio</th>
-                <th>Cliente</th>
-                <th>Tipo Servicio</th>
-                <th>Estado</th>
-                <th style="width: 220px; text-align:center;">Acciones</th>
+                <th>[[#{factura.idServicio}]]</th>
+                <th>[[#{factura.cliente}]]</th>
+                <th>[[#{factura.tipoServicio}]]</th>
+                <th>[[#{factura.estado}]]</th>
+                <th style="width: 220px; text-align:center;">[[#{factura.acciones}]]</th>
             </tr>
         </thead>
 
@@ -89,13 +89,13 @@
             <!-- Si YA existe factura: mostrar botón VER -->
             <span th:if="${facturasMap[servicio.servicioId] != null}">
                 <a th:href="@{'/factura/ver/' + ${servicio.servicioId}}" 
-                   class="btn-ver">Ver factura</a>
+                   class="btn-ver">[[#{factura.ver}]]</a>
             </span>
 
             <!-- Si NO existe factura: mostrar botón GENERAR -->
             <span th:if="${facturasMap[servicio.servicioId] == null}">
                 <a th:href="@{'/factura/form-generar/' + ${servicio.servicioId}}" 
-                   class="btn-generar">Generar factura</a>
+                   class="btn-generar">[[#{factura.generar}]]</a>
             </span>
 
         </td>
