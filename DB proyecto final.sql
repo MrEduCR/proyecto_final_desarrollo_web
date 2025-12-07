@@ -186,3 +186,19 @@ INSERT INTO servicios (
 INSERT INTO servicios_piezas (
     servicio_id, pieza_id
 ) VALUES (1,2),(1,3),(2,2),(3,3);
+
+CREATE TABLE feedback_servicio (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(200) NOT NULL,
+  descripcion VARCHAR(500),
+  fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE feedback (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  calificacion INT NOT NULL,
+  comentario VARCHAR(500),
+  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
+  servicio_id BIGINT,
+  CONSTRAINT fk_feedback_servicio FOREIGN KEY (servicio_id) REFERENCES feedback_servicio(id)
+);
