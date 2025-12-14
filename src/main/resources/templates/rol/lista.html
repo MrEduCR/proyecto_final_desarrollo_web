@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>[[#{rol.titulo}]] - [[#{servicio.listado}]]</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">[[#{servicio.volverMenu}]]</a>
+        <h1>[[#{rol.lista}]]</h1>
+        <a th:href="@{/rol/nuevo}" class="btn-module">[[#{rol.nuevo}]]</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>[[#{tipoEquipo.id}]]</th>
+                    <th>[[#{tipoServicio.descripcion}]]</th>
+                    <th>[[#{tipoEquipo.acciones}]]</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="rol : ${roles}">
+                    <td th:text="${rol.rolId}"></td>
+                    <td th:text="${rol.descripcionRol}"></td>
+                    <td>
+                        <a th:href="@{|/rol/editar/${rol.rolId}|}" class="btn-module">[[#{accion.editar}]]</a>
+                        <a th:href="@{|/rol/eliminar/${rol.rolId}|}" class="btn-module"
+                            style="background-color: #dc3545;">[[#{accion.eliminar}]]</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>

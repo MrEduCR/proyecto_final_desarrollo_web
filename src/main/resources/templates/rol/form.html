@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>[[#{rol.titulo}]] - [[#{servicio.formulario.nuevo}]]</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+
+    <style>
+        input:invalid {
+            border: 2px solid red;
+        }
+        input:valid {
+            border: 2px solid green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <h1 th:text="${rol.rolId != null} ? #{rol.editar} : #{rol.nuevo}"></h1>
+
+        <form th:action="@{/rol/guardar}" th:object="${rol}" method="post" novalidate>
+
+            <input type="hidden" th:field="*{rolId}" />
+
+            <div>
+                <label>[[#{rol.descripcion}]]:</label><br>
+
+                <input type="text"
+                       th:field="*{descripcionRol}"
+                       required
+                       minlength="3"
+                       maxlength="150"
+                       pattern="[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ ]+"
+                       th:placeholder="#{rol.ingresarDescripcion}"
+                       oninvalid="this.setCustomValidity('Ingrese una descripción válida: mínimo 3 caracteres, sin símbolos raros.')"
+                       oninput="this.setCustomValidity('')"
+                       style="width: 100%; padding: 8px; margin: 10px 0;">
+            </div>
+
+            <div>
+                <button type="submit" class="btn-module" style="background-color: #007bff;">[[#{accion.guardar}]]</button>
+                <a th:href="@{/rol}" class="btn-module" style="background-color: gray;">[[#{accion.cancelar}]]</a>
+            </div>
+
+        </form>
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>

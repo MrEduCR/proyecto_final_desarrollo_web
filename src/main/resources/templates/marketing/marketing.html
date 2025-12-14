@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>[[#{marketing.titulo}]]</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <!-- iconos Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">[[#{marketing.volverMenu}]]</a>
+        <h1 style="color: #1f2937;">[[#{marketing.redesSociales}]]</h1>
+        <p>[[#{marketing.espera}]]</p>
+
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous"
+            src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v20.0" nonce="ABC123"></script>
+
+        <!-- Contenedor de Facebook -->
+        <div class="fb-container">
+            <div class="fb-page" data-href="https://www.facebook.com/Terabytechcr/" data-tabs="timeline"
+                data-width="500" data-height="600" data-small-header="false" data-adapt-container-width="false"
+                data-hide-cover="false" data-show-facepile="true">
+            </div>
+        </div>
+    </div>
+
+
+    
+    <div class="container">
+        <h2 style="margin-bottom: 20px;">[[#{marketing.irOtras}]]</h2>
+        <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+            <a href="https://www.instagram.com" target="_blank" class="btn-module" style="background-color: #ba00c4;">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+
+            <a href="https://x.com" target="_blank" class="btn-module" style="background-color: #000000;">
+                <i class="fab fa-x-twitter"></i> X (Twitter)
+            </a>
+
+            <a href="https://www.linkedin.com" target="_blank" class="btn-module" style="background-color: #0077B5;">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+
+            <a th:href="@{/blog}" class="btn-module" style="background-color: #ff2222;">
+                <i class="fas fa-blog"></i> Blog
+            </a>
+            
+        </div>
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>

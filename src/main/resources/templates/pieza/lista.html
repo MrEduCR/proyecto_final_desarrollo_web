@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>[[#{pieza.lista}]]</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <style> 
+        .pieza-img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="fragmentos :: header"></div>
+    <div class="container">
+        <a th:href="@{/}" class="btn-module btn-small" style="background-color: gray;">[[#{servicio.volverMenu}]]</a>
+        <h1>[[#{pieza.lista}]]</h1>
+        <a th:href="@{/pieza/nuevo}" class="btn-module">[[#{pieza.nueva}]]</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>[[#{tipoEquipo.id}]]</th>
+                    <th>[[#{tipoServicio.descripcion}]]</th>
+                    <th>[[#{servicio.precio}]](₡)</th>
+                    <th>[[#{pieza.imagen}]]</th>
+                    <th>[[#{tipoEquipo.acciones}]]</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pieza : ${piezas}">
+                    <td th:text="${pieza.piezaId}"></td>
+                    <td th:text="${pieza.piezaDescripcion}"></td>
+                    <td th:text="${pieza.precioPieza}"></td>
+                    <!-- Mostrar imagen en vez de ruta -->
+                    <td>
+                        <img th:src="${pieza.rutaImagen}" alt="Imagen de la pieza" class="pieza-img"/>
+                    </td>
+                    <td>
+                        <a th:href="@{|/pieza/editar/${pieza.piezaId}|}" class="btn-module">[[#{accion.editar}]]</a>
+                        <a th:href="@{|/pieza/eliminar/${pieza.piezaId}|}" class="btn-module"
+                            style="background-color: #dc3545;">[[#{accion.eliminar}]]</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>

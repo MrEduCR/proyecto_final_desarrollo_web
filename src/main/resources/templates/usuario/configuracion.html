@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>[[#{usuario.configuracionPassword}]]</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <h1>[[#{usuario.configuracion}]]</h1>
+
+        <form th:action="@{/usuario/configuracion/guardar}" method="post">
+
+            <div>
+                <label>[[#{usuario.cedula}]]:</label>
+                <input type="text" th:value="${usuario.cedulaUsuario}" readonly>
+            </div>
+
+            <div>
+                <label>[[#{usuario.nombre}]]:</label>
+                <input type="text" th:value="${usuario.nombreUsuario}" readonly>
+            </div>
+
+            <div>
+                <label>[[#{usuario.correo}]]:</label>
+                <input type="email" th:value="${usuario.correoUsuario}" readonly>
+            </div>
+
+            <div>
+                <label>[[#{usuario.telefono}]]:</label>
+                <input type="text" th:value="${usuario.telefonoUsuario}" readonly>
+            </div>
+
+            <div>
+                <label>[[#{usuario.rol}]]:</label>
+                <input type="text" th:value="${usuario.rol.descripcionRol}" readonly>
+            </div>
+
+            <div>
+                <label>[[#{usuario.nuevaPassword}]]:</label>
+                <input type="password" name="nuevaContrasenia">
+            </div>
+
+            <button type="submit">[[#{accion.guardar}]]</button>
+        </form>
+
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>

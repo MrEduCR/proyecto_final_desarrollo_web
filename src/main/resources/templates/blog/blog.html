@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>[[#{blog.titulo}]]</title>
+    <link rel="stylesheet" th:href="@{/css/blog.css}">
+</head>
+
+<body>
+    <div th:replace="fragmentosBlog :: header"></div>
+
+    <main class="blog-container">
+        <h1>[[#{blog.bienvenida}]]</h1>
+
+        <section class="post">
+            <h2>[[#{blog.post1.titulo}]]</h2>
+            <p class="date">[[#{blog.post1.fecha}]]</p>
+
+            <img th:src="@{/images/post1.jpg}" alt="Imagen del primer post" class="post-image">
+            <p>[[#{blog.post1.contenido}]]</p>
+        </section>
+
+        <section class="post">
+            <h2>[[#{blog.post2.titulo}]]</h2>
+            <p class="date">[[#{blog.post2.fecha}]]</p>
+            <img th:src="@{/images/post2.jpg}" alt="Imagen del segundo post" class="post-image">
+            <p>[[#{blog.post2.contenido}]]</p>
+        </section>
+
+
+
+
+    </main>
+
+    <div th:replace="fragmentosBlog :: footer"></div>
+</body>
+
+</html>

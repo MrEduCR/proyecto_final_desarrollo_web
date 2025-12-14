@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>[[#{servicio.buscar}]]</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragmentos :: header"></div>
+
+    <div class="container">
+        <h1>[[#{servicio.buscarPorId}]]</h1>
+        <form th:action="@{/servicio/buscar}" method="get">
+            <input type="number" name="id" th:placeholder="#{servicio.ingresarId}" required>
+            <button type="submit">[[#{accion.buscar}]]</button>
+        </form>
+
+        <hr>
+        <div th:if="${servicio}">
+            <h2>[[#{servicio.encontrado}]]</h2>
+            <div class="servicio-card">
+                <div class="servicio-info">
+                    <p><strong>[[#{servicio.id}]]:</strong> <span th:text="${servicio.servicioId}"></span></p>
+                    <p><strong>[[#{servicio.cedulaCliente}]]:</strong> <span th:text="${servicio.cliente.cedula}"></span></p>
+                    <p><strong>[[#{servicio.tipoEquipo}]]:</strong> <span
+                            th:text="${servicio.tipoEquipo.tipoEquipoDescripcion}"></span></p>
+                    <p><strong>[[#{servicio.tipoServicio}]]:</strong> <span
+                            th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></span></p>
+                    <p><strong>[[#{servicio.estado}]]:</strong> <span
+                            th:text="${servicio.estadoServicio.estadoServicioDescripcion}"></span></p>
+                    <p><strong>[[#{servicio.numeroSerie}]]:</strong> <span th:text="${servicio.numeroSerieEquipo}"></span></p>
+                    <p><strong>[[#{servicio.fechaIngreso}]]:</strong> <span
+                            th:text="${#dates.format(servicio.fechaIngresoEquipo,'yyyy-MM-dd')}"></span></p>
+                    <p><strong>[[#{servicio.descripcionProblema}]]:</strong> <span
+                            th:text="${servicio.descripcionProblema}"></span></p>
+                    <p><strong>[[#{servicio.imagen}]]:</strong> <img th:src="${servicio.rutaImagen}" alt="imagen" class="servicio-img">
+                    </p>
+                </div>
+
+
+                <div class="piezas-usadas">
+                    <strong>[[#{servicio.piezasUtilizadas}]]:</strong>
+                    <ul th:if="${!#lists.isEmpty(servicio.piezas)}">
+                        <li th:each="pieza : ${servicio.piezas}">
+                            <span th:text="${pieza.piezaDescripcion}"></span>
+                            (<span th:text="'₡ ' + ${pieza.precioPieza}"></span>)
+                        </li>
+                    </ul>
+                    <span th:if="${#lists.isEmpty(servicio.piezas)}"
+                        style="color: gray; font-style: italic; font-size: 0.9em;">
+                        [[#{servicio.ningunapieza}]].
+                    </span>
+                </div>
+
+                <div class="servicio-acciones">
+                    <a th:href="@{|/servicio/editar/${servicio.servicioId}|}" class="btn-module">[[#{accion.editar}]]</a>
+                    <a th:href="@{|/servicio/eliminar/${servicio.servicioId}|}" class="btn-module eliminar"
+                        sec:authorize="!hasRole('TECNICO')">
+                        [[#{accion.eliminar}]]
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div th:if="${error}" style="color: red; margin-top: 20px;">
+            <p th:text="${error}"></p>
+        </div>
+
+    </div>
+
+    <div th:replace="fragmentos :: footer"></div>
+
+</body>
+
+</html>
