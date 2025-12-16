@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Retroalimentación - Formulario</title>
+        <link rel="stylesheet" th:href="@{/css/estilos.css}">
+        <style>
+            .error-message {
+                color: #dc3545;
+                font-size: 14px;
+                margin-top: 5px;
+                display: block;
+            }
+            .field-error {
+                border: 2px solid #dc3545 !important;
+                background-color: #fff5f5;
+            }
+            .alert {
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+            .alert-danger {
+                color: #721c24;
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+            }
+            .alert-success {
+                color: #155724;
+                background-color: #d4edda;
+                border-color: #c3e6cb;
+            }
+            .required::after {
+                content: " *";
+                color: #dc3545;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div th:replace="fragmentos :: header"></div>
+
+        <div class="container">
+
+            <h1>Enviar Retroalimentación</h1>
+
+            <!-- MENSAJES -->
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+                <strong>⚠ Error:</strong> <span th:text="${error}"></span>
+            </div>
+
+            <div th:if="${mensaje}" class="alert alert-success" role="alert">
+                <strong>✓ Éxito:</strong> <span th:text="${mensaje}"></span>
+            </div>
+
+            <form th:action="@{/feedback/guardar}" th:object="${feedback}" method="post" id="feedbackForm">
+
+
+                <div>
+                    <label class="required">Calificación (1-5):</label><br>
+                    <select th:field="*{calificacion}"
+                            required
+                            style="width: 100%; padding: 8px; margin: 10px 0;">
+                        <option value="">Seleccione una calificación</option>
+                        <option value="1">1 - Muy malo</option>
+                        <option value="2">2 - Malo</option>
+                        <option value="3">3 - Regular</option>
+                        <option value="4">4 - Bueno</option>
+                        <option value="5">5 - Excelente</option>
+                    </select>
+                    <span class="error-message" id="errorCalificacion"></span>
+                </div>
+
+
+                <div>
+                    <label>Comentario:</label><br>
+                    <textarea th:field="*{comentario}"
+                              maxlength="500"
+                              rows="4"
+                              style="width: 100%; padding: 8px; margin: 10px 0;"></textarea>
+                    <span class="error-message" id="errorComentario"></span>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn-module" style="background-color: #007bff;">Enviar</button>
+                    <a th:href="@{/feedback/lista}" class="btn-module" style="background-color: gray;">Cancelar</a>
+                </div>
+
+            </form>
+        </div>
+
+        <div th:replace="fragmentos :: footer"></div>
+
+
+        <script>
+            document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+
+                document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                document.querySelectorAll('input, select, textarea').forEach(el => el.classList.remove('field-error'));
+
+                let isValid = true;
+                let errors = [];
+
+                // Calificación
+                const cal = document.querySelector('[name="calificacion"]');
+                if (!cal.value || cal.value < 1 || cal.value > 5) {
+                    document.getElementById('errorCalificacion').textContent = 'Debe seleccionar un valor entre 1 y 5.';
+                    cal.classList.add('field-error');
+                    errors.push('Debe seleccionar una calificación válida (1-5).');
+                    isValid = false;
+                }
+
+                // Comentario (opcional pero con máximo)
+                const comentario = document.querySelector('[name="comentario"]');
+                if (comentario.value.length > 500) {
+                    document.getElementById('errorComentario').textContent = 'Máximo 500 caracteres.';
+                    comentario.classList.add('field-error');
+                    errors.push('El comentario excede los 500 caracteres.');
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    e.preventDefault();
+                    alert("❌ Por favor corrija los siguientes errores:\n\n• " + errors.join("\n• "));
+                }
+            });
+
+            // Limpia errores al escribir
+            document.querySelectorAll('input, select, textarea').forEach(el => {
+                el.addEventListener('input', function () {
+                    this.classList.remove('field-error');
+                    const error = this.parentElement.querySelector('.error-message');
+                    if (error)
+                        error.textContent = "";
+                });
+            });
+        </script>
+
+    </body>
+</html>

@@ -7,11 +7,39 @@
         <link rel="stylesheet" th:href="@{/css/estilos.css}">
 
         <style>
-            input:invalid, select:invalid, textarea:invalid {
-                border: 2px solid red;
+            .error-message {
+                color: #dc3545;
+                font-size: 14px;
+                margin-top: 5px;
+                display: block;
             }
-            input:valid, select:valid, textarea:valid {
-                border: 2px solid green;
+            .field-error {
+                border: 2px solid #dc3545 !important;
+                background-color: #fff5f5;
+            }
+            .alert {
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+            .alert-danger {
+                color: #721c24;
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+            }
+            .alert-success {
+                color: #155724;
+                background-color: #d4edda;
+                border-color: #c3e6cb;
+            }
+            .required::after {
+                content: " *";
+                color: #dc3545;
+                font-weight: bold;
+            }
+            label {
+                font-weight: 600;
             }
         </style>
     </head>
@@ -21,23 +49,32 @@
         <div th:replace="fragmentos :: header"></div>
 
         <div class="container">
+
             <h1 th:text="${servicio.servicioId != null} ? #{servicio.formulario.editar} : #{servicio.formulario.nuevo}"></h1>
 
-            <form th:action="@{/servicio/guardar}" th:object="${servicio}" method="post" novalidate>
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+                <strong>⚠ Error:</strong> <span th:text="${error}"></span>
+            </div>
+
+            <div th:if="${mensaje}" class="alert alert-success" role="alert">
+                <strong>✓ Éxito:</strong> <span th:text="${mensaje}"></span>
+            </div>
+
+            <form th:action="@{/servicio/guardar}" th:object="${servicio}" method="post" id="servicioForm" novalidate>
 
                 <input type="hidden" th:field="*{servicioId}" />
 
-
                 <div sec:authorize="hasRole('ADMIN')">
-                    <label>[[#{servicio.cedula}]]:</label><br>
+                    <label class="required">[[#{servicio.cedula}]]:</label><br>
                     <input type="number"
                            th:field="*{cliente.cedula}"
+                           name="cedulaCliente"
                            required
                            min="100000000"
                            max="999999999999"
-                           oninvalid="this.setCustomValidity('Ingrese una cédula válida (9-12 dígitos).')"
-                           oninput="setCustomValidity('')"
+                           placeholder="Ej: 101234567"
                            style="width: 100%; padding: 8px; margin: 10px 0;">
+                    <span class="error-message" id="errorCedula"></span>
                 </div>
 
                 <div sec:authorize="hasRole('TECNICO')">
@@ -46,18 +83,18 @@
                     <input type="hidden" th:field="*{cliente.cedula}" />
                 </div>
 
-
                 <div sec:authorize="hasRole('ADMIN')">
-                    <label>[[#{servicio.tipoEquipo}]]:</label><br>
+                    <label class="required">[[#{servicio.tipoEquipo}]]:</label><br>
                     <select th:field="*{tipoEquipo}"
+                            name="tipoEquipo"
                             required
-                            oninvalid="this.setCustomValidity('Seleccione un tipo de equipo.')"
-                            oninput="setCustomValidity('')">
+                            style="width: 100%; padding: 8px; margin: 10px 0;">
                         <option value="">[[#{servicio.seleccionar}]]</option>
                         <option th:each="te : ${tiposEquipo}"
                                 th:value="${te.tipoEquipoId}"
                                 th:text="${te.tipoEquipoDescripcion}"></option>
                     </select>
+                    <span class="error-message" id="errorTipoEquipo"></span>
                 </div>
 
                 <div sec:authorize="hasRole('TECNICO')">
@@ -66,18 +103,18 @@
                     <input type="hidden" th:field="*{tipoEquipo.tipoEquipoId}" />
                 </div>
 
-
                 <div sec:authorize="hasRole('ADMIN')">
-                    <label>[[#{servicio.tipoServicio}]]:</label><br>
+                    <label class="required">[[#{servicio.tipoServicio}]]:</label><br>
                     <select th:field="*{tipoServicio}"
+                            name="tipoServicio"
                             required
-                            oninvalid="this.setCustomValidity('Seleccione un tipo de servicio.')"
-                            oninput="setCustomValidity('')">
+                            style="width: 100%; padding: 8px; margin: 10px 0;">
                         <option value="">[[#{servicio.seleccionar}]]</option>
                         <option th:each="ts : ${tiposServicio}"
                                 th:value="${ts.tipoServicioId}"
                                 th:text="${ts.tipoServicioDescripcion}"></option>
                     </select>
+                    <span class="error-message" id="errorTipoServicio"></span>
                 </div>
 
                 <div sec:authorize="hasRole('TECNICO')">
@@ -86,32 +123,29 @@
                     <input type="hidden" th:field="*{tipoServicio.tipoServicioId}" />
                 </div>
 
-
                 <div>
-                    <label>[[#{servicio.estadoServicio}]]:</label><br>
+                    <label class="required">[[#{servicio.estadoServicio}]]:</label><br>
                     <select th:field="*{estadoServicio}"
+                            name="estadoServicio"
                             required
-                            oninvalid="this.setCustomValidity('Seleccione un estado válido.')"
-                            oninput="setCustomValidity('')">
+                            style="width: 100%; padding: 8px; margin: 10px 0;">
                         <option value="">[[#{servicio.seleccionar}]]</option>
                         <option th:each="es : ${estadosServicio}"
                                 th:value="${es.estadoServicioId}"
                                 th:text="${es.estadoServicioDescripcion}"></option>
                     </select>
+                    <span class="error-message" id="errorEstadoServicio"></span>
                 </div>
-
 
                 <div sec:authorize="hasRole('ADMIN')">
                     <label>[[#{servicio.numeroSerieEquipo}]]:</label><br>
                     <input type="text"
                            th:field="*{numeroSerieEquipo}"
-                           required
+                           name="numeroSerieEquipo"
                            maxlength="50"
-                           pattern="[A-Za-z0-9-]+"
-                           placeholder="Ej: ABC123-XYZ"
-                           oninvalid="this.setCustomValidity('Ingrese un número de serie válido (solo letras, números y guiones).')"
-                           oninput="setCustomValidity('')"
+                           placeholder="Opcional: ABC123-XYZ"
                            style="width: 100%; padding: 8px; margin: 10px 0;">
+                    <span class="error-message" id="errorNumeroSerie"></span>
                 </div>
 
                 <div sec:authorize="hasRole('TECNICO')">
@@ -120,15 +154,15 @@
                     <input type="hidden" th:field="*{numeroSerieEquipo}" />
                 </div>
 
-
                 <div sec:authorize="hasRole('ADMIN')">
-                    <label>[[#{servicio.fechaIngresoFormato}]]:</label><br>
+                    <label class="required">[[#{servicio.fechaIngresoFormato}]]:</label><br>
                     <input type="date"
                            th:field="*{fechaIngresoEquipo}"
+                           name="fechaIngresoEquipo"
                            required
-                           max="${#temporals.format(#temporals.createNow(),'yyyy-MM-dd')}"
-                           oninvalid="this.setCustomValidity('Ingrese una fecha válida. No puede ser futura.')"
-                           oninput="setCustomValidity('')">
+                           style="width: 100%; padding: 8px; margin: 10px 0;"
+                           max="">
+                    <span class="error-message" id="errorFechaIngreso"></span>
                 </div>
 
                 <div sec:authorize="hasRole('TECNICO')">
@@ -137,18 +171,16 @@
                     <input type="hidden" th:field="*{fechaIngresoEquipo}" />
                 </div>
 
-
                 <div sec:authorize="hasRole('ADMIN')">
-                    <label>[[#{servicio.urlImagen}]]:</label><br>
+                    <label class="required">[[#{servicio.urlImagen}]]:</label><br>
                     <input type="url"
                            th:field="*{rutaImagen}"
+                           name="rutaImagen"
                            required
                            maxlength="1024"
-                           pattern="https?://.*"
                            placeholder="https://ejemplo.com/imagen.jpg"
-                           oninvalid="this.setCustomValidity('Ingrese una URL válida que inicie con http o https.')"
-                           oninput="setCustomValidity('')"
                            style="width: 100%; padding: 8px; margin: 10px 0;">
+                    <span class="error-message" id="errorUrlImagen"></span>
                 </div>
 
                 <div sec:authorize="hasRole('TECNICO')">
@@ -157,17 +189,15 @@
                     <input type="hidden" th:field="*{rutaImagen}" />
                 </div>
 
-
                 <div sec:authorize="hasRole('ADMIN')">
                     <label>[[#{servicio.descripcionProblema}]]:</label><br>
                     <textarea th:field="*{descripcionProblema}"
-                              required
+                              name="descripcionProblema"
                               minlength="10"
                               maxlength="500"
-                              oninvalid="this.setCustomValidity('La descripción debe tener entre 10 y 500 caracteres.')"
-                              oninput="setCustomValidity('')"
                               rows="4"
                               style="width: 100%; padding: 8px; margin: 10px 0;"></textarea>
+                    <span class="error-message" id="errorDescripcion"></span>
                 </div>
 
                 <div sec:authorize="hasRole('TECNICO')">
@@ -179,16 +209,129 @@
 
                 <div sec:authorize="hasAnyRole('ADMIN','TECNICO')">
                     <button type="submit" class="btn-module" style="background-color: #007bff;">[[#{accion.guardar}]]</button>
-                </div>
-
-                <div>
-                    <a th:href="@{/servicio}" class="btn-module" style="background-color: gray;">[[#{accion.cancelar}]]</a>
+                    <a th:href="@{/servicio}" class="btn-module" style="background-color: gray; margin-left:8px;">[[#{accion.cancelar}]]</a>
                 </div>
 
             </form>
         </div>
 
         <div th:replace="fragmentos :: footer"></div>
+
+        <script>
+            (function () {
+                const form = document.getElementById('servicioForm');
+
+                // Poner max en fecha como hoy (para input type=date)
+                const fechaInput = document.querySelector('[name="fechaIngresoEquipo"]');
+                if (fechaInput) {
+                    const today = new Date();
+                    const yyyy = today.getFullYear();
+                    const mm = String(today.getMonth() + 1).padStart(2, '0');
+                    const dd = String(today.getDate()).padStart(2, '0');
+                    fechaInput.max = `${yyyy}-${mm}-${dd}`;
+                }
+
+                form.addEventListener('submit', function (e) {
+                    // limpiar errores previos
+                    document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                    document.querySelectorAll('input, select, textarea').forEach(el => el.classList.remove('field-error'));
+
+                    let isValid = true;
+                    const errors = [];
+
+                    // CÉDULA (si existe y no está en modo técnico oculto)
+                    const cedulaEl = document.querySelector('[name="cedulaCliente"]');
+                    if (cedulaEl) {
+                        const cedVal = cedulaEl.value ? cedulaEl.value.trim() : '';
+                        // validar solo dígitos y longitud 9-12
+                        if (!/^\d{9,12}$/.test(cedVal)) {
+                            document.getElementById('errorCedula').textContent = 'Cédula inválida. Debe tener entre 9 y 12 dígitos.';
+                            cedulaEl.classList.add('field-error');
+                            errors.push('Cédula inválida (9-12 dígitos).');
+                            isValid = false;
+                        }
+                    }
+
+                    // selects obligatorios: tipoEquipo (si está presente y visible)
+                    const requiredSelects = [
+                        {name: 'tipoEquipo', msgId: 'errorTipoEquipo', label: 'Tipo de equipo'},
+                        {name: 'tipoServicio', msgId: 'errorTipoServicio', label: 'Tipo de servicio'},
+                        {name: 'estadoServicio', msgId: 'errorEstadoServicio', label: 'Estado del servicio'}
+                    ];
+
+                    requiredSelects.forEach(s => {
+                        const el = document.querySelector(`[name="${s.name}"]`);
+                        if (el && (el.offsetParent !== null)) { // visible
+                            if (!el.value || el.value === '') {
+                                const span = document.getElementById(s.msgId);
+                                if (span)
+                                    span.textContent = `Seleccione ${s.label}.`;
+                                el.classList.add('field-error');
+                                errors.push(`${s.label} es obligatorio.`);
+                                isValid = false;
+                            }
+                        }
+                    });
+
+                    // Fecha ingreso: no futura y requerida si visible
+                    if (fechaInput && (fechaInput.offsetParent !== null)) {
+                        if (!fechaInput.value) {
+                            document.getElementById('errorFechaIngreso').textContent = 'La fecha es obligatoria.';
+                            fechaInput.classList.add('field-error');
+                            errors.push('Fecha de ingreso obligatoria.');
+                            isValid = false;
+                        } else {
+                            const selected = new Date(fechaInput.value);
+                            const todayNoTime = new Date();
+                            todayNoTime.setHours(0, 0, 0, 0);
+                            if (selected > todayNoTime) {
+                                document.getElementById('errorFechaIngreso').textContent = 'La fecha no puede ser futura.';
+                                fechaInput.classList.add('field-error');
+                                errors.push('Fecha no puede ser futura.');
+                                isValid = false;
+                            }
+                        }
+                    }
+
+                    // URL imagen: required + debe iniciar con http o https
+                    const urlEl = document.querySelector('[name="rutaImagen"]');
+                    if (urlEl && (urlEl.offsetParent !== null)) {
+                        const urlVal = urlEl.value ? urlEl.value.trim() : '';
+                        if (!/^https?:\/\/.+/i.test(urlVal)) {
+                            document.getElementById('errorUrlImagen').textContent = 'Ingrese una URL válida que comience por http o https.';
+                            urlEl.classList.add('field-error');
+                            errors.push('URL inválida.');
+                            isValid = false;
+                        }
+                    }
+
+                    // Si no es válido, evitar envío y mostrar alert resumido
+                    if (!isValid) {
+                        e.preventDefault();
+                        alert('❌ Por favor corrija los siguientes errores:\n\n• ' + errors.join('\n• '));
+                        const first = document.querySelector('.field-error');
+                        if (first) {
+                            first.scrollIntoView({behavior: 'smooth', block: 'center'});
+                            first.focus();
+                        }
+                    }
+                });
+
+                // Limpiar errores cuando el usuario edite
+                document.querySelectorAll('input, select, textarea').forEach(el => {
+                    el.addEventListener('input', function () {
+                        this.classList.remove('field-error');
+                        const parent = this.parentElement;
+                        if (parent) {
+                            const span = parent.querySelector('.error-message');
+                            if (span)
+                                span.textContent = '';
+                        }
+                    });
+                });
+
+            })();
+        </script>
 
     </body>
 </html>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>[[#{factura.gestion}]]</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
-    
+
     <style>
         table {
             width: 100%;
@@ -29,7 +29,8 @@
             background-color: #f8f8f8;
         }
 
-        .btn-generar, .btn-ver {
+        .btn-generar,
+        .btn-ver {
             padding: 6px 14px;
             border-radius: 6px;
             text-decoration: none;
@@ -56,48 +57,64 @@
 
 <body>
 
-<div th:replace="~{fragmentos :: header}"></div>
+    <!-- HEADER -->
+    <div th:replace="~{fragmentos :: header}"></div>
 
-<div class="container-small">
+    <!-- CONTENIDO -->
+    <div class="container-small">
 
-    <h1 style="text-align:center; margin-bottom: 10px;">[[#{factura.gestion}]]</h1>
-    <p style="text-align:center;">[[#{factura.seleccionar}]]</p>
+        <h1 style="text-align:center; margin-bottom: 10px;">
+            [[#{factura.gestion}]]
+        </h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>[[#{factura.idServicio}]]</th>
-                <th>[[#{factura.cliente}]]</th>
-                <th>[[#{factura.tipoServicio}]]</th>
-                <th>[[#{factura.estado}]]</th>
-                <th style="width: 220px; text-align:center;">[[#{factura.acciones}]]</th>
-            </tr>
-        </thead>
+        <p style="text-align:center;">
+            [[#{factura.seleccionar}]]
+        </p>
 
-        <tbody>
-    <tr th:each="servicio : ${servicios}">
-        <td th:text="${servicio.servicioId}"></td>
+        <table>
+            <thead>
+                <tr>
+                    <th>[[#{factura.idServicio}]]</th>
+                    <th>[[#{factura.cliente}]]</th>
+                    <th>[[#{factura.tipoServicio}]]</th>
+                    <th>[[#{factura.estado}]]</th>
+                    <th style="width:220px; text-align:center;">
+                        [[#{factura.acciones}]]
+                    </th>
+                </tr>
+            </thead>
 
-        <td th:text="${servicio.cliente.nombre}"></td>
+            <tbody>
+                <tr th:each="servicio : ${servicios}">
+                    <td th:text="${servicio.servicioId}"></td>
+                    <td th:text="${servicio.cliente.nombre}"></td>
+                    <td th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></td>
+                    <td th:text="${servicio.estadoServicio.estadoServicioDescripcion}"></td>
 
-        <td th:text="${servicio.tipoServicio.tipoServicioDescripcion}"></td>
+                    <td style="text-align:center;">
 
-        <td th:text="${servicio.estadoServicio.estadoServicioDescripcion}"></td>
+                        <!-- SI EXISTE FACTURA -->
+                        <span th:if="${facturasMap[servicio.servicioId] != null}">
+                            <a th:href="@{'/factura/ver/' + ${servicio.servicioId}}" class="btn-ver">
+                                [[#{factura.ver}]]
+                            </a>
+                        </span>
 
-        <td style="text-align:center;">
+                        <!-- SI NO EXISTE FACTURA -->
+                        <span th:if="${facturasMap[servicio.servicioId] == null}">
+                            <a th:href="@{'/factura/form-generar/' + ${servicio.servicioId}}" class="btn-generar">
+                                [[#{factura.generar}]]
+                            </a>
+                        </span>
 
-            <!-- Si YA existe factura: mostrar botón VER -->
-            <span th:if="${facturasMap[servicio.servicioId] != null}">
-                <a th:href="@{'/factura/ver/' + ${servicio.servicioId}}" 
-                   class="btn-ver">[[#{factura.ver}]]</a>
-            </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-            <!-- Si NO existe factura: mostrar botón GENERAR -->
-            <span th:if="${facturasMap[servicio.servicioId] == null}">
-                <a th:href="@{'/factura/form-generar/' + ${servicio.servicioId}}" 
-                   class="btn-generar">[[#{factura.generar}]]</a>
-            </span>
+    </div>
+    <div th:replace="~{fragmentos :: footer}"></div>
 
-        </td>
-    </tr>
-</tbody>
+</body>
+
+</html>
